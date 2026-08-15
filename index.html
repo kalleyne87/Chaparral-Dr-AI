@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Chaparral Dr AI builds AI automation that runs inside your own cloud. We map the workflow, build the agents, and hand back a system that keeps running.">
     <meta name="theme-color" content="#030509">
-    <link rel="canonical" href="https://black-smoke-039e3140f.7.azurestaticapps.net">
-    <meta property="og:image" content="https://black-smoke-039e3140f.7.azurestaticapps.net/og-image.png">
+    <link rel="canonical" href="https://www.chaparraldrai.com/">
+    <meta property="og:image" content="https://www.chaparraldrai.com/og-image.png">
     <meta property="og:title" content="Chaparral Dr AI">
     <meta property="og:description" content="Automation that takes root in the work you already do.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://black-smoke-039e3140f.7.azurestaticapps.net/">
+    <meta property="og:url" content="https://www.chaparraldrai.com/">
     <meta name="twitter:card" content="summary_large_image">
     <title>Chaparral Dr AI — Automation that takes root</title>
     <link rel="icon" href="/ChaparralDrAI.ico" sizes="any">
@@ -310,7 +310,10 @@
 
       /* fields dissolve out after a successful send */
       .form-fields{transition:opacity .45s ease,filter .45s ease,transform .45s ease}
-      .form-fields.clearing{opacity:0;filter:blur(3px);transform:translateY(-6px)}
+      .form-fields.clearing{
+        opacity:0;filter:blur(3px);transform:translateY(-6px);
+        pointer-events:none;
+      }
 
       /* confirmation panel fades in over the same space */
       .form-sent{
@@ -860,6 +863,32 @@
               return d.length >= 10 && d.length <= 15;
             };
 
+            function formatPhone(raw) {
+              if (raw.trim().startsWith('+')) return raw;
+
+              const d = raw.replace(/\D/g, '').slice(0, 11);
+              const local = d.length === 11 && d[0] === '1' ? d.slice(1) : d;
+              const prefix = d.length === 11 && d[0] === '1' ? '1 ' : '';
+
+              if (local.length > 10) return raw;
+              if (local.length > 6) return `${prefix}(${local.slice(0,3)}) ${local.slice(3,6)}-${local.slice(6)}`;
+              if (local.length > 3) return `${prefix}(${local.slice(0,3)}) ${local.slice(3)}`;
+              if (local.length > 0) return `${prefix}(${local}`;
+              return '';
+            }
+
+            fPhone.addEventListener('input', () => {
+              // Only reformat when the caret is at the end. Rewriting the value
+              // mid-string would jump the cursor and make editing maddening.
+              const atEnd = fPhone.selectionStart === fPhone.value.length;
+              const formatted = formatPhone(fPhone.value);
+
+              if (formatted !== fPhone.value) {
+                fPhone.value = formatted;
+                if (atEnd) fPhone.setSelectionRange(formatted.length, formatted.length);
+              }
+            });
+            
             function toggleErr(input, el, bad, msg) {
               input.classList.toggle('invalid', bad);
               el.textContent = bad ? msg : '';
