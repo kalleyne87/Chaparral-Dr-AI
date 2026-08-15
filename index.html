@@ -6,7 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Chaparral Dr AI builds AI automation that runs inside your own cloud. We map the workflow, build the agents, and hand back a system that keeps running.">
     <meta name="theme-color" content="#030509">
+    <link rel="canonical" href="https://black-smoke-039e3140f.7.azurestaticapps.net">
+    <meta property="og:image" content="https://black-smoke-039e3140f.7.azurestaticapps.net/og-image.png">
+    <meta property="og:title" content="Chaparral Dr AI">
+    <meta property="og:description" content="Automation that takes root in the work you already do.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://black-smoke-039e3140f.7.azurestaticapps.net/">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Chaparral Dr AI — Automation that takes root</title>
+    <link rel="icon" href="/ChaparralDrAI.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Jura:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -276,22 +285,72 @@
       /* ============ contact ============ */
       .form{
         width:min(760px,100%);margin:56px auto 0;padding:clamp(26px,4vw,44px);
-        border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95));
+        border-radius:22px;border:1px solid var(--line);
+        background:linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95));
+        position:relative;
       }
       .row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
       .field{display:block;margin-bottom:20px}
       .field span{display:block;font-size:14px;margin-bottom:10px;color:#D2E1EC}
       .field input,.field textarea{
         width:100%;padding:15px 17px;border-radius:11px;border:1px solid var(--line);
-        background:#05080D;color:var(--bone);font-size:15px;transition:border-color .3s ease,box-shadow .3s ease;
+        background:#05080D;color:var(--bone);font-size:15px;
+        transition:border-color .3s ease,box-shadow .3s ease;
       }
       .field textarea{min-height:150px;resize:vertical}
       .field input::placeholder,.field textarea::placeholder{color:#4C5A66}
-      .field input:focus,.field textarea:focus{outline:none;border-color:rgba(56,182,240,.55);box-shadow:0 0 0 3px rgba(56,182,240,.12)}
+      .field input:focus,.field textarea:focus{
+        outline:none;border-color:rgba(56,182,240,.55);
+        box-shadow:0 0 0 3px rgba(56,182,240,.12);
+      }
       .form .btn{width:100%;padding:17px}
       .form .btn:disabled{cursor:default;transform:none;opacity:.85}
       .fineprint{margin-top:16px;text-align:center;font-size:13px;color:var(--slate-dim)}
       .fineprint a{color:var(--ember-soft)}
+
+      /* fields dissolve out after a successful send */
+      .form-fields{transition:opacity .45s ease,filter .45s ease,transform .45s ease}
+      .form-fields.clearing{opacity:0;filter:blur(3px);transform:translateY(-6px)}
+
+      /* confirmation panel fades in over the same space */
+      .form-sent{
+        position:absolute;inset:0;display:grid;place-content:center;justify-items:center;
+        gap:14px;text-align:center;opacity:0;pointer-events:none;
+        background:linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95));
+        border-radius:22px;
+        transition:opacity .5s ease .15s;
+      }
+      .form-sent.show{opacity:1}
+      .form-sent .check{
+        width:52px;height:52px;border-radius:50%;display:grid;place-items:center;
+        border:1px solid rgba(56,182,240,.5);background:rgba(56,182,240,.1);
+        color:var(--cyan);
+      }
+      .form-sent .check svg{width:24px;height:24px}
+      .form-sent .check path{
+        stroke:var(--cyan);stroke-width:2.5;fill:none;
+        stroke-linecap:round;stroke-linejoin:round;
+        stroke-dasharray:32;stroke-dashoffset:32;
+      }
+      .form-sent.show .check path{
+        transition:stroke-dashoffset .6s ease .35s;stroke-dashoffset:0;
+      }
+      .field .err{
+        display:block;font-style:normal;font-size:12.5px;color:var(--ember-soft);
+        min-height:1.2em;margin-top:7px;opacity:0;transition:opacity .25s ease;
+      }
+      .field .err.show{opacity:1}
+      .field input.invalid{border-color:rgba(224,51,63,.6)}
+      .reachnote{
+        font-size:13px;color:var(--slate-dim);margin:-4px 0 20px;
+        transition:color .25s ease;
+      }
+      .reachnote.unmet{color:var(--ember-soft)}
+
+      @media(prefers-reduced-motion:reduce){
+        .form-fields,.form-sent{transition:none}
+        .form-sent .check path{transition:none;stroke-dashoffset:0}
+      }
 
       /* ============ footer ============ */
       footer.site{border-top:1px solid var(--line);padding:60px 0 36px;margin-top:clamp(70px,8vw,100px)}
@@ -560,23 +619,51 @@
           <span class="eyebrow" data-fade>Contact</span>
           <h2 data-split>Talk to us</h2>
         </div>
-        <form class="form" id="contactForm" data-fade novalidate>
-          <div class="row">
-            <label class="field"><span>First name</span><input name="first" placeholder="First name" required></label>
-            <label class="field"><span>Last name</span><input name="last" placeholder="Last name" required></label>
-          </div>
-          <div class="row">
-            <label class="field"><span>Work email</span><input type="email" name="email" placeholder="you@company.com" required></label>
-            <label class="field"><span>Company</span><input name="company" placeholder="Company name"></label>
-          </div>
-          <label class="field"><span>What are we creating together?</span><textarea name="message" placeholder="Describe the workflow, who touches it, and roughly how often it runs."></textarea></label>
-          <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap" aria-hidden="true">
-            <label>Website
-              <input name="website" tabindex="-1" autocomplete="off">
+        <form class="form" id="contactForm" data-fade novalidate style="position:relative">
+
+          <div class="form-fields" id="formFields">
+            <div class="row">
+              <label class="field"><span>First name</span><input name="first" placeholder="First name" required></label>
+              <label class="field"><span>Last name</span><input name="last" placeholder="Last name" required></label>
+            </div>
+            <div class="row">
+              <label class="field">
+                <span>Work email</span>
+                <input type="email" name="email" id="fEmail" placeholder="you@company.com" autocomplete="email">
+                <em class="err" id="errEmail"></em>
+              </label>
+              <label class="field">
+                <span>Phone</span>
+                <input type="tel" name="phone" id="fPhone" placeholder="(555) 555-5555" autocomplete="tel">
+                <em class="err" id="errPhone"></em>
+              </label>
+            </div>
+            <label class="field">
+              <span>Company</span>
+              <input name="company" placeholder="Company name">
             </label>
+            <p class="reachnote" id="reachNote">Give us an email or a phone number so we can reply.</p>
+            
+            <label class="field"><span>What are we creating together?</span><textarea name="message" placeholder="Describe the workflow, who touches it, and roughly how often it runs."></textarea></label>
+
+            <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap" aria-hidden="true">
+              <label>Website
+                <input name="website" tabindex="-1" autocomplete="off">
+              </label>
+            </div>
+
+            <button class="btn btn-primary" type="submit" id="sendBtn">Send it over</button>
+            <p class="fineprint" id="formNote">We reply within one business day.</p>
           </div>
-          <button class="btn btn-primary" type="submit" id="sendBtn">Submit</button>
-          <p class="fineprint" id="formNote">We reply within one business day.</p>
+
+          <div class="form-sent" id="formSent" aria-live="polite">
+            <div class="check">
+              <svg viewBox="0 0 24 24"><path d="M4 12.5l5.5 5.5L20 7"/></svg>
+            </div>
+            <div style="font-size:19px;font-weight:600">Message sent</div>
+            <p style="font-size:14.5px">We reply within one business day.</p>
+          </div>
+
         </form>
       </div>
     </section>
@@ -754,50 +841,126 @@
 
           const contactForm = document.getElementById('contactForm');
           if (contactForm) {
+            const btn       = document.getElementById('sendBtn');
+            const note      = document.getElementById('formNote');
+            const fEmail    = document.getElementById('fEmail');
+            const fPhone    = document.getElementById('fPhone');
+            const fFirst    = contactForm.first;
+            const errEmail  = document.getElementById('errEmail');
+            const errPhone  = document.getElementById('errPhone');
+            const reachNote = document.getElementById('reachNote');
+            const idleLabel = btn.textContent;
+
+            const emailOk = v => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v.trim());
+
+            // Digits only, 10 to 15. Covers US 10-digit, +1 prefixed, and most
+            // international numbers without pretending to know every format.
+            const phoneOk = v => {
+              const d = v.replace(/\D/g, '');
+              return d.length >= 10 && d.length <= 15;
+            };
+
+            function toggleErr(input, el, bad, msg) {
+              input.classList.toggle('invalid', bad);
+              el.textContent = bad ? msg : '';
+              el.classList.toggle('show', bad);
+            }
+
+            function validate(showErrors) {
+              const e = fEmail.value.trim();
+              const p = fPhone.value.trim();
+
+              const eValid = e === '' ? null : emailOk(e);
+              const pValid = p === '' ? null : phoneOk(p);
+              const hasReach = eValid === true || pValid === true;
+              const nameOk = fFirst.value.trim() !== '';
+
+              if (showErrors) {
+                // Only complain about a field they actually typed in.
+                toggleErr(fEmail, errEmail, eValid === false, 'That email does not look right.');
+                toggleErr(fPhone, errPhone, pValid === false, 'Use at least 10 digits.');
+                reachNote.classList.toggle('unmet', !hasReach);
+              }
+
+              btn.disabled = !(hasReach && nameOk);
+              return hasReach && nameOk;
+            }
+
+            [fFirst, fEmail, fPhone].forEach(el => {
+              el.addEventListener('input', () => validate(false));
+              el.addEventListener('blur',  () => validate(true));
+            });
+
+            validate(false); // start disabled
+
             contactForm.addEventListener('submit', async e => {
               e.preventDefault();
-          
-              const btn  = document.getElementById('sendBtn');
-              const note = document.getElementById('formNote');
-              const original = btn.textContent;
-          
+              if (!validate(true)) return;
+
               const payload = {
                 first:   contactForm.first.value.trim(),
                 last:    contactForm.last.value.trim(),
-                email:   contactForm.email.value.trim(),
+                email:   fEmail.value.trim(),
+                phone:   fPhone.value.trim(),
                 company: contactForm.company.value.trim(),
                 message: contactForm.message.value.trim(),
                 website: contactForm.website ? contactForm.website.value : ''
               };
-          
+
               btn.disabled = true;
               btn.textContent = 'Sending...';
-          
+
               try {
                 const res = await fetch(CONTACT_ENDPOINT, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(payload)
                 });
-          
+
                 if (!res.ok) {
                   const body = await res.json().catch(() => ({}));
                   throw new Error(body.error || 'Request failed');
                 }
-          
-                btn.textContent = 'Sent. We will be in touch.';
-                note.textContent = 'Thanks. We reply within one business day.';
+
+                // Everything below only runs on a confirmed 2xx.
+                btn.textContent = 'Sent';
+
+                const fields = document.getElementById('formFields');
+                const sent   = document.getElementById('formSent');
+
+                // Lock the height first, or the panel collapses when the fields
+                // fade and the page jumps under the reader.
+                contactForm.style.minHeight = contactForm.offsetHeight + 'px';
+                fields.classList.add('clearing');
+
+                setTimeout(() => {
+                  contactForm.reset();
+                  sent.classList.add('show');
+                }, 450);
+
+                setTimeout(() => {
+                  sent.classList.remove('show');
+                  setTimeout(() => {
+                    fields.classList.remove('clearing');
+                    contactForm.style.minHeight = '';
+                    btn.textContent = idleLabel;
+                    note.textContent = 'We reply within one business day.';
+                    toggleErr(fEmail, errEmail, false, '');
+                    toggleErr(fPhone, errPhone, false, '');
+                    reachNote.classList.remove('unmet');
+                    validate(false);   // re-disable, since reset() emptied the fields
+                  }, 500);
+                }, 4200);
+
               } catch (err) {
-                // Never leave someone stuck with a dead button. Give them the
-                // address so the lead is not lost to a network blip.
-                btn.disabled = false;
-                btn.textContent = original;
+                // Never leave them with a dead button, and never clear what they typed.
+                btn.textContent = idleLabel;
+                validate(false);
                 note.textContent =
                   'That did not send. Email chaparraldrai@gmail.com and we will pick it up.';
               }
             });
-          }
-        }
+          }}
       )();
     </script>
   </body>
