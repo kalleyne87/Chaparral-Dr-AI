@@ -570,6 +570,11 @@
             <label class="field"><span>Company</span><input name="company" placeholder="Company name"></label>
           </div>
           <label class="field"><span>What are we creating together?</span><textarea name="message" placeholder="Describe the workflow, who touches it, and roughly how often it runs."></textarea></label>
+          <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap" aria-hidden="true">
+            <label>Website
+              <input name="website" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
           <button class="btn btn-primary" type="submit" id="sendBtn">Submit</button>
           <p class="fineprint" id="formNote">We reply within one business day.</p>
         </form>
@@ -718,7 +723,9 @@
               else { caret.style.animation = 'none'; caret.style.opacity = '.35'; }
             })();
           }
+          
           let stepsRan = false;
+
           function runSteps(){
             if(stepsRan) return; stepsRan = true;
             typeIt();
@@ -743,24 +750,51 @@
           });
 
           /* ---------- contact form ---------- */
-          const contactForm = document.getElementById('contactForm');
-          if(contactForm){
-            contactForm.addEventListener('submit', e=>{
-              e.preventDefault();
-              const btn = document.getElementById('sendBtn');
-              const note = document.getElementById('formNote');
-              const email = contactForm.email.value.trim();
-              const first = contactForm.first.value.trim();
+          const CONTACT_ENDPOINT = 'https://chaparraldrai-function.azurewebsites.net/api/contact';
 
-              // NOTE: this only fakes a send. Point it at your /api/contact or n8n
-              // webhook before launch, or nothing actually reaches you.
-              if(!first || !email.includes('@')){
-                note.textContent = 'Add your first name and a valid email, then send again.';
-                return;
-              }
-              btn.textContent = 'Sent. We will be in touch.';
+          const contactForm = document.getElementById('contactForm');
+          if (contactForm) {
+            contactForm.addEventListener('submit', async e => {
+              e.preventDefault();
+          
+              const btn  = document.getElementById('sendBtn');
+              const note = document.getElementById('formNote');
+              const original = btn.textContent;
+          
+              const payload = {
+                first:   contactForm.first.value.trim(),
+                last:    contactForm.last.value.trim(),
+                email:   contactForm.email.value.trim(),
+                company: contactForm.company.value.trim(),
+                message: contactForm.message.value.trim(),
+                website: contactForm.website ? contactForm.website.value : ''
+              };
+          
               btn.disabled = true;
-              note.textContent = 'Thanks. We reply within one business day.';
+              btn.textContent = 'Sending...';
+          
+              try {
+                const res = await fetch(CONTACT_ENDPOINT, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(payload)
+                });
+          
+                if (!res.ok) {
+                  const body = await res.json().catch(() => ({}));
+                  throw new Error(body.error || 'Request failed');
+                }
+          
+                btn.textContent = 'Sent. We will be in touch.';
+                note.textContent = 'Thanks. We reply within one business day.';
+              } catch (err) {
+                // Never leave someone stuck with a dead button. Give them the
+                // address so the lead is not lost to a network blip.
+                btn.disabled = false;
+                btn.textContent = original;
+                note.textContent =
+                  'That did not send. Email chaparraldrai@gmail.com and we will pick it up.';
+              }
             });
           }
         }
