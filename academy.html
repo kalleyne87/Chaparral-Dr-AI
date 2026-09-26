@@ -46,6 +46,14 @@
       .btn-ghost{background:#fff; color:var(--purple-deep); border-color:var(--line)}
       .btn-ghost:hover{transform:translateY(-2px); border-color:var(--purple)}
 
+      /* ---------- INTRO VIDEO ---------- */
+      .video-section{padding:40px 0 0}
+      .video-frame{
+        position:relative; width:100%; aspect-ratio:16/9; border-radius:16px; overflow:hidden;
+        background:#1E1B2E; box-shadow:0 24px 48px rgba(43,33,64,.22);
+      }
+      .video-frame iframe{position:absolute; inset:0; width:100%; height:100%; border:0}
+
       /* ---------- NAV ---------- */
       .navbar{position:sticky; top:0; z-index:50; padding:18px 0; background:rgba(255,255,255,.9); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
       .nav{max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:0 24px}
@@ -148,6 +156,40 @@
       .faq-item h3{font-size:16px; margin-bottom:6px; color:var(--ink)}
       .faq-item p{margin:0; color:var(--muted); font-size:14.5px}
 
+      /* ---------- ENROLL ---------- */
+      .enroll-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:32px; align-items:start}
+      @media (max-width:820px){.enroll-grid{grid-template-columns:1fr}}
+      .enroll-details{background:var(--purple); color:#fff; border-radius:20px; padding:32px; position:sticky; top:96px}
+      @media (max-width:820px){.enroll-details{position:static}}
+      .enroll-price{display:flex; align-items:baseline; gap:10px; margin-bottom:22px}
+      .enroll-amount{font-family:var(--head); font-weight:700; font-size:40px}
+      .enroll-per{color:#EAE3FF; font-size:14px}
+      .enroll-facts{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px}
+      .enroll-facts li{font-size:15px; color:#EAE3FF}
+      .enroll-facts strong{display:block; font-family:var(--mark); font-weight:500; letter-spacing:.14em; text-transform:uppercase; font-size:11px; color:#fff; margin-bottom:3px}
+
+      .enroll-form{background:#fff; border:1px solid var(--line); border-radius:20px; padding:32px}
+      .form-row{margin-bottom:20px}
+      .form-row label{display:block; font-family:var(--head); font-weight:600; font-size:14.5px; margin-bottom:8px}
+      .form-row input[type="text"], .form-row input[type="email"]{
+        width:100%; padding:12px 14px; border:1.5px solid var(--line); border-radius:10px;
+        font-family:var(--body); font-size:15px; color:var(--ink); background:#fff;
+      }
+      .form-row input[type="text"]:focus, .form-row input[type="email"]:focus{outline:none; border-color:var(--purple)}
+      .slot-options{display:flex; gap:10px; flex-wrap:wrap}
+      .slot-option{
+        flex:1 1 100px; display:flex; align-items:center; justify-content:center; gap:8px;
+        border:1.5px solid var(--line); border-radius:10px; padding:12px 10px; cursor:pointer;
+        font-weight:600; font-size:14.5px; transition:border-color .15s ease, background .15s ease;
+      }
+      .slot-option:has(input:checked), .slot-option.is-selected{border-color:var(--purple); background:var(--lavender); color:var(--purple-deep)}
+      .slot-option input{accent-color:var(--purple)}
+      .slot-note{margin:10px 0 0; font-size:13px; color:var(--muted)}
+      .form-error{background:#FDEDEE; border:1px solid #F3C4C8; color:var(--pink); border-radius:10px; padding:12px 14px; font-size:14px; margin-bottom:18px}
+      .enroll-submit{width:100%; justify-content:center; font-size:16px}
+      .enroll-submit:disabled{opacity:.6; cursor:not-allowed; transform:none; box-shadow:none}
+      .enroll-fineprint{margin:14px 0 0; font-size:13px; color:var(--muted); text-align:center}
+
       /* ---------- closing note ---------- */
       .note-card{background:var(--purple); color:#fff; border-radius:24px; padding:44px 40px; text-align:center}
       .note-card h2{color:#fff}
@@ -174,11 +216,21 @@
           <a href="index.html">Home</a>
           <a href="#how-we-teach">How we teach</a>
           <a href="#who-its-for">Who it's for</a>
+          <a href="#enroll">Enroll</a>
           <a href="#faq">FAQ</a>
         </div>
         <button class="nav-toggle" id="navToggle" aria-label="Open menu">≡</button>
       </nav>
     </div>
+
+    <!-- ================= INTRO VIDEO ================= -->
+    <section class="video-section">
+      <div class="wrap">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/t-D_LgmjvGY?autoplay=1&mute=1&rel=0" title="Chaparral Dr AI Academy intro video" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
 
     <!-- ================= HERO ================= -->
     <header class="hero">
@@ -189,8 +241,8 @@
           <h1 data-fade style="margin-top:18px">Coding, taught the way people actually learn it</h1>
           <p class="lede" data-fade style="margin-top:16px">Every class starts with an idea a student already understands, then builds the real programming concept on top of it. Real code in a real editor, not drag-and-drop blocks, for kids and teens alike.</p>
           <div class="hero-cta" data-fade>
-            <a class="btn btn-primary" href="#how-we-teach">See how we teach</a>
-            <a class="btn btn-ghost" href="#who-its-for">Who it's for</a>
+            <a class="btn btn-primary" href="#enroll">Enroll now — $119</a>
+            <a class="btn btn-ghost" href="#how-we-teach">See how we teach</a>
           </div>
         </div>
         <div class="editor" data-fade>
@@ -227,12 +279,12 @@
           <div class="pillar" data-fade>
             <div class="n">02</div>
             <h3>Real code, not training wheels</h3>
-            <p>Students write and run actual code in a real editor from the first session, not simplified blocks standing in for the real thing.</p>
+            <p>Students write and run actual code in a real editor from the first class, not simplified blocks standing in for the real thing.</p>
           </div>
           <div class="pillar" data-fade>
             <div class="n">03</div>
             <h3>One idea at a time</h3>
-            <p>Each session adds exactly one new concept on top of the last, so nothing feels bolted on and the vocabulary actually sticks.</p>
+            <p>Each class adds exactly one new concept on top of the last, so nothing feels bolted on and the vocabulary actually sticks.</p>
           </div>
         </div>
       </div>
@@ -337,12 +389,60 @@
       </div>
     </section>
 
-    <!-- ================= CLOSING NOTE (no enrollment yet) ================= -->
-    <section class="sec">
+    <!-- ================= ENROLL ================= -->
+    <section class="sec" id="enroll">
       <div class="wrap">
-        <div class="note-card" data-fade>
-          <h2>We're putting the finishing touches on scheduling</h2>
-          <p>Classes are ready to teach. Where and when to sign up is coming soon, check back shortly.</p>
+        <div class="head center">
+          <span class="eyebrow" data-fade>Enrollment · Only 6 seats per time slot</span>
+          <h2 data-fade style="margin-top:14px">Reserve your child's seat</h2>
+          <p class="lede" data-fade style="margin:0 auto">Small groups mean real attention: four Sundays, one instructor, and a project your child actually built themselves.</p>
+        </div>
+
+        <div class="enroll-grid" data-fade>
+          <div class="enroll-details">
+            <div class="enroll-price">
+              <span class="enroll-amount">$119</span>
+              <span class="enroll-per">per student · all 4 classes</span>
+            </div>
+            <ul class="enroll-facts">
+              <li><strong>Starts</strong> Sunday, October 18</li>
+              <li><strong>Runs</strong> 4 Sundays, one hour each</li>
+              <li><strong>Group size</strong> Capped at 6 students, so every kid gets real instructor time</li>
+              <li><strong>Time slots</strong> 11 AM, 12 PM, or 1 PM</li>
+            </ul>
+          </div>
+
+          <form class="enroll-form" id="enrollForm" novalidate>
+            <div class="form-row">
+              <label for="childName">Child's name</label>
+              <input type="text" id="childName" name="childName" autocomplete="off" required>
+            </div>
+            <div class="form-row">
+              <label for="parentEmail">Parent/guardian email</label>
+              <input type="email" id="parentEmail" name="parentEmail" autocomplete="off" required>
+            </div>
+            <div class="form-row">
+              <label id="slotLabel">Time slot</label>
+              <div class="slot-options" role="radiogroup" aria-labelledby="slotLabel">
+                <label class="slot-option">
+                  <input type="radio" name="timeSlot" value="11:00 AM" required>
+                  <span>11:00 AM</span>
+                </label>
+                <label class="slot-option">
+                  <input type="radio" name="timeSlot" value="12:00 PM" required>
+                  <span>12:00 PM</span>
+                </label>
+                <label class="slot-option">
+                  <input type="radio" name="timeSlot" value="1:00 PM" required>
+                  <span>1:00 PM</span>
+                </label>
+              </div>
+              <p class="slot-note">Only 6 spots per time slot — sign up early to get the time you want.</p>
+            </div>
+            <p class="form-error" id="enrollError" role="alert" hidden></p>
+            <button type="submit" class="btn btn-primary enroll-submit" id="enrollSubmit" disabled>Claim my child's seat — $119</button>
+            <p class="enroll-fineprint">You'll enter payment details on Stripe's secure checkout in the next step.</p>
+          </form>
         </div>
       </div>
     </section>
@@ -368,6 +468,84 @@
         if (reduce) watched.forEach(el => el.classList.add('in'));
         else watched.forEach((el,i) => { el.style.transitionDelay = ((i%6)*55)+'ms'; io.observe(el); });
       })();
+    </script>
+    <script>
+      (function(){
+        const form = document.getElementById('enrollForm');
+        if (!form) return;
+
+        const childNameInput = document.getElementById('childName');
+        const parentEmailInput = document.getElementById('parentEmail');
+        const timeSlotInputs = form.querySelectorAll('input[name="timeSlot"]');
+        const errorEl = document.getElementById('enrollError');
+        const submitBtn = document.getElementById('enrollSubmit');
+
+        // Keep the submit button disabled until every field is filled out and
+        // the email is in a valid format.
+        function updateSubmitState(){
+          const hasName = childNameInput.value.trim().length > 0;
+          const hasValidEmail = parentEmailInput.value.trim().length > 0 && parentEmailInput.checkValidity();
+          const hasSlot = form.querySelector('input[name="timeSlot"]:checked') !== null;
+          submitBtn.disabled = !(hasName && hasValidEmail && hasSlot);
+        }
+        childNameInput.addEventListener('input', updateSubmitState);
+        parentEmailInput.addEventListener('input', updateSubmitState);
+        timeSlotInputs.forEach(input => input.addEventListener('change', updateSubmitState));
+        updateSubmitState();
+
+        // Highlight the selected time slot (CSS :has() covers modern browsers;
+        // this class keeps older ones in sync).
+        timeSlotInputs.forEach(input => {
+          input.addEventListener('change', () => {
+            form.querySelectorAll('.slot-option').forEach(opt => opt.classList.remove('is-selected'));
+            input.closest('.slot-option').classList.add('is-selected');
+          });
+        });
+
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          errorEl.hidden = true;
+
+          const childName = form.childName.value.trim();
+          const parentEmail = form.parentEmail.value.trim();
+          const timeSlot = form.querySelector('input[name="timeSlot"]:checked');
+
+          if (!childName || !parentEmail || !timeSlot) {
+            errorEl.textContent = "Please add your child's name, an email, and pick a time slot.";
+            errorEl.hidden = false;
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Redirecting to payment…';
+
+          try {
+            // TODO(backend): stand up this endpoint once the API + database exist.
+            // It should create a Stripe Checkout Session (mode: 'payment', $119,
+            // one line item) for { childName, parentEmail, timeSlot }, enforce the
+            // 6-student cap per slot, and return { url } to redirect to.
+            const res = await fetch('/api/enroll/checkout', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ childName, parentEmail, timeSlot: timeSlot.value })
+            });
+            if (!res.ok) throw new Error('checkout-failed');
+            const { url } = await res.json();
+            window.location.href = url;
+          } catch (err) {
+            errorEl.textContent = "Enrollment isn't connected yet — this will hand off to Stripe checkout once the backend is live.";
+            errorEl.hidden = false;
+            submitBtn.textContent = "Claim my child's seat — $119";
+            updateSubmitState();
+          }
+        });
+      })();
+    </script>
+    <script src="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io/static/chat.js"
+      data-endpoint="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io"
+      data-avatar="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io/static/alla.png"
+      data-contact="#contact"
+      data-site="academy">
     </script>
   </body>
 </html>
