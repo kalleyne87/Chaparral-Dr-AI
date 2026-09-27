@@ -189,6 +189,16 @@
       .enroll-submit{width:100%; justify-content:center; font-size:16px}
       .enroll-submit:disabled{opacity:.6; cursor:not-allowed; transform:none; box-shadow:none}
       .enroll-fineprint{margin:14px 0 0; font-size:13px; color:var(--muted); text-align:center}
+      .slot-options .slot-option{display:flex; flex-wrap:wrap; row-gap:2px; margin-bottom:0}
+      .slot-left{flex-basis:100%; text-align:center; font-family:var(--mark); font-weight:500; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted)}
+      .slot-option.is-full{opacity:.5; cursor:not-allowed; background:#F6F8FA}
+      .slot-option.is-full .slot-left{color:var(--pink)}
+      .slot-left.is-low{color:var(--pink); font-weight:600}
+      .form-status{background:var(--lavender); border:1px solid #CFE3F4; color:var(--purple-deep); border-radius:10px; padding:12px 14px; font-size:14px; margin-bottom:18px}
+      .enroll-done{text-align:center; padding:24px 8px}
+      .enroll-done-mark{width:56px; height:56px; margin:0 auto 16px; border-radius:50%; display:grid; place-items:center; background:var(--lavender); color:var(--purple); font-size:26px; font-weight:700}
+      .enroll-done h3{font-size:22px; margin-bottom:8px}
+      .enroll-done p{color:var(--muted); margin:0 auto; max-width:40ch}
 
       /* ---------- closing note ---------- */
       .note-card{background:var(--purple); color:#fff; border-radius:24px; padding:44px 40px; text-align:center}
@@ -241,7 +251,7 @@
           <h1 data-fade style="margin-top:18px">Coding, taught the way people actually learn it</h1>
           <p class="lede" data-fade style="margin-top:16px">Every class starts with an idea a student already understands, then builds the real programming concept on top of it. Real code in a real editor, not drag-and-drop blocks, for kids and teens alike.</p>
           <div class="hero-cta" data-fade>
-            <a class="btn btn-primary" href="#enroll">Enroll now — $119</a>
+            <a class="btn btn-primary" href="#enroll">Enroll now — <span data-price>$119</span></a>
             <a class="btn btn-ghost" href="#how-we-teach">See how we teach</a>
           </div>
         </div>
@@ -401,14 +411,14 @@
         <div class="enroll-grid" data-fade>
           <div class="enroll-details">
             <div class="enroll-price">
-              <span class="enroll-amount">$119</span>
-              <span class="enroll-per">per student · all 4 classes</span>
+              <span class="enroll-amount" data-price>$119</span>
+              <span class="enroll-per">per student · all <span data-weeks>4</span> classes</span>
             </div>
             <ul class="enroll-facts">
-              <li><strong>Starts</strong> Sunday, October 18</li>
-              <li><strong>Runs</strong> 4 Sundays, one hour each</li>
+              <li><strong>Starts</strong> <span id="factStart">Sunday, October 18</span></li>
+              <li><strong>Runs</strong> <span id="factRuns">4 Sundays, one hour each</span></li>
               <li><strong>Group size</strong> Capped at 6 students, so every kid gets real instructor time</li>
-              <li><strong>Time slots</strong> 11 AM, 12 PM, or 1 PM</li>
+              <li><strong>Time slots</strong> <span id="factTimes">11 AM, 12 PM, or 1 PM</span></li>
             </ul>
           </div>
 
@@ -439,6 +449,7 @@
               </div>
               <p class="slot-note">Only 6 spots per time slot — sign up early to get the time you want.</p>
             </div>
+            <p class="form-status" id="enrollStatus" role="status" hidden></p>
             <p class="form-error" id="enrollError" role="alert" hidden></p>
             <button type="submit" class="btn btn-primary enroll-submit" id="enrollSubmit" disabled>Claim my child's seat — $119</button>
             <p class="enroll-fineprint">You'll enter payment details on Stripe's secure checkout in the next step.</p>
@@ -474,70 +485,225 @@
         const form = document.getElementById('enrollForm');
         if (!form) return;
 
+        // The enrollment API lives in the same Function app as the contact form.
+        // For local testing, point this at http://localhost:7071/api instead.
+        const ENROLL_API = 'https://chaparraldrai-function.azurewebsites.net/api';
+        const DRAFT_KEY = 'academy-enroll-draft';
+
+        // Show "Only N spots left" in red once this many seats are taken.
+        const LOW_AFTER_TAKEN = 2;
+
         const childNameInput = document.getElementById('childName');
         const parentEmailInput = document.getElementById('parentEmail');
-        const timeSlotInputs = form.querySelectorAll('input[name="timeSlot"]');
+        const slotsEl = form.querySelector('.slot-options');
         const errorEl = document.getElementById('enrollError');
+        const statusEl = document.getElementById('enrollStatus');
         const submitBtn = document.getElementById('enrollSubmit');
 
-        // Keep the submit button disabled until every field is filled out and
-        // the email is in a valid format.
+        let classes = [];          // from /enroll/classes
+        let classesLoaded = false; // until true, the static slots are placeholders only
+
+        const money = cents => '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0);
+        const selectedInput = () => form.querySelector('input[name="classId"]:checked');
+        const selectedClass = () => {
+          const input = selectedInput();
+          return input ? classes.find(c => c.id === input.value) : null;
+        };
+
+        function showError(message){
+          errorEl.textContent = message;
+          errorEl.hidden = false;
+        }
+        function showStatus(message){
+          statusEl.textContent = message;
+          statusEl.hidden = false;
+        }
+
+        function submitLabel(){
+          const cls = selectedClass() || classes[0];
+          return "Claim my child's seat — " + (cls ? money(cls.priceCents) : '$119');
+        }
+
+        // Keep the submit button disabled until every field is filled out,
+        // the email is valid, and a real class is picked.
         function updateSubmitState(){
           const hasName = childNameInput.value.trim().length > 0;
           const hasValidEmail = parentEmailInput.value.trim().length > 0 && parentEmailInput.checkValidity();
-          const hasSlot = form.querySelector('input[name="timeSlot"]:checked') !== null;
-          submitBtn.disabled = !(hasName && hasValidEmail && hasSlot);
+          const hasClass = classesLoaded && selectedInput() !== null;
+          submitBtn.disabled = !(hasName && hasValidEmail && hasClass);
+          if (!submitBtn.dataset.busy) submitBtn.textContent = submitLabel();
         }
         childNameInput.addEventListener('input', updateSubmitState);
         parentEmailInput.addEventListener('input', updateSubmitState);
-        timeSlotInputs.forEach(input => input.addEventListener('change', updateSubmitState));
-        updateSubmitState();
 
-        // Highlight the selected time slot (CSS :has() covers modern browsers;
+        // Highlight the selected class (CSS :has() covers modern browsers;
         // this class keeps older ones in sync).
-        timeSlotInputs.forEach(input => {
-          input.addEventListener('change', () => {
-            form.querySelectorAll('.slot-option').forEach(opt => opt.classList.remove('is-selected'));
-            input.closest('.slot-option').classList.add('is-selected');
+        function syncSelected(){
+          slotsEl.querySelectorAll('.slot-option').forEach(opt => {
+            const input = opt.querySelector('input');
+            opt.classList.toggle('is-selected', !!input && input.checked);
           });
-        });
+        }
 
+        // ---- page details that come from the class records ----------------
+        function fillDetails(data){
+          const first = data.classes[0];
+          document.querySelectorAll('[data-price]').forEach(el => { el.textContent = money(first.priceCents); });
+          document.querySelectorAll('[data-weeks]').forEach(el => { el.textContent = data.weeks; });
+          const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+          set('factStart', data.startLabel);
+          set('factRuns', data.weeks + ' ' + data.weekdayPlural + ', one hour each');
+          const times = data.classes.map(c => c.time);
+          set('factTimes', times.length > 2
+            ? times.slice(0, -1).join(', ') + ', or ' + times[times.length - 1]
+            : times.join(' or '));
+        }
+
+        // ---- one option per class ----------------------------------------
+        function renderClasses(keepId){
+          slotsEl.innerHTML = '';
+          classes.forEach(c => {
+            const taken = c.seats - c.seatsLeft;
+            const full = c.seatsLeft <= 0;
+
+            const label = document.createElement('label');
+            label.className = 'slot-option' + (full ? ' is-full' : '');
+
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = 'classId';
+            input.value = c.id;
+            input.required = true;
+            input.disabled = full;
+            input.checked = !full && c.id === keepId;
+            input.addEventListener('change', () => { syncSelected(); updateSubmitState(); });
+
+            const time = document.createElement('span');
+            time.textContent = c.time;
+            label.append(input, time);
+
+            // Nothing while it's wide open; red once it starts filling; grey when full.
+            if (full || taken >= LOW_AFTER_TAKEN) {
+              const tag = document.createElement('small');
+              tag.className = 'slot-left' + (full ? '' : ' is-low');
+              tag.textContent = full
+                ? 'Full'
+                : 'Only ' + c.seatsLeft + (c.seatsLeft === 1 ? ' spot' : ' spots') + ' left';
+              label.appendChild(tag);
+            }
+
+            slotsEl.appendChild(label);
+          });
+          syncSelected();
+        }
+
+        async function loadClasses(){
+          const keepId = (selectedInput() || {}).value || (draft && draft.classId);
+          try {
+            const res = await fetch(ENROLL_API + '/enroll/classes', { cache: 'no-store' });
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            classes = data.classes || [];
+
+            if (!classes.length) {
+              slotsEl.innerHTML = '';
+              classesLoaded = false;
+              showStatus("There are no classes open for signup right now. Email chaparraldrai@gmail.com and we'll let you know when the next one opens.");
+            } else {
+              classesLoaded = true;
+              fillDetails(data);
+              renderClasses(keepId);
+              if (classes.every(c => c.seatsLeft <= 0)) {
+                showStatus("Every class for " + data.startLabel + " is full. Email chaparraldrai@gmail.com to hear when the next one opens.");
+              }
+            }
+          } catch (err) {
+            console.warn('Could not load classes', err);
+            classesLoaded = false;
+            showError("We couldn't load class times just now. Please refresh in a minute, or email chaparraldrai@gmail.com.");
+          }
+          updateSubmitState();
+        }
+
+        // ---- coming back from Stripe ------------------------------------
+        const params = new URLSearchParams(window.location.search);
+        let draft = null;
+        try { draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null'); } catch {}
+
+        if (params.get('enrolled') === '1') {
+          try { sessionStorage.removeItem(DRAFT_KEY); } catch {}
+          const who = draft && draft.childName ? draft.childName + "'s" : "Your child's";
+          form.innerHTML =
+            '<div class="enroll-done">' +
+              '<div class="enroll-done-mark" aria-hidden="true">✓</div>' +
+              '<h3></h3>' +
+              '<p>Payment received. A confirmation email with what to expect for the first class is on its way.</p>' +
+            '</div>';
+          form.querySelector('h3').textContent = who + ' seat is reserved';
+        } else {
+          if (params.get('canceled') === '1') {
+            showStatus('Checkout was canceled, so no payment was taken. Your details are still here if you want to try again.');
+          }
+          // Put back what they typed before heading to Stripe.
+          if (draft) {
+            childNameInput.value = draft.childName || '';
+            parentEmailInput.value = draft.parentEmail || '';
+          }
+          // The static slots in the HTML are placeholders until the real
+          // classes load, so they can't be picked yet.
+          slotsEl.querySelectorAll('input').forEach(i => { i.disabled = true; });
+          updateSubmitState();
+          loadClasses();
+        }
+
+        // Tidy the address bar so a refresh does not replay the message.
+        if (params.has('enrolled') || params.has('canceled')) {
+          history.replaceState(null, '', window.location.pathname + window.location.hash);
+        }
+
+        // ---- submit -----------------------------------------------------
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
           errorEl.hidden = true;
+          statusEl.hidden = true;
 
           const childName = form.childName.value.trim();
           const parentEmail = form.parentEmail.value.trim();
-          const timeSlot = form.querySelector('input[name="timeSlot"]:checked');
+          const picked = selectedInput();
 
-          if (!childName || !parentEmail || !timeSlot) {
-            errorEl.textContent = "Please add your child's name, an email, and pick a time slot.";
-            errorEl.hidden = false;
+          if (!childName || !parentEmail || !picked) {
+            showError("Please add your child's name, an email, and pick a class time.");
             return;
           }
 
           submitBtn.disabled = true;
+          submitBtn.dataset.busy = '1';
           submitBtn.textContent = 'Redirecting to payment…';
 
+          const payload = { childName, parentEmail, classId: picked.value };
+          try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify(payload)); } catch {}
+
           try {
-            // TODO(backend): stand up this endpoint once the API + database exist.
-            // It should create a Stripe Checkout Session (mode: 'payment', $119,
-            // one line item) for { childName, parentEmail, timeSlot }, enforce the
-            // 6-student cap per slot, and return { url } to redirect to.
-            const res = await fetch('/api/enroll/checkout', {
+            const res = await fetch(ENROLL_API + '/enroll/checkout', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ childName, parentEmail, timeSlot: timeSlot.value })
+              body: JSON.stringify(payload)
             });
-            if (!res.ok) throw new Error('checkout-failed');
-            const { url } = await res.json();
-            window.location.href = url;
+            const body = await res.json().catch(() => ({}));
+
+            if (res.ok && body.url) {
+              window.location.href = body.url;
+              return;
+            }
+
+            showError(body.error || 'Something went wrong starting checkout. Please try again.');
+            if (body.code === 'class_full' || body.code === 'class_closed') loadClasses();
           } catch (err) {
-            errorEl.textContent = "Enrollment isn't connected yet — this will hand off to Stripe checkout once the backend is live.";
-            errorEl.hidden = false;
-            submitBtn.textContent = "Claim my child's seat — $119";
-            updateSubmitState();
+            showError("We couldn't reach checkout just now. Please try again, or email chaparraldrai@gmail.com and we'll hold a seat for you.");
           }
+
+          delete submitBtn.dataset.busy;
+          updateSubmitState();
         });
       })();
     </script>
