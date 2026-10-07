@@ -65,12 +65,35 @@
       .nav-links a{text-decoration:none; color:var(--ink); opacity:.72}
       .nav-links a:hover{opacity:1}
       .nav-toggle{display:none; background:none; border:none; font-size:24px; color:var(--purple-deep); cursor:pointer}
+      .lang-toggle{
+        display:inline-flex; align-items:center; gap:2px; padding:3px 3px 3px 10px; border-radius:10px;
+        border:1.5px solid var(--purple); background:var(--lavender); cursor:pointer;
+        font-family:var(--mono, 'JetBrains Mono', monospace); font-size:12px; font-weight:600; letter-spacing:.08em;
+        box-shadow:0 6px 16px rgba(18,114,214,.18); transition:box-shadow .25s ease, transform .25s ease;
+      }
+      .lang-toggle:hover{transform:translateY(-1px); box-shadow:0 8px 20px rgba(18,114,214,.28)}
+      .lang-toggle::before{
+        content:""; width:14px; height:14px; margin-right:6px; background:var(--purple);
+        -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+        mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+      }
+      .lang-toggle span{padding:6px 10px; border-radius:7px; color:var(--purple-deep); opacity:.6; transition:background .2s ease, color .2s ease, opacity .2s ease}
+      .lang-toggle span.on{color:#fff; opacity:1; background:linear-gradient(135deg, var(--purple), var(--pink))}
       @media (max-width:820px){
         .nav-links{position:absolute; top:64px; left:24px; right:24px; background:#fff; border:1px solid var(--line);
           border-radius:16px; flex-direction:column; align-items:flex-start; padding:16px 20px; gap:14px;
           box-shadow:0 16px 34px rgba(75,47,174,.12); display:none;}
         .nav-links.open{display:flex}
         .nav-toggle{display:block}
+        .lang-toggle{margin-left:auto; margin-right:12px}
+      }
+      @media (max-width:480px){
+        .nav{gap:8px; padding:0 16px}
+        .brand{font-size:14px; gap:8px}
+        .brand img{width:30px; height:27px}
+        .lang-toggle{padding:3px; margin-right:6px}
+        .lang-toggle::before{display:none}
+        .lang-toggle span{padding:5px 8px}
       }
 
       /* ---------- HERO ---------- */
@@ -249,6 +272,7 @@
           <a href="#enroll">Enroll</a>
           <a href="#faq">FAQ</a>
         </div>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Language"><span data-l="en" class="on">EN</span><span data-l="es">ES</span></button>
         <button class="nav-toggle" id="navToggle" aria-label="Open menu">≡</button>
       </nav>
     </div>
@@ -435,10 +459,10 @@
               <span class="enroll-per">per student · all <span data-weeks>4</span> classes</span>
             </div>
             <ul class="enroll-facts">
-              <li><strong>Starts</strong> <span id="factStart">Sunday, October 18</span></li>
-              <li><strong>Runs</strong> <span id="factRuns">4 Sundays, one hour each</span></li>
+              <li><strong>Starts</strong> <span data-i18n-skip id="factStart">Sunday, October 18</span></li>
+              <li><strong>Runs</strong> <span data-i18n-skip id="factRuns">4 Sundays, one hour each</span></li>
               <li><strong>Group size</strong> Capped at 6 students, so every kid gets real instructor time</li>
-              <li><strong>Time slots</strong> <span id="factTimes">11 AM, 12 PM, or 1 PM</span></li>
+              <li><strong>Time slots</strong> <span data-i18n-skip id="factTimes">11 AM, 12 PM, or 1 PM</span></li>
             </ul>
           </div>
 
@@ -450,9 +474,9 @@
                 <span class="seat-stepper-count" id="seatCount">1</span>
                 <button type="button" class="seat-stepper-btn" id="seatPlus" aria-label="More seats">+</button>
               </div>
-              <p class="slot-note" id="seatCap"></p>
+              <p data-i18n-skip class="slot-note" id="seatCap"></p>
             </div>
-            <div class="form-row" id="childNameRows">
+            <div data-i18n-skip class="form-row" id="childNameRows">
               <div class="child-name-row">
                 <label for="childName-0">Child's name</label>
                 <input type="text" id="childName-0" name="childName-0" class="child-name-input" autocomplete="off" required>
@@ -467,11 +491,11 @@
                 <label id="slotLabel">Time slot</label>
                 <div class="slot-pager" id="slotPager" hidden>
                   <button type="button" class="slot-pager-btn" id="slotPrev" aria-label="Earlier start date">‹</button>
-                  <span class="slot-pager-date" id="slotDate"></span>
+                  <span data-i18n-skip class="slot-pager-date" id="slotDate"></span>
                   <button type="button" class="slot-pager-btn" id="slotNext" aria-label="Later start date">›</button>
                 </div>
               </div>
-              <div class="slot-options" role="radiogroup" aria-labelledby="slotLabel">
+              <div data-i18n-skip class="slot-options" role="radiogroup" aria-labelledby="slotLabel">
                 <label class="slot-option">
                   <input type="radio" name="timeSlot" value="11:00 AM" required>
                   <span>11:00 AM</span>
@@ -487,9 +511,9 @@
               </div>
               <p class="slot-note">Only 6 spots per time slot — sign up early to get the time you want.</p>
             </div>
-            <p class="form-status" id="enrollStatus" role="status" hidden></p>
-            <p class="form-error" id="enrollError" role="alert" hidden></p>
-            <button type="submit" class="btn btn-primary enroll-submit" id="enrollSubmit" disabled>Claim my child's seat — $119</button>
+            <p data-i18n-skip class="form-status" id="enrollStatus" role="status" hidden></p>
+            <p data-i18n-skip class="form-error" id="enrollError" role="alert" hidden></p>
+            <button data-i18n-skip type="submit" class="btn btn-primary enroll-submit" id="enrollSubmit" disabled>Claim my child's seat — $119</button>
             <p class="enroll-fineprint">You'll enter payment details on Stripe's secure checkout in the next step.</p>
           </form>
         </div>
@@ -498,10 +522,124 @@
 
     <footer>
       <div class="wrap">
-        <p>A <a href="index.html">Chaparral Dr AI</a> project.</p>
+        <p data-i18n-html>A <a href="index.html">Chaparral Dr AI</a> project.</p>
       </div>
     </footer>
 
+    <script src="i18n.js"></script>
+    <script>
+      /* Spanish for the EN / ES toggle, keyed by the exact English text (see i18n.js). */
+      I18N.init({
+        /* meta */
+        "Chaparral Dr AI Academy | Coding for kids": "Chaparral Dr AI Academy | Programación para niños",
+        "Chaparral Dr AI Academy teaches kids to code through real ideas and real code, one concept at a time, not block-based training wheels.": "Chaparral Dr AI Academy enseña a los niños a programar con ideas reales y código real, un concepto a la vez, sin bloques de arrastrar y soltar.",
+        /* nav */
+        "How we teach": "Cómo enseñamos", "Who it's for": "Para quién es", "Enroll": "Inscripción", "FAQ": "Preguntas",
+        "Open menu": "Abrir menú", "Language": "Idioma",
+        /* hero */
+        "Coding, taught the way people actually learn it": "Programación, enseñada como la gente realmente aprende",
+        "Every class starts with an idea a student already understands, then builds the real programming concept on top of it. Real code in a real editor, not drag-and-drop blocks.": "Cada clase empieza con una idea que el estudiante ya entiende y sobre ella construye el concepto real de programación. Código real en un editor real, no bloques de arrastrar y soltar.",
+        "Enroll now —": "Inscríbase ahora —", "See how we teach": "Vea cómo enseñamos",
+        "// a real idea, before it's a program": "// una idea real, antes de ser un programa",
+        /* how we teach */
+        "A method, not just a curriculum": "Un método, no solo un plan de estudios",
+        "The classes change. The approach doesn't.": "Las clases cambian. El enfoque no.",
+        "Idea before jargon": "La idea antes que la jerga",
+        "Every new concept starts as something a student already understands, before it's ever attached to a programming term.": "Cada concepto nuevo empieza como algo que el estudiante ya entiende, antes de asociarlo a un término de programación.",
+        "Real code, not training wheels": "Código real, sin rueditas",
+        "Students write and run actual code in a real editor from the first class, not simplified blocks standing in for the real thing.": "Los estudiantes escriben y ejecutan código de verdad en un editor real desde la primera clase, no bloques simplificados que imitan lo real.",
+        "One idea at a time": "Una idea a la vez",
+        "Each class adds exactly one new concept on top of the last, so nothing feels bolted on and the vocabulary actually sticks.": "Cada clase agrega exactamente un concepto nuevo sobre el anterior, así nada se siente forzado y el vocabulario realmente se queda.",
+        /* core idea */
+        "The core idea": "La idea central", "Same thing, new vocabulary": "Lo mismo, con vocabulario nuevo",
+        "Most programming vocabulary is just a new name for something a student already understands.": "La mayor parte del vocabulario de programación es solo un nombre nuevo para algo que el estudiante ya entiende.",
+        "Real world": "Mundo real", "Point at almost anything.": "Señale casi cualquier cosa.",
+        "It's a thing. It has details, a color, a size, a name. It can do things: move, make a sound, turn on.": "Es una cosa. Tiene detalles: un color, un tamaño, un nombre. Puede hacer cosas: moverse, hacer un sonido, encenderse.",
+        "In code": "En código", "That thing becomes an object.": "Esa cosa se convierte en un objeto.",
+        "Its details are called attributes. What it can do is called an action, or a method. Same idea, new vocabulary.": "Sus detalles se llaman atributos. Lo que puede hacer se llama acción, o método. La misma idea, con vocabulario nuevo.",
+        /* ladder */
+        "The concept ladder": "La escalera de conceptos", "The order the ideas arrive in": "El orden en que llegan las ideas",
+        "This scaffold shows up across every class, so the vocabulary compounds instead of resetting each time.": "Esta estructura aparece en todas las clases, así el vocabulario se acumula en lugar de empezar de cero cada vez.",
+        "A thing in the world": "Una cosa del mundo",
+        "Before code, it's just something you can describe: what it looks like, what it can do.": "Antes del código, es solo algo que se puede describir: cómo se ve y qué puede hacer.",
+        "Object": "Objeto",
+        "In code, that thing becomes an object, something you create and can refer to by name.": "En código, esa cosa se convierte en un objeto, algo que se crea y se puede nombrar.",
+        "Attributes": "Atributos",
+        "The details that describe an object: a name, a color, a number that can change.": "Los detalles que describen un objeto: un nombre, un color, un número que puede cambiar.",
+        "Actions": "Acciones",
+        "What an object can do, and the rule for how it changes its own details.": "Lo que un objeto puede hacer, y la regla de cómo cambia sus propios detalles.",
+        "Components": "Componentes",
+        "The smaller building blocks that combine to make up what's on screen.": "Las piezas más pequeñas que se combinan para formar lo que se ve en pantalla.",
+        "State": "Estado",
+        "How a program remembers things while it's running, and updates what the user sees.": "Cómo un programa recuerda cosas mientras se ejecuta y actualiza lo que ve el usuario.",
+        "Functions": "Funciones",
+        "A named, reusable piece of logic a student can call whenever they need it.": "Un bloque de lógica con nombre y reutilizable que el estudiante puede llamar cuando lo necesite.",
+        /* who it's for */
+        "Built to scale with a student, not just an age": "Hecho para crecer con el estudiante, no solo con la edad",
+        "The same teaching method works whether it's a first program or a step toward something more advanced.": "El mismo método funciona tanto para un primer programa como para dar un paso hacia algo más avanzado.",
+        "New to code": "Nuevo en programación", "Starting from zero": "Desde cero",
+        "For kids with little or no coding background. Every term is introduced through something familiar before it's ever named in code.": "Para niños con poca o ninguna experiencia programando. Cada término se presenta con algo conocido antes de nombrarlo en código.",
+        "Ready to go further": "Listo para ir más lejos", "Returning students": "Estudiantes que regresan",
+        "Moves faster into real object-oriented projects, working across multiple files, and building something bigger than a single script.": "Avanza más rápido hacia proyectos reales orientados a objetos, trabajando con varios archivos y construyendo algo más grande que un solo script.",
+        /* outcomes */
+        "What they walk away with": "Lo que se llevan", "Outcomes that outlast the class": "Resultados que duran más que la clase",
+        "Vocabulary that sticks": "Vocabulario que se queda",
+        "Can explain object, attribute, state, and function in their own words.": "Pueden explicar objeto, atributo, estado y función con sus propias palabras.",
+        "A real program": "Un programa real",
+        "Working code they wrote themselves, not a template they filled in.": "Código que funciona y que escribieron ellos mismos, no una plantilla que llenaron.",
+        "Editor comfort": "Soltura con el editor",
+        "Used to a real code editor, not just a simplified teaching tool.": "Acostumbrados a un editor de código real, no solo a una herramienta simplificada.",
+        "A foundation that transfers": "Una base que se transfiere",
+        "Concepts that carry into any language, not just the one they started with.": "Conceptos que sirven en cualquier lenguaje, no solo en el que empezaron.",
+        /* faq */
+        "Questions people ask": "Preguntas frecuentes",
+        "Does my child need coding experience?": "¿Mi hijo necesita experiencia programando?",
+        "No. Every concept starts from something they already know, before it's ever named in code.": "No. Cada concepto empieza con algo que ya conoce, antes de nombrarlo en código.",
+        "What will they actually build?": "¿Qué van a construir realmente?",
+        "It varies by class, but it's always a real, working program written in an actual code editor, not a simulated or blocks-only tool.": "Depende de la clase, pero siempre es un programa real que funciona, escrito en un editor de código de verdad, no en una herramienta simulada o solo de bloques.",
+        "Who is this for?": "¿Para quién es?",
+        "Built for kids. Pacing adjusts based on experience, whether it's a first program or a step toward something more advanced.": "Hecho para niños. El ritmo se ajusta según la experiencia, ya sea un primer programa o un paso hacia algo más avanzado.",
+        "Is there more than one class?": "¿Hay más de una clase?",
+        "Yes. Classes are built around the same teaching approach, with new lessons and projects added over time.": "Sí. Las clases siguen el mismo enfoque de enseñanza, y se agregan nuevas lecciones y proyectos con el tiempo.",
+        /* enroll (static) */
+        "Enrollment · Only 6 seats per time slot": "Inscripción · Solo 6 lugares por horario",
+        "Reserve your child's seat": "Reserve el lugar de su hijo",
+        "Small groups mean real attention: four Sundays, one instructor, and a project your child actually built themselves.": "Grupos pequeños significan atención real: cuatro domingos, un instructor y un proyecto que su hijo construyó por sí mismo.",
+        "per student · all": "por estudiante · las", "classes": "clases",
+        "Starts": "Empieza", "Runs": "Duración", "Group size": "Tamaño del grupo", "Time slots": "Horarios",
+        "Capped at 6 students, so every kid gets real instructor time": "Máximo 6 estudiantes, para que cada niño tenga tiempo real con el instructor",
+        "How many seats?": "¿Cuántos lugares?", "Fewer seats": "Menos lugares", "More seats": "Más lugares",
+        "Parent/guardian email": "Correo del padre, madre o tutor", "Time slot": "Horario",
+        "Earlier start date": "Fecha de inicio anterior", "Later start date": "Fecha de inicio posterior",
+        "Only 6 spots per time slot — sign up early to get the time you want.": "Solo 6 lugares por horario: inscríbase pronto para conseguir la hora que quiere.",
+        "You'll enter payment details on Stripe's secure checkout in the next step.": "En el siguiente paso ingresará los datos de pago en la página segura de Stripe.",
+        "A <a href=\"index.html\">Chaparral Dr AI</a> project.": "Un proyecto de <a href=\"index.html\">Chaparral Dr AI</a>.",
+        /* enroll (rendered by the form script) */
+        "Child's name": "Nombre del niño", "Child {n}'s name": "Nombre del niño {n}",
+        "Claim my child's seat": "Reservar el lugar de mi hijo", "Claim {n} seats": "Reservar {n} lugares",
+        "Up to {n} at once for the times shown below.": "Hasta {n} a la vez para los horarios de abajo.",
+        "{n} {days}, one hour each": "{n} {days}, una hora cada uno",
+        "{list}, or {last}": "{list} o {last}", "{a} or {b}": "{a} o {b}",
+        "Full": "Lleno",
+        "Only {n} left — lower your seat count to pick this time": "Solo quedan {n}: reduzca la cantidad de lugares para elegir este horario",
+        "Only 1 spot left": "Solo queda 1 lugar", "Only {n} spots left": "Solo quedan {n} lugares",
+        "Every class for {date} is full. Use the arrows above the time slots to see another date, or email chaparraldrai@gmail.com to hear when the next one opens.": "Todas las clases del {date} están llenas. Use las flechas sobre los horarios para ver otra fecha, o escriba a chaparraldrai@gmail.com para saber cuándo abre la próxima.",
+        "Every class for {date} is full. Email chaparraldrai@gmail.com to hear when the next one opens.": "Todas las clases del {date} están llenas. Escriba a chaparraldrai@gmail.com para saber cuándo abre la próxima.",
+        "There are no classes open for signup right now. More classes will be posted soon — email chaparraldrai@gmail.com and we'll let you know when the next one opens.": "No hay clases abiertas para inscripción en este momento. Pronto publicaremos más: escriba a chaparraldrai@gmail.com y le avisaremos cuando abra la próxima.",
+        "We couldn't load class times just now. Please refresh in a minute, or email chaparraldrai@gmail.com.": "No pudimos cargar los horarios. Actualice la página en un minuto o escriba a chaparraldrai@gmail.com.",
+        "Your child's seat is reserved": "El lugar de su hijo está reservado",
+        "{who}'s seat is reserved": "El lugar de {who} está reservado",
+        "{who}'s seats are reserved": "Los lugares de {who} están reservados",
+        "{list} and {last}": "{list} y {last}",
+        "You're all set — check your inbox for an email with next steps for the first class.": "¡Listo! Revise su correo: le enviamos los siguientes pasos para la primera clase.",
+        "Sign up another seat": "Inscribir otro lugar",
+        "Checkout was canceled, so no payment was taken. Your details are still here if you want to try again.": "El pago se canceló, así que no se cobró nada. Sus datos siguen aquí si quiere intentarlo de nuevo.",
+        "Please add a name for each seat, an email, and pick a class time.": "Agregue un nombre para cada lugar, un correo y elija un horario.",
+        "Redirecting to payment…": "Redirigiendo al pago…",
+        "Something went wrong starting checkout. Please try again.": "Algo salió mal al iniciar el pago. Inténtelo de nuevo.",
+        "We couldn't reach checkout just now. Please try again, or email chaparraldrai@gmail.com and we'll hold a seat for you.": "No pudimos conectar con el pago. Inténtelo de nuevo o escriba a chaparraldrai@gmail.com y le guardaremos un lugar."
+      });
+    </script>
     <script>
       (function(){
         const navToggle = document.getElementById('navToggle');
@@ -553,6 +691,29 @@
         let quantity = 1;           // how many seats this checkout is for
 
         const money = cents => '$' + (cents / 100).toFixed(cents % 100 ? 2 : 0);
+        const t = I18N.t;
+
+        // Date labels come from the API in English ("Sunday, October 18").
+        const DAYS_ES = { Sunday: 'domingo', Monday: 'lunes', Tuesday: 'martes', Wednesday: 'miércoles',
+          Thursday: 'jueves', Friday: 'viernes', Saturday: 'sábado' };
+        const MONTHS_ES = { January: 'enero', February: 'febrero', March: 'marzo', April: 'abril', May: 'mayo',
+          June: 'junio', July: 'julio', August: 'agosto', September: 'septiembre', October: 'octubre',
+          November: 'noviembre', December: 'diciembre' };
+        function localDate(label){
+          if (I18N.lang !== 'es' || !label) return label;
+          const m = label.match(/^(\w+),\s+(\w+)\s+(\d{1,2})(?:,\s*(\d{4}))?$/);
+          if (m && DAYS_ES[m[1]] && MONTHS_ES[m[2]])
+            return DAYS_ES[m[1]] + ', ' + m[3] + ' de ' + MONTHS_ES[m[2]] + (m[4] ? ' de ' + m[4] : '');
+          return label.replace(/[A-Z][a-z]+/g, w => DAYS_ES[w] || MONTHS_ES[w] || w);
+        }
+        function localWeekdays(plural){
+          if (I18N.lang !== 'es' || !plural) return plural;
+          const day = DAYS_ES[plural.replace(/s$/, '')];
+          return day ? (day.endsWith('s') ? day : day + 's') : plural;
+        }
+
+        // What the facts list shows; the HTML values stand in until classes load.
+        let facts = { startLabel: 'Sunday, October 18', weeks: 4, weekdayPlural: 'Sundays', times: ['11 AM', '12 PM', '1 PM'] };
         const selectedInput = () => form.querySelector('input[name="classId"]:checked');
         const selectedClass = () => {
           const input = selectedInput();
@@ -561,19 +722,23 @@
         const childNames = () =>
           Array.from(childNameRows.querySelectorAll('.child-name-input')).map(i => i.value.trim());
 
-        function showError(message){
-          errorEl.textContent = message;
+        // Messages keep their English key so a language switch can re-render them.
+        let errorMsg = null, statusMsg = null;
+        function showError(message, vars){
+          errorMsg = [message, vars];
+          errorEl.textContent = t(message, vars);
           errorEl.hidden = false;
         }
-        function showStatus(message){
-          statusEl.textContent = message;
+        function showStatus(message, vars){
+          statusMsg = [message, vars];
+          statusEl.textContent = t(message, vars);
           statusEl.hidden = false;
         }
 
         function submitLabel(){
           const cls = selectedClass() || classes[0];
           const perSeat = cls ? cls.priceCents : 11900;
-          const label = quantity > 1 ? 'Claim ' + quantity + ' seats' : "Claim my child's seat";
+          const label = quantity > 1 ? t('Claim {n} seats', { n: quantity }) : t("Claim my child's seat");
           return label + ' — ' + money(perSeat * quantity);
         }
 
@@ -585,7 +750,7 @@
           const hasValidEmail = parentEmailInput.value.trim().length > 0 && parentEmailInput.checkValidity();
           const hasClass = classesLoaded && selectedInput() !== null;
           submitBtn.disabled = !(hasNames && hasValidEmail && hasClass);
-          if (!submitBtn.dataset.busy) submitBtn.textContent = submitLabel();
+          submitBtn.textContent = submitBtn.dataset.busy ? t('Redirecting to payment…') : submitLabel();
         }
         parentEmailInput.addEventListener('input', updateSubmitState);
 
@@ -603,7 +768,7 @@
 
             const label = document.createElement('label');
             label.htmlFor = 'childName-' + i;
-            label.textContent = quantity > 1 ? "Child " + (i + 1) + "'s name" : "Child's name";
+            label.textContent = quantity > 1 ? t("Child {n}'s name", { n: i + 1 }) : t("Child's name");
 
             const input = document.createElement('input');
             input.type = 'text';
@@ -625,7 +790,7 @@
           seatMinusBtn.disabled = quantity <= 1;
           seatPlusBtn.disabled = !classesLoaded || quantity >= max;
           seatCapEl.textContent = classesLoaded
-            ? 'Up to ' + max + ' at once for the times shown below.'
+            ? t('Up to {n} at once for the times shown below.', { n: max })
             : '';
         }
 
@@ -655,13 +820,19 @@
           const first = data.classes[0];
           document.querySelectorAll('[data-price]').forEach(el => { el.textContent = money(first.priceCents); });
           document.querySelectorAll('[data-weeks]').forEach(el => { el.textContent = data.weeks; });
+          facts = { startLabel: data.startLabel, weeks: data.weeks, weekdayPlural: data.weekdayPlural,
+                    times: data.classes.map(c => c.time) };
+          renderFacts();
+        }
+
+        function renderFacts(){
           const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
-          set('factStart', data.startLabel);
-          set('factRuns', data.weeks + ' ' + data.weekdayPlural + ', one hour each');
-          const times = data.classes.map(c => c.time);
+          set('factStart', localDate(facts.startLabel));
+          set('factRuns', t('{n} {days}, one hour each', { n: facts.weeks, days: localWeekdays(facts.weekdayPlural) }));
+          const times = facts.times;
           set('factTimes', times.length > 2
-            ? times.slice(0, -1).join(', ') + ', or ' + times[times.length - 1]
-            : times.join(' or '));
+            ? t('{list}, or {last}', { list: times.slice(0, -1).join(', '), last: times[times.length - 1] })
+            : times.length === 2 ? t('{a} or {b}', { a: times[0], b: times[1] }) : times.join(''));
         }
 
         // ---- one option per class ----------------------------------------
@@ -695,10 +866,10 @@
               const tag = document.createElement('small');
               tag.className = 'slot-left' + (full ? '' : ' is-low');
               tag.textContent = full
-                ? 'Full'
+                ? t('Full')
                 : short
-                  ? 'Only ' + c.seatsLeft + ' left — lower your seat count to pick this time'
-                  : 'Only ' + c.seatsLeft + (c.seatsLeft === 1 ? ' spot' : ' spots') + ' left';
+                  ? t('Only {n} left — lower your seat count to pick this time', { n: c.seatsLeft })
+                  : c.seatsLeft === 1 ? t('Only 1 spot left') : t('Only {n} spots left', { n: c.seatsLeft });
               label.appendChild(tag);
             }
 
@@ -722,7 +893,7 @@
         function updatePager(){
           const multi = groups.length > 1;
           slotPagerEl.hidden = groups.length === 0;
-          slotDateEl.textContent = groups[groupIndex] ? groups[groupIndex].startLabel : '';
+          slotDateEl.textContent = groups[groupIndex] ? localDate(groups[groupIndex].startLabel) : '';
           slotPrevBtn.hidden = !multi;
           slotNextBtn.hidden = !multi;
           slotPrevBtn.disabled = groupIndex <= 0;
@@ -745,9 +916,10 @@
           updateSeatStepper();
 
           if (classes.every(c => c.seatsLeft <= 0)) {
-            showStatus("Every class for " + group.startLabel + " is full. " +
-              (groups.length > 1 ? "Use the arrows above the time slots to see another date, or e" : "E") +
-              "mail chaparraldrai@gmail.com to hear when the next one opens.");
+            showStatus(groups.length > 1
+              ? 'Every class for {date} is full. Use the arrows above the time slots to see another date, or email chaparraldrai@gmail.com to hear when the next one opens.'
+              : 'Every class for {date} is full. Email chaparraldrai@gmail.com to hear when the next one opens.',
+              { get date() { return localDate(group.startLabel); } });
           }
           updateSubmitState();
         }
@@ -769,8 +941,7 @@
               slotsEl.innerHTML = '';
               slotPagerEl.hidden = true;
               updateSeatStepper();
-              showStatus("There are no classes open for signup right now. More classes will be posted soon — " +
-                "email chaparraldrai@gmail.com and we'll let you know when the next one opens.");
+              showStatus("There are no classes open for signup right now. More classes will be posted soon — email chaparraldrai@gmail.com and we'll let you know when the next one opens.");
             } else {
               showGroup(pickGroupIndex(keepId), keepId);
             }
@@ -785,6 +956,7 @@
         // ---- coming back from Stripe ------------------------------------
         const params = new URLSearchParams(window.location.search);
         let draft = null;
+        let renderDone = null;   // set once the "seat reserved" panel replaces the form
         try { draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null'); } catch {}
 
         if (params.get('enrolled') === '1') {
@@ -796,18 +968,22 @@
           if (gridEl) gridEl.classList.add('is-solo');
 
           const names = (draft && draft.childNames) || [];
-          const who = names.length === 0 ? "Your child's"
-            : names.length === 1 ? names[0] + "'s"
-            : names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1] + "'s";
-          const seatWord = names.length > 1 ? 'seats are' : 'seat is';
           form.innerHTML =
-            '<div class="enroll-done">' +
+            '<div class="enroll-done" data-i18n-skip>' +
               '<div class="enroll-done-mark" aria-hidden="true">✓</div>' +
               '<h3></h3>' +
-              '<p>You\'re all set — check your inbox for an email with next steps for the first class.</p>' +
-              '<button type="button" class="btn btn-ghost" id="enrollAgain">Sign up another seat</button>' +
+              '<p></p>' +
+              '<button type="button" class="btn btn-ghost" id="enrollAgain"></button>' +
             '</div>';
-          form.querySelector('h3').textContent = who + ' ' + seatWord + ' reserved';
+          renderDone = () => {
+            const who = names.length === 1 ? names[0]
+              : t('{list} and {last}', { list: names.slice(0, -1).join(', '), last: names[names.length - 1] });
+            form.querySelector('h3').textContent = names.length === 0 ? t("Your child's seat is reserved")
+              : t(names.length > 1 ? "{who}'s seats are reserved" : "{who}'s seat is reserved", { who });
+            form.querySelector('p').textContent = t("You're all set — check your inbox for an email with next steps for the first class.");
+            form.querySelector('#enrollAgain').textContent = t('Sign up another seat');
+          };
+          renderDone();
 
           // A clean reload is the simplest way to reset every bit of form
           // state (seat count, name fields, selected slot, loaded classes)
@@ -863,13 +1039,13 @@
           const picked = selectedInput();
 
           if (names.length !== quantity || names.some(n => !n) || !parentEmail || !picked) {
-            showError("Please add a name for each seat, an email, and pick a class time.");
+            showError('Please add a name for each seat, an email, and pick a class time.');
             return;
           }
 
           submitBtn.disabled = true;
           submitBtn.dataset.busy = '1';
-          submitBtn.textContent = 'Redirecting to payment…';
+          submitBtn.textContent = t('Redirecting to payment…');
 
           const payload = { childNames: names, parentEmail, classId: picked.value };
           try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify(payload)); } catch {}
@@ -896,14 +1072,37 @@
           delete submitBtn.dataset.busy;
           updateSubmitState();
         });
+
+        // ---- language switch: re-render everything the script wrote ------
+        I18N.onChange(() => {
+          if (renderDone) { renderDone(); return; }
+          renderChildNameInputs();
+          renderFacts();
+          if (classesLoaded) {
+            renderClasses(selectedInput() ? selectedInput().value : null);
+            updatePager();
+          }
+          updateSeatStepper();
+          if (errorMsg && !errorEl.hidden) showError(...errorMsg);
+          if (statusMsg && !statusEl.hidden) showStatus(...statusMsg);
+          updateSubmitState();
+        });
       })();
+      I18N.apply();
     </script>
-    <script src="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io/static/chat.js"
-      data-endpoint="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io"
-      data-avatar="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io/static/alla.png"
-      data-contact="#enroll"
-      data-cta-label="Reserve a seat"      
-      data-site="academy">
+    <script>
+      /* Alla chat widget. On localhost it comes from the local chaparraldrai-chat
+         server (uvicorn on :8000) so unreleased widget changes can be tested;
+         everywhere else it comes from the deployed container app. */
+      (function () {
+        const base = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
+          ? 'http://localhost:8000'
+          : 'https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io';
+        const s = document.createElement('script');
+        s.src = base + '/static/chat.js';
+        Object.assign(s.dataset, { endpoint: base, avatar: base + '/static/alla.png', contact: '#enroll', ctaLabel: 'Reserve a seat', site: 'academy' });
+        document.body.appendChild(s);
+      })();
     </script>
   </body>
 </html>
