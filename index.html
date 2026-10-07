@@ -134,6 +134,21 @@
         background:linear-gradient(90deg,transparent,var(--ember-soft),transparent);filter:blur(1px);
       }
       .btn-primary:hover{border-color:var(--ember)}
+      .lang-toggle{
+        display:inline-flex;align-items:center;gap:2px;padding:3px 3px 3px 10px;border-radius:10px;
+        border:1px solid rgba(56,182,240,.45);background:rgba(56,182,240,.08);
+        box-shadow:0 0 18px -6px rgba(56,182,240,.55);
+        font-family:var(--mono,inherit);font-size:12px;font-weight:500;letter-spacing:.08em;cursor:pointer;
+        transition:border-color .25s ease,box-shadow .25s ease;
+      }
+      .lang-toggle:hover{border-color:var(--cyan);box-shadow:0 0 22px -4px rgba(56,182,240,.7)}
+      .lang-toggle::before{
+        content:"";width:14px;height:14px;margin-right:6px;background:var(--cyan);
+        -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+        mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M2.5 12h19M12 2.5c2.6 2.6 4 6 4 9.5s-1.4 6.9-4 9.5c-2.6-2.6-4-6-4-9.5s1.4-6.9 4-9.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+      }
+      .lang-toggle span{padding:6px 10px;border-radius:7px;color:#9FB4C6;transition:color .2s ease,background .2s ease}
+      .lang-toggle span.on{color:#fff;background:linear-gradient(135deg,rgba(56,182,240,.55),rgba(224,51,63,.45))}
       .nav-toggle{display:none;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:transparent}
 
       /* ============ hero ============ */
@@ -401,12 +416,22 @@
         .grid-3,.stats{grid-template-columns:1fr}
         .foot-grid{grid-template-columns:1fr 1fr}
       }
+      @media(max-width:1160px){
+        .nav-links{display:none}
+        .nav.open{flex-wrap:wrap}
+        .nav.open .nav-links{display:grid;order:5;width:100%;padding-top:8px;border-top:1px solid var(--line)}
+        .nav-toggle{display:block}
+      }
       @media(max-width:760px){
         .nav-links,.nav .btn{display:none}
         .nav.open{flex-wrap:wrap}
         .nav.open .nav-links{display:grid;width:100%;padding-top:8px;border-top:1px solid var(--line)}
-        .nav.open .btn{display:inline-flex;width:100%}
+        .nav.open .btn{display:inline-flex;order:6;width:100%}
         .nav-toggle{display:block}
+        .nav{gap:10px}
+        .lang-toggle{padding:3px}
+        .lang-toggle::before{display:none}
+        .lang-toggle span{padding:5px 8px}
         .grid-4,.process,.plays,.row{grid-template-columns:1fr}
         .brand span{font-size:12px;letter-spacing:.16em}
         .rotator-wrap h2{font-size:22px!important}
@@ -437,9 +462,10 @@
             <a href="#work">What we build</a>
             <a href="#process">How it works</a>
             <a href="#about">About us</a>
-            <a href="academy.html">Academy</a>
+            <a href="demo.html">Demos</a>
             <a href="#contact">Contact</a>
           </div>
+          <button class="lang-toggle" id="langToggle" type="button" aria-label="Language"><span data-l="en" class="on">EN</span><span data-l="es">ES</span></button>
           <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">≡</button>
           <a class="btn btn-primary" href="#contact">Get Started</a>
         </nav>
@@ -651,12 +677,12 @@
               <label class="field">
                 <span>Work email</span>
                 <input type="email" name="email" id="fEmail" placeholder="you@company.com" autocomplete="email">
-                <em class="err" id="errEmail"></em>
+                <em class="err" id="errEmail" data-i18n-skip></em>
               </label>
               <label class="field">
                 <span>Phone</span>
                 <input type="tel" name="phone" id="fPhone" placeholder="(555) 555-5555" autocomplete="tel">
-                <em class="err" id="errPhone"></em>
+                <em class="err" id="errPhone" data-i18n-skip></em>
               </label>
             </div>
             <label class="field">
@@ -673,8 +699,8 @@
               </label>
             </div>
 
-            <button class="btn btn-primary" type="submit" id="sendBtn">Send it over</button>
-            <p class="fineprint" id="formNote">We reply within one business day.</p>
+            <button class="btn btn-primary" type="submit" id="sendBtn" data-i18n-skip>Send it over</button>
+            <p class="fineprint" id="formNote" data-i18n-skip>We reply within one business day.</p>
           </div>
 
           <div class="form-sent" id="formSent" aria-live="polite">
@@ -717,15 +743,114 @@
       </div>
     </footer>
 
+    <script src="i18n.js"></script>
+    <script>
+      /* Spanish for the EN / ES toggle, keyed by the exact English text (see i18n.js). */
+      I18N.init({
+        /* meta */
+        'Chaparral Dr AI | AI automation, assistants, and software engineering': 'Chaparral Dr AI | Automatización con IA, asistentes e ingeniería de software',
+        'Chaparral Dr AI builds AI automation, chat and voice assistants, and custom software that run inside your own cloud. We map the work, build it, and hand back a system that keeps running.': 'Chaparral Dr AI crea automatización con IA, asistentes de chat y de voz, y software a medida que funcionan dentro de su propia nube. Mapeamos el trabajo, lo construimos y le entregamos un sistema que sigue funcionando.',
+        'AI and software that take root in the work you already do.': 'IA y software que echan raíces en el trabajo que ya hace.',
+        /* nav */
+        'What we build': 'Lo que construimos', 'How it works': 'Cómo funciona', 'About us': 'Quiénes somos',
+        'Demos': 'Demos', 'Academy': 'Academia', 'Contact': 'Contacto', 'Get Started': 'Comenzar',
+        'Open menu': 'Abrir menú', 'Language': 'Idioma',
+        /* hero */
+        'AI and software, built to last': 'IA y software, hechos para durar',
+        'Systems that take root': 'Sistemas que echan raíces',
+        'Starting with': 'Empezando por',
+        'Your invoice pile': 'Su montón de facturas', 'Your support queue': 'Su cola de soporte',
+        'Your inbound calls': 'Sus llamadas entrantes', 'Your scheduling and dispatching': 'Su programación y despacho',
+        'The app you keep putting off': 'La aplicación que sigue posponiendo',
+        'We map the work, build the thing, and hand back a system that runs on its own. Automation, chat and voice assistants, or plain custom software when that is what the job actually needs.': 'Mapeamos el trabajo, construimos la solución y le entregamos un sistema que funciona solo. Automatización, asistentes de chat y de voz, o simple software a medida cuando eso es lo que el trabajo realmente necesita.',
+        'Book a free consultation': 'Reserve una consulta gratis', 'See how it works': 'Vea cómo funciona',
+        'First build live within 6 weeks': 'Primera versión en producción en 6 semanas',
+        'Runs in your cloud tenant': 'Funciona en su propio entorno de nube',
+        'Lead intake · live run': 'Captación de clientes potenciales · ejecución en vivo',
+        'When a new lead comes in, qualify it and get it to the right person.': 'Cuando entre un nuevo cliente potencial, califíquelo y hágalo llegar a la persona correcta.',
+        'Catch the lead from the form, ad, or inbox': 'Captar el contacto desde el formulario, el anuncio o el correo',
+        'Score and tag it against your ideal customer': 'Puntuarlo y etiquetarlo según su cliente ideal',
+        'Check it against every contact you already have': 'Compararlo con todos los contactos que ya tiene',
+        'Create or update the record in HubSpot': 'Crear o actualizar el registro en HubSpot',
+        'Alert you in Slack when it is worth your time': 'Avisarle en Slack cuando valga su tiempo',
+        'Last 30 days': 'Últimos 30 días', 'Leads processed': 'Contactos procesados',
+        'Duplicates caught': 'Duplicados detectados', 'Sent to a human': 'Enviados a una persona',
+        'Median time to owner': 'Tiempo mediano hasta el responsable', 'Lands in': 'Llega a', 'Your HubSpot': 'Su HubSpot',
+        /* work */
+        'Four ways we take work off your plate': 'Cuatro formas de quitarle trabajo de encima',
+        'Some of it is AI. Some of it is plain software that should have been written years ago. We start with whichever one is costing you the most hours.': 'Parte es IA. Parte es software común que debió escribirse hace años. Empezamos por lo que más horas le cuesta.',
+        'AI automation': 'Automatización con IA',
+        'The workflows that eat your week. Invoices read and filed, leads scored and routed, orders chased, reports written before Monday. Exceptions go to a person with the reasoning attached.': 'Los flujos de trabajo que se comen su semana. Facturas leídas y archivadas, contactos puntuados y asignados, pedidos rastreados, informes listos antes del lunes. Las excepciones pasan a una persona con el razonamiento adjunto.',
+        'Workflows': 'Flujos de trabajo', 'Integrations': 'Integraciones', 'Audit trail': 'Registro de auditoría',
+        'Chat assistants': 'Asistentes de chat',
+        'Trained on your handbook, past tickets, and the way your team actually answers. It cites where every answer came from, so you can check it. Put it on your site, in Teams, or behind your support desk.': 'Entrenado con su manual, tickets anteriores y la forma en que su equipo realmente responde. Cita de dónde viene cada respuesta, para que pueda verificarla. Póngalo en su sitio, en Teams o detrás de su mesa de soporte.',
+        'RAG': 'RAG', 'Citations': 'Citas', 'Your docs': 'Sus documentos',
+        'Voice agents': 'Agentes de voz',
+        'A voice that answers on the first ring, day or night. It qualifies the caller, books the appointment, takes the order, and hands off to a person the moment the call needs one.': 'Una voz que contesta al primer timbre, de día o de noche. Califica a quien llama, agenda la cita, toma el pedido y pasa la llamada a una persona en cuanto la necesita.',
+        'Inbound': 'Entrantes', 'Outbound': 'Salientes', 'Live handoff': 'Traspaso en vivo',
+        'Software engineering': 'Ingeniería de software',
+        'The app, the API, the integration, the migration off the system nobody wants to touch. A decade of production work in .NET, Python, Azure, and the front end, with or without any AI attached.': 'La aplicación, la API, la integración, la migración del sistema que nadie quiere tocar. Una década de trabajo en producción con .NET, Python, Azure y el front end, con o sin IA.',
+        'Web apps': 'Aplicaciones web', 'APIs': 'APIs',
+        'Where it usually starts': 'Por dónde suele empezar',
+        'Document intake': 'Ingreso de documentos',
+        'Invoices, bills of lading, claims, and contracts read, matched, and filed.': 'Facturas, conocimientos de embarque, reclamos y contratos leídos, cotejados y archivados.',
+        'Scheduling and dispatch': 'Programación y despacho',
+        'Jobs matched to the person, the skill, and the window that fits, reschedules included.': 'Trabajos asignados a la persona, la habilidad y el horario adecuados, incluidas las reprogramaciones.',
+        'Order and status chasing': 'Seguimiento de pedidos y estados',
+        'Where is it, did it ship, has it been signed, asked and answered without opening five tabs.': 'Dónde está, si se envió, si ya se firmó: preguntado y respondido sin abrir cinco pestañas.',
+        'Internal tools': 'Herramientas internas',
+        'The portal, dashboard, or admin screen your team is currently running on a spreadsheet.': 'El portal, el panel o la pantalla de administración que su equipo hoy maneja con una hoja de cálculo.',
+        /* stats */
+        'Hours a month handed back on a typical first build.': 'Horas al mes que se devuelven en una primera versión típica.',
+        'From kickoff to the first thing running in production.': 'Del arranque a la primera pieza funcionando en producción.',
+        'Of routine tasks clear the accuracy bar we agree on up front.': 'De las tareas rutinarias superan el nivel de precisión que acordamos desde el inicio.',
+        /* process */
+        'Roots before branches': 'Raíces antes que ramas',
+        'Software fails when it is bolted on top. We learn the need as well as the business context before proposing any solutions.': 'El software falla cuando se le pone encima como un parche. Entendemos la necesidad y el contexto del negocio antes de proponer soluciones.',
+        '01 / Trace': '01 / Rastrear', 'We ask until it is clear': 'Preguntamos hasta que quede claro',
+        'A working conversation with the people who do the task, not a questionnaire. We map every handoff, exception, and unwritten rule before proposing anything.': 'Una conversación de trabajo con quienes hacen la tarea, no un cuestionario. Mapeamos cada traspaso, excepción y regla no escrita antes de proponer nada.',
+        '02 / Prototype': '02 / Prototipo', 'One slice, working': 'Una parte, funcionando',
+        'A narrow build against your real data, running beside your team so you can compare its output to theirs before anyone commits.': 'Una versión acotada con sus datos reales, funcionando junto a su equipo para que compare los resultados con los de ellos antes de comprometerse.',
+        '03 / Wire in': '03 / Integrar', 'Into your stack': 'En su infraestructura',
+        'Deployed in your cloud, using your identity provider and your data retention rules. We hand over the repo and the runbook.': 'Desplegado en su nube, con su proveedor de identidad y sus reglas de retención de datos. Entregamos el repositorio y el manual operativo.',
+        '04 / Tend': '04 / Cuidar', 'We keep it healthy': 'Lo mantenemos sano',
+        'Models drift and processes change. We monitor accuracy, retune, and extend it to the next piece of work when you are ready.': 'Los modelos se desvían y los procesos cambian. Monitoreamos la precisión, reajustamos y lo extendemos al siguiente trabajo cuando esté listo.',
+        /* about */
+        'Engineers who have run the systems we automate': 'Ingenieros que han operado los sistemas que automatizamos',
+        'Chaparral Dr AI was started by people who spent a decade building distributed systems in freight, warehouse, and healthcare, where a failed job is not a support ticket, it is a truck sitting idle. We build automation and software the same way we built those platforms: observable, reversible, and boring in production.': 'Chaparral Dr AI fue fundada por personas que pasaron una década construyendo sistemas distribuidos en transporte de carga, almacenes y salud, donde un trabajo fallido no es un ticket de soporte, es un camión detenido. Construimos automatización y software como construimos esas plataformas: observables, reversibles y aburridos en producción.',
+        'Your data stays in your tenant. We deploy into your cloud account, not ours, and you keep the keys.': 'Sus datos se quedan en su entorno. Desplegamos en su cuenta de nube, no en la nuestra, y usted conserva las llaves.',
+        'Every automated decision is logged with its inputs and its reasoning, so an auditor can follow it later.': 'Cada decisión automatizada se registra con sus datos de entrada y su razonamiento, para que un auditor pueda seguirla después.',
+        'You own the code. If you end the engagement, the system keeps running and your team can maintain it.': 'El código es suyo. Si termina la colaboración, el sistema sigue funcionando y su equipo puede mantenerlo.',
+        'Named for the street where it all started': 'Lleva el nombre de la calle donde todo empezó',
+        /* contact */
+        'Talk to us': 'Hable con nosotros',
+        'First name': 'Nombre', 'Last name': 'Apellido', 'Work email': 'Correo de trabajo', 'Phone': 'Teléfono',
+        'Company': 'Empresa', 'Company name': 'Nombre de la empresa',
+        'Give us an email or a phone number so we can reply.': 'Denos un correo o un teléfono para poder responderle.',
+        'What are we creating together?': '¿Qué vamos a crear juntos?',
+        'Tell us what you are trying to build or fix, who touches it, and roughly how often it runs.': 'Cuéntenos qué quiere construir o arreglar, quién lo usa y con qué frecuencia se ejecuta.',
+        'Send it over': 'Enviar', 'We reply within one business day.': 'Respondemos en un día hábil.',
+        'Message sent': 'Mensaje enviado', 'Sending...': 'Enviando...', 'Sent': 'Enviado',
+        'That email does not look right.': 'Ese correo no parece válido.',
+        'Use at least 10 digits.': 'Use al menos 10 dígitos.',
+        'That did not send. Email chaparraldrai@gmail.com and we will pick it up.': 'No se pudo enviar. Escriba a chaparraldrai@gmail.com y lo retomamos.',
+        'Website': 'Sitio web',
+        /* footer */
+        'Work': 'Trabajo', 'Get in touch': 'Contáctenos',
+        'Start a project': 'Iniciar un proyecto', 'Ask a question': 'Hacer una pregunta', 'Our process': 'Nuestro proceso',
+        '© 2026 Chaparral Dr AI. All rights reserved.': '© 2026 Chaparral Dr AI. Todos los derechos reservados.'
+      }, { suffix: { ' wks': ' sem' } });
+    </script>
     <script>
       (
         function() {
           const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          const phrase = 'When a new lead comes in, qualify it and get it to the right person.';
+          const PHRASE_EN = 'When a new lead comes in, qualify it and get it to the right person.';
+          const getPhrase = () => I18N.t(PHRASE_EN);
 
           /* ---------- split headings into animatable words ---------- */
-          document.querySelectorAll('[data-split]').forEach(el=>{
-            const words = el.textContent.trim().split(/\s+/);
+          function splitEl(el){
+            const words = I18N.t(el.dataset.en).split(/\s+/);
             el.textContent = '';
             words.forEach((w,i)=>{
               const s = document.createElement('span');
@@ -737,6 +862,10 @@
               el.appendChild(s);
               el.appendChild(document.createTextNode(' '));
             });
+          }
+          document.querySelectorAll('[data-split]').forEach(el=>{
+            el.dataset.en = el.textContent.trim();
+            splitEl(el);
           });
 
           /* ---------- reveal on scroll ---------- */
@@ -756,7 +885,7 @@
             watched.forEach(el=>{ el.classList.add('in'); if(el.id==='roots') el.classList.add('lit'); });
             document.querySelectorAll('[data-count]').forEach(el=>el.textContent = el.dataset.count + (el.dataset.suffix||''));
             document.querySelectorAll('#steps .step').forEach(s=>s.classList.add('on','done'));
-            document.getElementById('typed').textContent = phrase;
+            document.getElementById('typed').textContent = getPhrase();
             document.getElementById('caret').style.display = 'none';
           } else {
             watched.forEach(el=>io.observe(el));
@@ -826,8 +955,8 @@
             if(typeStarted || reduce) return; typeStarted = true;
             let i = 0;
             (function step(){
-              typedEl.textContent = phrase.slice(0, i++);
-              if(i <= phrase.length) setTimeout(step, 26 + Math.random()*38);
+              typedEl.textContent = getPhrase().slice(0, i++);
+              if(i <= getPhrase().length) setTimeout(step, 26 + Math.random()*38);
               else { caret.style.animation = 'none'; caret.style.opacity = '.35'; }
             })();
           }
@@ -848,6 +977,12 @@
             },{threshold:.25});
             consoleIO.observe(consoleEl);
           }
+
+          /* ---------- language change ---------- */
+          I18N.onChange(()=>{
+            document.querySelectorAll('[data-split]').forEach(splitEl);
+            if(reduce || caret.style.opacity === '.35') typedEl.textContent = getPhrase();
+          });
 
           /* ---------- card pointer glow ---------- */
           document.querySelectorAll('.card').forEach(c=>{
@@ -870,7 +1005,10 @@
             const errEmail  = document.getElementById('errEmail');
             const errPhone  = document.getElementById('errPhone');
             const reachNote = document.getElementById('reachNote');
-            const idleLabel = btn.textContent;
+            const T = I18N.t;
+            let btnKey = 'Send it over', noteKey = 'We reply within one business day.';
+            const render = () => { btn.textContent = T(btnKey); note.textContent = T(noteKey); };
+            render();
 
             const emailOk = v => /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v.trim());
 
@@ -909,7 +1047,8 @@
             
             function toggleErr(input, el, bad, msg) {
               input.classList.toggle('invalid', bad);
-              el.textContent = bad ? msg : '';
+              el.dataset.k = bad ? msg : '';
+              el.textContent = bad ? T(msg) : '';
               el.classList.toggle('show', bad);
             }
 
@@ -940,6 +1079,11 @@
 
             validate(false); // start disabled
 
+            I18N.onChange(() => {
+              render();
+              [errEmail, errPhone].forEach(el => { if (el.dataset.k) el.textContent = T(el.dataset.k); });
+            });
+
             contactForm.addEventListener('submit', async e => {
               e.preventDefault();
               if (!validate(true)) return;
@@ -955,7 +1099,7 @@
               };
 
               btn.disabled = true;
-              btn.textContent = 'Sending...';
+              btnKey = 'Sending...'; render();
 
               try {
                 const res = await fetch(CONTACT_ENDPOINT, {
@@ -970,7 +1114,7 @@
                 }
 
                 // Everything below only runs on a confirmed 2xx.
-                btn.textContent = 'Sent';
+                btnKey = 'Sent'; render();
 
                 const fields = document.getElementById('formFields');
                 const sent   = document.getElementById('formSent');
@@ -990,8 +1134,7 @@
                   setTimeout(() => {
                     fields.classList.remove('clearing');
                     contactForm.style.minHeight = '';
-                    btn.textContent = idleLabel;
-                    note.textContent = 'We reply within one business day.';
+                    btnKey = 'Send it over'; noteKey = 'We reply within one business day.'; render();
                     toggleErr(fEmail, errEmail, false, '');
                     toggleErr(fPhone, errPhone, false, '');
                     reachNote.classList.remove('unmet');
@@ -1001,19 +1144,31 @@
 
               } catch (err) {
                 // Never leave them with a dead button, and never clear what they typed.
-                btn.textContent = idleLabel;
+                btnKey = 'Send it over';
+                noteKey = 'That did not send. Email chaparraldrai@gmail.com and we will pick it up.';
+                render();
                 validate(false);
-                note.textContent =
-                  'That did not send. Email chaparraldrai@gmail.com and we will pick it up.';
               }
             });
-          }}
+          }
+          I18N.apply();
+        }
       )();
     </script>
-    <script src="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io/static/chat.js"
-      data-endpoint="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io"
-      data-avatar="https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io/static/alla.png"
-      data-contact="#contact">
+    <script>
+      /* Alla chat widget. On localhost it comes from the local chaparraldrai-chat
+         server (uvicorn on :8000) so unreleased widget changes can be tested;
+         everywhere else it comes from the deployed container app. */
+      (function () {
+        // const base = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
+        //   ? 'http://localhost:8000'
+        //   : 'https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io';
+        const base = 'https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io';
+        const s = document.createElement('script');
+        s.src = base + '/static/chat.js';
+        Object.assign(s.dataset, { endpoint: base, avatar: base + '/static/alla.png', contact: '#contact' });
+        document.body.appendChild(s);
+      })();
     </script>
   </body>
 </html>
