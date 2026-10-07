@@ -1160,9 +1160,10 @@
          server (uvicorn on :8000) so unreleased widget changes can be tested;
          everywhere else it comes from the deployed container app. */
       (function () {
-        const base = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
-          ? 'http://localhost:8000'
-          : 'https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io';
+        // const base = /^(localhost|127\.0\.0\.1)$/.test(location.hostname)
+        //   ? 'http://localhost:8000'
+        //   : 'https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io';
+        const base = 'https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io';
         const s = document.createElement('script');
         s.src = base + '/static/chat.js';
         Object.assign(s.dataset, { endpoint: base, avatar: base + '/static/alla.png', contact: '#contact' });
