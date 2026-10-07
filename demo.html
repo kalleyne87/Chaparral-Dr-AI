@@ -1,0 +1,1559 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voice Agent Demo | Chaparral Dr AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="/ChaparralDrAI.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #05070a;
+            --panel: #0b0f14;
+            --panel-2: #10161d;
+            --line: #1b232d;
+            --text: #e8eef5;
+            --muted: #8a96a6;
+            --dim: #5a6575;
+            --cyan: #3fd8ff;
+            --cyan-soft: rgba(63, 216, 255, .14);
+            --red: #ff4d5e;
+            --red-soft: rgba(255, 77, 94, .14);
+            --green: #3ee6a0;
+            --amber: #ffc24d;
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: Inter, system-ui, sans-serif;
+            min-height: 100vh;
+            background-image: radial-gradient(600px 400px at 15% -10%, rgba(63, 216, 255, .10), transparent 70%),
+                radial-gradient(600px 400px at 85% -10%, rgba(255, 77, 94, .09), transparent 70%);
+        }
+
+        .wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 40px 16px 64px
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            font-size: 12px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            background: rgba(255, 255, 255, .02)
+        }
+
+        .eyebrow i {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 10px var(--green)
+        }
+
+        h1 {
+            font-weight: 300;
+            font-size: clamp(32px, 5vw, 54px);
+            letter-spacing: -.02em;
+            margin: 18px 0 10px;
+            line-height: 1.08
+        }
+
+        h1 b {
+            font-weight: 500;
+            background: linear-gradient(90deg, var(--cyan), #c9d6ff 50%, var(--red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent
+        }
+
+        .lede {
+            color: var(--muted);
+            max-width: 620px;
+            font-size: 17px;
+            line-height: 1.6
+        }
+
+        header {
+            margin-bottom: 36px
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 20px
+        }
+
+        @media (max-width:900px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            background: linear-gradient(180deg, var(--panel), #080b0f);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 24px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .label {
+            font-size: 11px;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 12px
+        }
+
+        /* ---------- call panel ---------- */
+        .agent {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px
+        }
+
+        .agent h3 {
+            font-weight: 500;
+            font-size: 16px
+        }
+
+        .agent small {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .status {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            color: var(--muted)
+        }
+
+        .status.live {
+            color: var(--green);
+            border-color: rgba(62, 230, 160, .35)
+        }
+
+        .status.warn {
+            color: var(--amber);
+            border-color: rgba(255, 194, 77, .35)
+        }
+
+        .orb-zone {
+            height: 260px;
+            display: grid;
+            place-items: center;
+            position: relative
+        }
+
+        .orb {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            position: relative;
+            transition: transform .12s ease;
+            background: radial-gradient(circle at 35% 40%, rgba(63, 216, 255, .55), transparent 55%),
+                radial-gradient(circle at 70% 60%, rgba(255, 77, 94, .45), transparent 55%), #0a0e13;
+            box-shadow: inset 0 0 40px rgba(255, 255, 255, .05), 0 0 60px rgba(63, 216, 255, .12), 0 0 60px rgba(255, 77, 94, .10)
+        }
+
+        .orb::after {
+            content: "";
+            position: absolute;
+            inset: -14px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .06)
+        }
+
+        .ring {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 1px solid var(--cyan);
+            opacity: 0
+        }
+
+        [data-speaker=agent] .orb {
+            box-shadow: inset 0 0 40px rgba(63, 216, 255, .25), 0 0 90px rgba(63, 216, 255, .35)
+        }
+
+        [data-speaker=caller] .orb {
+            box-shadow: inset 0 0 40px rgba(255, 77, 94, .25), 0 0 90px rgba(255, 77, 94, .32)
+        }
+
+        [data-state=connecting] .ring {
+            animation: ripple 1.8s ease-out infinite
+        }
+
+        [data-state=connecting] .ring:nth-child(2) {
+            animation-delay: .6s
+        }
+
+        [data-state=connecting] .ring:nth-child(3) {
+            animation-delay: 1.2s
+        }
+
+        @keyframes ripple {
+            from {
+                transform: scale(1);
+                opacity: .6
+            }
+
+            to {
+                transform: scale(1.9);
+                opacity: 0
+            }
+        }
+
+        .who {
+            position: absolute;
+            bottom: 6px;
+            font-size: 12px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--dim);
+            transition: color .2s
+        }
+
+        [data-speaker=agent] .who {
+            color: var(--cyan)
+        }
+
+        [data-speaker=caller] .who {
+            color: var(--red)
+        }
+
+        .timer {
+            font-family: "JetBrains Mono", monospace;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 400;
+            letter-spacing: .06em;
+            margin: 4px 0 20px;
+            color: var(--text)
+        }
+
+        .timer.off {
+            color: var(--dim)
+        }
+
+        .scenarios {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 18px
+        }
+
+        .scn {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+            padding: 14px;
+            border-radius: 14px;
+            border: 1px solid var(--line);
+            background: var(--panel-2);
+            color: var(--text);
+            font: inherit;
+            transition: border-color .2s, background .2s
+        }
+
+        .scn:hover {
+            border-color: #2a3542
+        }
+
+        .scn[aria-pressed=true] {
+            border-color: rgba(63, 216, 255, .55);
+            background: linear-gradient(90deg, var(--cyan-soft), transparent)
+        }
+
+        .scn .dot {
+            flex: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1px solid var(--dim);
+            margin-top: 2px
+        }
+
+        .scn[aria-pressed=true] .dot {
+            border-color: var(--cyan);
+            box-shadow: inset 0 0 0 4px var(--panel-2), inset 0 0 0 8px var(--cyan)
+        }
+
+        .scn strong {
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 3px
+        }
+
+        .scn span {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.45
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 0;
+            border-radius: 999px;
+            cursor: pointer;
+            font: 500 15px Inter, sans-serif;
+            padding: 15px 22px;
+            transition: transform .15s, filter .2s, background .2s
+        }
+
+        .btn:active {
+            transform: scale(.97)
+        }
+
+        .btn-call {
+            width: 100%;
+            color: #031016;
+            background: linear-gradient(90deg, var(--cyan), #8ee9ff)
+        }
+
+        .btn-call:hover {
+            filter: brightness(1.08)
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center
+        }
+
+        .ctl {
+            width: 58px;
+            height: 58px;
+            padding: 0;
+            border-radius: 50%;
+            background: var(--panel-2);
+            border: 1px solid var(--line);
+            color: var(--text)
+        }
+
+        .ctl[aria-pressed=true] {
+            background: var(--amber);
+            color: #1a1200;
+            border-color: transparent
+        }
+
+        .ctl.end {
+            background: var(--red);
+            border-color: transparent;
+            color: #fff;
+            width: 72px
+        }
+
+        .fine {
+            color: var(--dim);
+            font-size: 12px;
+            text-align: center;
+            margin-top: 14px;
+            line-height: 1.5
+        }
+
+        /* state visibility */
+        [data-show] {
+            display: none
+        }
+
+        [data-state=idle] [data-show~=idle],
+        [data-state=permission] [data-show~=permission],
+        [data-state=connecting] [data-show~=connecting],
+        [data-state=live] [data-show~=live],
+        [data-state=ended] [data-show~=ended],
+        [data-state=error] [data-show~=error] {
+            display: block
+        }
+
+        [data-state=live] .controls[data-show~=live] {
+            display: flex
+        }
+
+        .notice {
+            padding: 14px;
+            border-radius: 14px;
+            font-size: 14px;
+            line-height: 1.5;
+            background: var(--panel-2);
+            border: 1px solid var(--line);
+            color: var(--muted);
+            margin-bottom: 14px
+        }
+
+        .notice.err {
+            border-color: rgba(255, 77, 94, .4);
+            color: #ffc7cd
+        }
+
+        /* summary */
+        .summary dl {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 10px 16px;
+            font-size: 14px;
+            margin: 6px 0 20px
+        }
+
+        .summary dt {
+            color: var(--dim)
+        }
+
+        .summary dd {
+            color: var(--text)
+        }
+
+        .outcome {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--green);
+            font-size: 14px;
+            margin-bottom: 14px
+        }
+
+        .outcome i {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--green)
+        }
+
+        .stack {
+            display: grid;
+            gap: 10px
+        }
+
+        .btn-ghost {
+            width: 100%;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--line)
+        }
+
+        .btn-ghost:hover {
+            border-color: #2f3b49
+        }
+
+        /* ---------- right side ---------- */
+        .right {
+            display: grid;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+            min-height: 0
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            padding: 4px;
+            background: var(--panel-2);
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            width: max-content;
+            margin-bottom: 16px
+        }
+
+        .tab {
+            background: none;
+            border: 0;
+            color: var(--muted);
+            font: 500 13px Inter, sans-serif;
+            padding: 8px 16px;
+            border-radius: 999px;
+            cursor: pointer
+        }
+
+        .tab[aria-selected=true] {
+            background: #1a222c;
+            color: var(--text)
+        }
+
+        .feed {
+            height: 520px;
+            overflow-y: auto;
+            padding-right: 6px;
+            scroll-behavior: smooth
+        }
+
+        @media (max-width:900px) {
+            .feed {
+                height: 420px
+            }
+        }
+
+        .feed::-webkit-scrollbar {
+            width: 6px
+        }
+
+        .feed::-webkit-scrollbar-thumb {
+            background: #1f2832;
+            border-radius: 6px
+        }
+
+        .empty {
+            height: 100%;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: var(--dim);
+            font-size: 14px;
+            line-height: 1.6
+        }
+
+        .msg {
+            display: flex;
+            flex-direction: column;
+            max-width: 82%;
+            margin-bottom: 14px;
+            animation: in .25s ease
+        }
+
+        @keyframes in {
+            from {
+                opacity: 0;
+                transform: translateY(6px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .msg .meta {
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--dim);
+            margin-bottom: 6px;
+            display: flex;
+            gap: 10px
+        }
+
+        .msg .bubble {
+            padding: 12px 15px;
+            border-radius: 16px;
+            font-size: 15px;
+            line-height: 1.55
+        }
+
+        .msg.agent .bubble {
+            background: var(--cyan-soft);
+            border: 1px solid rgba(63, 216, 255, .22);
+            border-top-left-radius: 4px
+        }
+
+        .msg.agent .meta b {
+            color: var(--cyan);
+            font-weight: 500
+        }
+
+        .msg.caller {
+            margin-left: auto;
+            align-items: flex-end
+        }
+
+        .msg.caller .bubble {
+            background: var(--red-soft);
+            border: 1px solid rgba(255, 77, 94, .22);
+            border-top-right-radius: 4px
+        }
+
+        .msg.caller .meta b {
+            color: var(--red);
+            font-weight: 500
+        }
+
+        .caret {
+            display: inline-block;
+            width: 7px;
+            height: 15px;
+            background: currentColor;
+            opacity: .6;
+            margin-left: 3px;
+            vertical-align: -2px;
+            animation: blink 1s steps(2) infinite
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0
+            }
+        }
+
+        .ev {
+            display: grid;
+            grid-template-columns: 62px 1fr auto;
+            gap: 12px;
+            align-items: start;
+            padding: 12px 0;
+            border-bottom: 1px dashed var(--line);
+            font-size: 13px;
+            animation: in .25s ease
+        }
+
+        .ev time {
+            font-family: "JetBrains Mono", monospace;
+            color: var(--dim);
+            font-size: 12px;
+            padding-top: 2px
+        }
+
+        .ev .k {
+            display: inline-block;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-right: 8px;
+            text-transform: uppercase;
+            letter-spacing: .06em
+        }
+
+        .k.intent {
+            background: rgba(63, 216, 255, .12);
+            color: var(--cyan)
+        }
+
+        .k.tool {
+            background: rgba(255, 194, 77, .12);
+            color: var(--amber)
+        }
+
+        .k.data {
+            background: rgba(62, 230, 160, .12);
+            color: var(--green)
+        }
+
+        .k.sys {
+            background: rgba(255, 255, 255, .06);
+            color: var(--muted)
+        }
+
+        .ev code {
+            display: block;
+            margin-top: 6px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            color: var(--muted);
+            white-space: pre-wrap;
+            word-break: break-word
+        }
+
+        .ev .res {
+            display: block;
+            margin-top: 4px;
+            font-size: 12px
+        }
+
+        .ev .res.ok {
+            color: var(--green)
+        }
+
+        .ev .res.bad {
+            color: var(--red)
+        }
+
+        .ev .ms {
+            font-family: "JetBrains Mono", monospace;
+            color: var(--dim);
+            font-size: 12px
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px
+        }
+
+        .stat {
+            background: var(--panel-2);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px
+        }
+
+        .stat b {
+            display: block;
+            font-family: "JetBrains Mono", monospace;
+            font-weight: 400;
+            font-size: 20px;
+            margin-top: 4px
+        }
+
+        .stat span {
+            font-size: 11px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--dim)
+        }
+
+        @media (max-width:520px) {
+            .stats {
+                grid-template-columns: 1fr 1fr 1fr
+            }
+
+            .stat b {
+                font-size: 16px
+            }
+        }
+
+        /* preview bar: delete before shipping */
+        .preview {
+            position: fixed;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+            padding: 5px;
+            background: #0d1218ee;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            backdrop-filter: blur(8px);
+            z-index: 10;
+            max-width: calc(100% - 32px);
+            overflow-x: auto
+        }
+
+        .preview button {
+            background: none;
+            border: 0;
+            color: var(--muted);
+            font: 500 12px Inter, sans-serif;
+            padding: 7px 11px;
+            border-radius: 999px;
+            cursor: pointer;
+            white-space: nowrap
+        }
+
+        .preview button:hover {
+            color: var(--text);
+            background: #1a222c
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap" id="app" data-state="idle" data-speaker="none">
+
+        <header>
+            <span class="eyebrow"><i></i>Live demo</span>
+            <h1>Talk to a <b>voice agent</b> built by Chaparral Dr AI</h1>
+            <p class="lede">Pick a scenario and start a call from your browser. Watch the transcript in real time and
+                see every decision the agent makes behind the scenes.</p>
+        </header>
+
+        <div class="grid">
+            <!-- ================= CALL PANEL ================= -->
+            <section class="card" aria-label="Call">
+                <div class="agent">
+                    <div>
+                        <h3 id="agentName">Alla</h3><small id="agentRole">AI receptionist</small>
+                    </div>
+                    <span class="status" id="status">Ready</span>
+                </div>
+
+                <div class="orb-zone">
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="ring"></div>
+                    <div class="orb" id="orb"></div>
+                    <div class="who" id="who">Standing by</div>
+                </div>
+
+                <div class="timer off" id="timer">00:00</div>
+
+                <!-- idle -->
+                <div data-show="idle">
+                    <div class="label">Choose a scenario</div>
+                    <div class="scenarios" id="scenarios"></div>
+                    <button class="btn btn-call" id="startBtn">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" />
+                        </svg>
+                        Start call
+                    </button>
+                    <p class="fine">Uses your microphone. Calls last up to 3 minutes.</p>
+                </div>
+
+                <!-- permission -->
+                <div data-show="permission">
+                    <div class="notice">Your browser will ask to use your microphone. Click <b>Allow</b> to talk to the
+                        agent.</div>
+                    <button class="btn btn-ghost" data-action="cancel">Cancel</button>
+                </div>
+
+                <!-- connecting -->
+                <div data-show="connecting">
+                    <div class="notice">Connecting you to the agent…</div>
+                    <button class="btn btn-ghost" data-action="cancel">Cancel</button>
+                </div>
+
+                <!-- live -->
+                <div class="controls" data-show="live">
+                    <button class="btn ctl" id="muteBtn" aria-pressed="false" title="Mute">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="9" y="3" width="6" height="11" rx="3" />
+                            <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+                        </svg>
+                    </button>
+                    <button class="btn ctl end" id="endBtn" title="End call">
+                        <svg viewBox="0 0 24 24" fill="currentColor" style="transform:rotate(135deg)">
+                            <path
+                                d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- ended -->
+                <div data-show="ended" class="summary">
+                    <div class="outcome"><i></i><span id="outcome">Appointment booked</span></div>
+                    <div class="label">What the agent captured</div>
+                    <dl id="captured"></dl>
+                    <div class="stack">
+                        <a class="btn btn-call" href="/#contact">Get a voice agent for your business</a>
+                        <button class="btn btn-ghost" data-action="reset">Try another call</button>
+                    </div>
+                </div>
+
+                <!-- error -->
+                <div data-show="error">
+                    <div class="notice err" id="errMsg">We couldn't reach your microphone. Check your browser's site
+                        permissions, then try again.</div>
+                    <button class="btn btn-ghost" data-action="reset">Back</button>
+                </div>
+            </section>
+
+            <!-- ================= TRANSCRIPT + UNDER THE HOOD ================= -->
+            <div class="right">
+                <section class="card" aria-label="Live view">
+                    <div class="tabs" role="tablist">
+                        <button class="tab" role="tab" aria-selected="true" data-tab="transcript">Transcript</button>
+                        <button class="tab" role="tab" aria-selected="false" data-tab="events">Under the hood</button>
+                    </div>
+                    <div class="feed" id="transcript">
+                        <div class="empty" id="emptyT">The conversation will appear here as you talk.</div>
+                    </div>
+                    <div class="feed" id="events" hidden>
+                        <div class="empty" id="emptyE">Intents, tool calls and captured data show up here live.</div>
+                    </div>
+                </section>
+
+                <section class="stats">
+                    <div class="stat"><span>Avg tool time</span><b id="sLatency">--</b></div>
+                    <div class="stat"><span>Tool calls</span><b id="sTools">0</b></div>
+                    <div class="stat"><span>Turns</span><b id="sTurns">0</b></div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- preview bar for design review: delete before shipping -->
+    <nav class="preview" aria-label="Preview states">
+        <button data-preview="idle">Idle</button>
+        <button data-preview="permission">Mic prompt</button>
+        <button data-preview="connecting">Connecting</button>
+        <button data-preview="live">Live call</button>
+        <button data-preview="ended">Ended</button>
+        <button data-preview="error">Mic denied</button>
+    </nav>
+
+    <script type="module">
+        /* ==================================================================
+   CONFIG
+   Fill these in to go live. With publicKey empty, or with ?demo in
+   the URL, the page runs the simulated calls instead.
+=================================================================== */
+        const CONFIG = {
+            publicKey: "public_key_05cfc71320324519038dc", // Retell public key (API Keys > Public Keys), locked to chaparraldrai.com
+            relayUrl: "http://localhost:8000/voice", // transcript relay, e.g. https://<alla-container-app>/voice
+            recaptchaSiteKey: "6Ldps-ItAAAAAMPO63zTMtAUe-47nhyARmO8GROA", // only if reCAPTCHA is turned on for the public key
+            sdkUrl: "https://cdn.jsdelivr.net/npm/retell-client-js-sdk@3.0.2/+esm",
+            maxCallSeconds: 180 // UI safety net; also set max call duration on the agent
+        };
+        const LIVE = !!CONFIG.publicKey && !new URLSearchParams(location.search).has("demo");
+
+        /* ------------------------------------------------------------------
+           Scenarios. agentId is the Retell agent for each scenario.
+           outcomeTool is the tool whose success means the call did its job.
+           script only drives the simulated preview.
+        ------------------------------------------------------------------- */
+        const SCENARIOS = [{
+            id: "dental",
+            agentId: "agent_c1b1a12677f976ee7c3bdd5322",
+            agent: "Alla",
+            role: "AI receptionist, Brightside Family Dental",
+            title: "Book a dental cleaning",
+            desc: "Call a dental office after hours and schedule an appointment.",
+            outcome: "Appointment booked",
+            outcomeTool: "book_appointment",
+            script: [
+                ["agent", "Thanks for calling Brightside Family Dental, this is Alla. How can I help you today?"],
+                ["user", "Hi, I'd like to book a cleaning for next week."],
+                ["node", "Greeting", "Book appointment"],
+                ["agent", "Happy to help with that. Can I get your first and last name?"],
+                ["user", "Sure, it's Jordan Miles."],
+                ["tool", "lookup_patient", {
+                    name: "Jordan Miles"
+                }, "found, patient 10482"],
+                ["agent", "Thanks, Jordan. I see you in our system. Let me check next week's openings."],
+                ["tool", "check_availability", {
+                    service: "cleaning",
+                    week: "next"
+                }, "3 open slots"],
+                ["agent", "I have Tuesday at 10 AM, Wednesday at 2:30, or Thursday at 9. Which works best?"],
+                ["user", "Wednesday at 2:30 works."],
+                ["tool", "book_appointment", {
+                    slot: "Wed 2:30 PM"
+                }, "confirmed"],
+                ["agent", "You're all set for Wednesday at 2:30 PM. I'll text a confirmation to the number on file. Anything else?"],
+                ["user", "Nope, that's it. Thanks!"],
+                ["tool", "send_sms", {
+                    message: "appointment confirmation"
+                }, "queued"],
+                ["agent", "Have a great day, Jordan. We'll see you Wednesday."]
+            ]
+        },
+        {
+            id: "lead",
+            agentId: "agent_025da6bf297672bd58739ca295",
+            agent: "Alla",
+            role: "AI sales assistant, Chaparral Dr AI",
+            title: "Ask about automating your business",
+            desc: "Talk through a problem and get qualified for a follow-up call.",
+            outcome: "Qualified lead sent to CRM",
+            outcomeTool: "create_crm_contact",
+            script: [
+                ["agent", "Hi, thanks for calling Chaparral Dr AI. I'm Alla. What can we help you automate?"],
+                ["user", "We run a cleaning company and miss a lot of calls when we're on jobs."],
+                ["node", "Greeting", "Qualify lead"],
+                ["agent", "That's a common one. How many people are on your team right now?"],
+                ["user", "Six, including me."],
+                ["agent", "Got it. Roughly what would you want to spend a month to stop losing those calls?"],
+                ["user", "Probably under five hundred."],
+                ["tool", "score_lead", {
+                    team_size: "6",
+                    budget: "under $500/mo",
+                    need: "missed calls"
+                }, "fit high, urgency medium"],
+                ["agent", "That fits well. Can I grab your name and set up a quick call with our team?"],
+                ["user", "Dana Price. Thursday morning would be great."],
+                ["tool", "create_crm_contact", {
+                    name: "Dana Price"
+                }, "lifecycle stage: SQL"],
+                ["tool", "book_meeting", {
+                    time: "Thu 10:00 AM"
+                }, "confirmed"],
+                ["agent", "Done, Dana. You're booked for Thursday at 10. Talk soon!"]
+            ]
+        }
+        ];
+
+        /* ------------------------------------------------------------------
+           State + DOM helpers
+        ------------------------------------------------------------------- */
+        const $ = s => document.querySelector(s);
+        const app = $("#app");
+        let selected = SCENARIOS[0];
+        let run = 0; // bumps on every new call so stale callbacks stop
+        let session = null,
+            relay = null,
+            sdk = null;
+        let startedAt = 0,
+            timerId = null,
+            capId = null;
+
+        // one call's transcript, keyed by utterance id (partials overwrite in place)
+        let items = new Map(),
+            toolStarts = new Map(),
+            toolTimes = [],
+            turnIds = new Set();
+        let toolCount = 0,
+            captured = {},
+            succeeded = new Set();
+
+        function el(tag, cls, text) {
+            const e = document.createElement(tag);
+            if (cls) e.className = cls;
+            if (text != null) e.textContent = text;
+            return e;
+        }
+        const fmt = ms => {
+            const s = Math.max(0, Math.floor(ms / 1000));
+            return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+        };
+        const human = k => String(k).replace(/[_-]+/g, " ").replace(/^\w/, c => c.toUpperCase());
+        const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+        const STATUS_TEXT = {
+            idle: "Ready",
+            permission: "Waiting for mic",
+            connecting: "Connecting",
+            live: "Live",
+            ended: "Call ended",
+            error: "Couldn't connect"
+        };
+
+        function setState(s) {
+            app.dataset.state = s;
+            const st = $("#status");
+            st.className = "status";
+            st.textContent = STATUS_TEXT[s];
+            if (s === "live") st.classList.add("live");
+            if (s === "permission" || s === "error") st.classList.add("warn");
+            if (s !== "live") {
+                level = 0;
+                setSpeaker("none");
+            }
+            if (s === "idle" || s === "error") $("#who").textContent = "Standing by";
+            if (s === "connecting") $("#who").textContent = "Ringing";
+        }
+
+        function showError(msg) {
+            $("#errMsg").textContent = msg;
+            setState("error");
+        }
+
+        function setSpeaker(who) {
+            app.dataset.speaker = who;
+            if (app.dataset.state === "live")
+                $("#who").textContent = who === "agent" ? selected.agent + " speaking" : who === "user" || who === "caller" ? "You're speaking" : "Listening";
+        }
+
+        /* speaking indicator: whoever spoke last holds it for a moment */
+        let level = 0,
+            speakTimer = null,
+            orbId = null;
+
+        function speak(role, lvl) {
+            setSpeaker(role === "user" ? "caller" : role);
+            level = Math.max(level, lvl ?? 0.5);
+            clearTimeout(speakTimer);
+            speakTimer = setTimeout(() => setSpeaker("none"), 700);
+        }
+
+        function orbLoop() {
+            const orb = $("#orb");
+            const tick = () => {
+                level *= 0.9;
+                const wobble = app.dataset.speaker === "none" ? 0 : Math.random() * 0.03;
+                orb.style.transform = `scale(${1 + Math.min(level, 1) * 0.12 + wobble})`;
+                orbId = requestAnimationFrame(tick);
+            };
+            cancelAnimationFrame(orbId);
+            orbId = requestAnimationFrame(tick);
+        }
+
+        function onAgentAudio(samples) {
+            let sum = 0;
+            for (let i = 0; i < samples.length; i++) sum += samples[i] * samples[i];
+            const rms = Math.sqrt(sum / samples.length);
+            if (rms > 0.015) speak("agent", Math.min(1, rms * 6));
+        }
+
+        function renderScenarios() {
+            const box = $("#scenarios");
+            box.innerHTML = "";
+            SCENARIOS.forEach(sc => {
+                const b = el("button", "scn");
+                b.setAttribute("aria-pressed", sc === selected);
+                const body = el("div");
+                body.append(el("strong", null, sc.title), el("span", null, sc.desc));
+                b.append(el("i", "dot"), body);
+                b.onclick = () => {
+                    selected = sc;
+                    renderScenarios();
+                    applyAgent();
+                };
+                box.appendChild(b);
+            });
+        }
+
+        function applyAgent() {
+            $("#agentName").textContent = selected.agent;
+            $("#agentRole").textContent = selected.role;
+        }
+
+        function clearFeeds() {
+            $("#transcript").replaceChildren(el("div", "empty", "The conversation will appear here as you talk."));
+            $("#events").replaceChildren(el("div", "empty", "Flow steps, tool calls and their results show up here live."));
+            items = new Map();
+            toolStarts = new Map();
+            toolTimes = [];
+            turnIds = new Set();
+            toolCount = 0;
+            captured = {};
+            succeeded = new Set();
+            $("#sTools").textContent = "0";
+            $("#sTurns").textContent = "0";
+            $("#sLatency").textContent = "--";
+        }
+
+        function startTimer() {
+            startedAt = Date.now();
+            $("#timer").classList.remove("off");
+            timerId = setInterval(() => $("#timer").textContent = fmt(Date.now() - startedAt), 250);
+        }
+
+        function stopTimer() {
+            clearInterval(timerId);
+            timerId = null;
+        }
+
+        /* ------------------------------------------------------------------
+           Transcript rendering. Takes Retell's live transcript items
+           (role: agent | user | tool_call_invocation | tool_call_result |
+           node_transition) and draws them. Same path for live and simulated.
+        ------------------------------------------------------------------- */
+        function mergeTranscript(list) {
+            for (const item of list || []) {
+                const seen = items.get(item.id);
+                items.set(item.id, {
+                    ...seen,
+                    data: item
+                });
+                const at = fmt((item.time_sec || 0) * 1000);
+
+                if (item.role === "agent" || item.role === "user") {
+                    if (!item.content) continue;
+                    if (!seen || !seen.node) {
+                        $("#transcript .empty")?.remove();
+                        const msg = el("div", "msg " + (item.role === "agent" ? "agent" : "caller"));
+                        const meta = el("div", "meta");
+                        meta.append(el("b", null, item.role === "agent" ? selected.agent : "You"), el("span", null, at));
+                        const bubble = el("div", "bubble");
+                        const t = el("span", "t");
+                        bubble.append(t, el("span", "caret"));
+                        msg.append(meta, bubble);
+                        $("#transcript").appendChild(msg);
+                        items.get(item.id).node = msg;
+                        turnIds.add(item.id);
+                        $("#sTurns").textContent = turnIds.size;
+                    }
+                    const node = items.get(item.id).node;
+                    if (node.querySelector(".t").textContent !== item.content) {
+                        node.querySelector(".t").textContent = item.content;
+                        speak(item.role);
+                        clearTimeout(node._done);
+                        node._done = setTimeout(() => node.querySelector(".caret")?.remove(), 900);
+                    }
+                    scrollFeed("#transcript");
+                } else if (item.role === "tool_call_invocation" && !seen) {
+                    toolCount++;
+                    $("#sTools").textContent = toolCount;
+                    toolStarts.set(item.tool_call_id, item.time_sec || 0);
+                    let args = {};
+                    try {
+                        args = JSON.parse(item.arguments || "{}");
+                    } catch { }
+                    addEvent(at, "tool", item.name + "()", item.arguments && item.arguments !== "{}" ? item.arguments : "", "tc-" + item.tool_call_id);
+                    items.get(item.id).tool = {
+                        name: item.name,
+                        args
+                    };
+                    toolStarts.set("args-" + item.tool_call_id, {
+                        name: item.name,
+                        args
+                    });
+                } else if (item.role === "tool_call_result" && !seen) {
+                    const row = document.getElementById("tc-" + item.tool_call_id);
+                    const call = toolStarts.get("args-" + item.tool_call_id);
+                    const t0 = toolStarts.get(item.tool_call_id);
+                    if (t0 != null) {
+                        const ms = Math.round(((item.time_sec || 0) - t0) * 1000);
+                        if (ms >= 0) {
+                            toolTimes.push(ms);
+                            if (row) row.querySelector(".ms").textContent = ms + " ms";
+                        }
+                        const avg = Math.round(toolTimes.reduce((a, b) => a + b, 0) / toolTimes.length);
+                        $("#sLatency").textContent = avg + " ms";
+                    }
+                    if (row) {
+                        const res = el("span", "res " + (item.successful ? "ok" : "bad"), (item.successful ? "✓ " : "✕ ") + (item.content || "").slice(0, 160));
+                        row.querySelector("div").appendChild(res);
+                    }
+                    if (item.successful && call) {
+                        succeeded.add(call.name);
+                        for (const [k, v] of Object.entries(call.args || {}))
+                            if (v !== "" && v != null) captured[human(k)] = String(v);
+                    }
+                } else if (item.role === "node_transition" && !seen) {
+                    addEvent(at, "intent", item.new_node_name || item.new_node_id, item.former_node_name ? "from " + item.former_node_name : "");
+                }
+            }
+        }
+
+        function addEvent(at, kind, title, detail, id) {
+            $("#events .empty")?.remove();
+            const row = el("div", "ev");
+            if (id) row.id = id;
+            const body = el("div");
+            body.append(el("span", "k " + kind, kind === "intent" ? "flow" : kind), document.createTextNode(title));
+            if (detail) body.appendChild(el("code", null, detail));
+            row.append(el("time", null, at), body, el("span", "ms", ""));
+            $("#events").appendChild(row);
+            scrollFeed("#events");
+        }
+
+        function sysEvent(title, detail) {
+            addEvent(startedAt ? fmt(Date.now() - startedAt) : "00:00", "sys", title, detail);
+        }
+
+        function scrollFeed(sel) {
+            const f = $(sel);
+            f.scrollTop = f.scrollHeight;
+        }
+
+        /* ------------------------------------------------------------------
+           Live call (Retell)
+        ------------------------------------------------------------------- */
+        async function loadSdk() {
+            if (!sdk) sdk = await import(CONFIG.sdkUrl);
+            return sdk;
+        }
+
+        async function recaptchaToken() {
+            if (!CONFIG.recaptchaSiteKey || !window.grecaptcha) return undefined;
+            await new Promise(r => grecaptcha.ready(r));
+            return grecaptcha.execute(CONFIG.recaptchaSiteKey, {
+                action: "voice_call"
+            });
+        }
+
+        async function startLive(id) {
+            // Ask for the mic first so the prompt gets its own screen; Retell reuses the grant.
+            try {
+                const probe = await navigator.mediaDevices.getUserMedia({
+                    audio: true
+                });
+                probe.getTracks().forEach(t => t.stop());
+            } catch {
+                if (id === run) showError("We couldn't reach your microphone. Check your browser's site permissions, then try again.");
+                return;
+            }
+            if (id !== run) return;
+            setState("connecting");
+
+            try {
+                const {
+                    RetellClient
+                } = await loadSdk();
+                const client = new RetellClient({
+                    key: CONFIG.publicKey
+                });
+                session = client.createWebCall({
+                    agent_id: selected.agentId,
+                    metadata: {
+                        source: "chaparraldrai.com/voice-demo",
+                        scenario: selected.id
+                    },
+                    recaptchaToken: await recaptchaToken(),
+                    audio: {
+                        emitRawAudioSamples: true
+                    },
+                    hooks: {
+                        onStatus: s => {
+                            if (id !== run) return;
+                            if (s === "live") {
+                                goLive(id);
+                                openRelay(session.callId, id);
+                            }
+                        },
+                        onAudio: onAgentAudio,
+                        onEnd: () => {
+                            if (id === run) endCall();
+                        },
+                        onError: err => {
+                            console.error(err);
+                            if (id !== run || session?.status !== "ended") return;
+                            if (app.dataset.state === "live") endCall();
+                            else showError("The agent is busy right now. Please try again in a minute.");
+                        }
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+                if (id === run) showError("The agent is busy right now. Please try again in a minute.");
+            }
+        }
+
+        function openRelay(callId, id) {
+            if (!CONFIG.relayUrl || !callId) return;
+            relay?.close();
+            relay = new EventSource(`${CONFIG.relayUrl.replace(/\/$/, "")}/stream/${encodeURIComponent(callId)}`);
+            relay.onmessage = ev => {
+                if (id !== run) return;
+                try {
+                    const msg = JSON.parse(ev.data);
+                    if (msg.type === "transcript") mergeTranscript(msg.transcripts);
+                } catch { }
+            };
+            relay.addEventListener("end", () => relay?.close());
+        }
+
+        function goLive(id) {
+            setState("live");
+            startTimer();
+            orbLoop();
+            sysEvent("call.connected", LIVE ? "web call via Retell" : "simulated");
+            capId = setTimeout(() => {
+                if (id === run) hangUp();
+            }, CONFIG.maxCallSeconds * 1000);
+        }
+
+        /* ------------------------------------------------------------------
+           Simulated call: emits the same transcript items Retell would
+        ------------------------------------------------------------------- */
+        async function startSim(id) {
+            setState("permission");
+            try {
+                if (navigator.mediaDevices?.getUserMedia) {
+                    const probe = await navigator.mediaDevices.getUserMedia({
+                        audio: true
+                    });
+                    probe.getTracks().forEach(t => t.stop());
+                }
+            } catch {
+                if (id === run) showError("We couldn't reach your microphone. Check your browser's site permissions, then try again.");
+                return;
+            }
+            if (id !== run) return;
+            setState("connecting");
+            await sleep(1600);
+            if (id !== run) return;
+            goLive(id);
+            simulate(id);
+        }
+
+        async function simulate(id) {
+            let n = 0;
+            const now = () => (Date.now() - startedAt) / 1000;
+            for (const step of selected.script) {
+                if (id !== run) return;
+                const [kind] = step;
+                if (kind === "agent" || kind === "user") {
+                    await sleep(kind === "agent" ? 450 + Math.random() * 350 : 700);
+                    const base = {
+                        id: "u" + (++n),
+                        role: kind,
+                        time_sec: now()
+                    };
+                    let text = "";
+                    for (const w of step[1].split(" ")) {
+                        if (id !== run) return;
+                        text += (text ? " " : "") + w;
+                        mergeTranscript([{
+                            ...base,
+                            content: text
+                        }]);
+                        if (kind === "agent") level = 0.5 + Math.random() * 0.4;
+                        await sleep(kind === "agent" ? 95 : 120);
+                    }
+                } else if (kind === "node") {
+                    await sleep(250);
+                    mergeTranscript([{
+                        id: "n" + (++n),
+                        role: "node_transition",
+                        former_node_name: step[1],
+                        new_node_name: step[2],
+                        new_node_id: step[2],
+                        time_sec: now()
+                    }]);
+                } else if (kind === "tool") {
+                    await sleep(300);
+                    const tc = "tc" + (++n);
+                    mergeTranscript([{
+                        id: "i" + n,
+                        role: "tool_call_invocation",
+                        tool_call_id: tc,
+                        name: step[1],
+                        arguments: JSON.stringify(step[2]),
+                        time_sec: now()
+                    }]);
+                    await sleep(180 + Math.random() * 320);
+                    if (id !== run) return;
+                    mergeTranscript([{
+                        id: "r" + n,
+                        role: "tool_call_result",
+                        tool_call_id: tc,
+                        content: step[3],
+                        successful: true,
+                        time_sec: now()
+                    }]);
+                }
+            }
+            if (id === run) {
+                await sleep(900);
+                endCall();
+            }
+        }
+
+        /* ------------------------------------------------------------------
+           Lifecycle shared by both modes
+        ------------------------------------------------------------------- */
+        function startCall() {
+            const id = ++run;
+            clearFeeds();
+            if (LIVE && !selected.agentId) {
+                showError("This scenario isn't connected to an agent yet.");
+                return;
+            }
+            setState("permission");
+            LIVE ? startLive(id) : startSim(id);
+        }
+
+        function hangUp() {
+            if (session) {
+                session.end().catch(() => { });
+            } // onEnd then calls endCall()
+            else endCall();
+            setTimeout(() => {
+                if (app.dataset.state === "live") endCall();
+            }, 1500);
+        }
+
+        function endCall() {
+            if (app.dataset.state !== "live") return;
+            sysEvent("call.ended", "duration " + fmt(Date.now() - startedAt));
+            teardown();
+            showSummary();
+            setState("ended");
+        }
+
+        function teardown() {
+            run++;
+            stopTimer();
+            clearTimeout(capId);
+            relay?.close();
+            relay = null;
+            if (session && session.status !== "ended") session.end().catch(() => { });
+            session = null;
+            // late transcript frames can still arrive; the summary uses what we have
+        }
+
+        function showSummary() {
+            const done = succeeded.has(selected.outcomeTool);
+            $("#outcome").textContent = done ? selected.outcome : "Call ended";
+            $("#outcome").parentElement.style.color = done ? "" : "var(--muted)";
+            const dl = $("#captured");
+            dl.replaceChildren();
+            const entries = Object.entries(captured);
+            if (!entries.length) {
+                dl.append(el("dt", null, "Details"), el("dd", null, "Nothing captured on this call"));
+                return;
+            }
+            for (const [k, v] of entries) dl.append(el("dt", null, k), el("dd", null, v));
+        }
+
+        function reset() {
+            teardown();
+            clearFeeds();
+            $("#timer").textContent = "00:00";
+            $("#timer").classList.add("off");
+            $("#muteBtn").setAttribute("aria-pressed", "false");
+            setState("idle");
+        }
+
+        /* wiring */
+        $("#startBtn").onclick = startCall;
+        $("#endBtn").onclick = hangUp;
+        $("#muteBtn").onclick = e => {
+            const b = e.currentTarget,
+                muted = b.getAttribute("aria-pressed") !== "true";
+            b.setAttribute("aria-pressed", muted);
+            if (session) muted ? session.mute() : session.unmute();
+        };
+        document.querySelectorAll("[data-action=cancel],[data-action=reset]").forEach(b => b.onclick = reset);
+        document.querySelectorAll(".tab").forEach(tab => tab.onclick = () => {
+            document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t === tab));
+            $("#transcript").hidden = tab.dataset.tab !== "transcript";
+            $("#events").hidden = tab.dataset.tab !== "events";
+        });
+
+        /* preview bar: jumps straight to a state for design review */
+        document.querySelectorAll("[data-preview]").forEach(b => b.onclick = () => {
+            const s = b.dataset.preview;
+            reset();
+            if (s === "idle") return;
+            if (s === "ended") {
+                selected.script.filter(x => x[0] === "tool").forEach(x => {
+                    succeeded.add(x[1]);
+                    for (const [k, v] of Object.entries(x[2])) captured[human(k)] = v;
+                });
+                showSummary();
+                $("#timer").textContent = "01:12";
+                $("#timer").classList.remove("off");
+                setState("ended");
+                return;
+            }
+            if (s === "live") {
+                const id = ++run;
+                goLive(id);
+                simulate(id);
+                return;
+            }
+            if (s === "error") {
+                showError("We couldn't reach your microphone. Check your browser's site permissions, then try again.");
+                return;
+            }
+            setState(s);
+        });
+
+        if (LIVE && CONFIG.recaptchaSiteKey) {
+            const g = document.createElement("script");
+            g.src = "https://www.google.com/recaptcha/api.js?render=" + encodeURIComponent(CONFIG.recaptchaSiteKey);
+            document.head.appendChild(g);
+        }
+        if (!LIVE) document.querySelector(".eyebrow").lastChild.textContent = "Demo preview";
+        renderScenarios();
+        applyAgent();
+        setState("idle");
+    </script>
+
+</body>
+
+</html>
