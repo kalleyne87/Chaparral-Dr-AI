@@ -1517,8 +1517,7 @@
                         const meta = el("div", "meta");
                         meta.append(el("b", null, item.role === "agent" ? selected.agent : t("You")), el("span", null, at));
                         const bubble = el("div", "bubble");
-                        const t = el("span", "t");
-                        bubble.append(t, el("span", "caret"));
+                        bubble.append(el("span", "t"), el("span", "caret"));
                         msg.append(meta, bubble);
                         $("#transcript").appendChild(msg);
                         items.get(item.id).node = msg;
