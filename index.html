@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Chaparral Dr AI builds AI automation, chat and voice assistants, and custom software that run inside your own cloud. We map the work, build it, and hand back a system that keeps running.">
+    <meta name="description" content="Chaparral Dr AI builds voice agents that answer every call, plus AI automation, chat assistants, and custom software. Done for you, with voice agents live in 7 days.">
     <meta name="theme-color" content="#030509">
     <link rel="canonical" href="https://www.chaparraldrai.com/">
     <meta property="og:image" content="https://www.chaparraldrai.com/og-image.png">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.chaparraldrai.com/">
     <meta name="twitter:card" content="summary_large_image">
-    <title>Chaparral Dr AI | AI automation, assistants, and software engineering</title>
+    <title>Chaparral Dr AI | Voice agents, AI automation, and software engineering</title>
     <link rel="icon" href="/ChaparralDrAI.ico" sizes="any">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -155,13 +155,13 @@
       .hero{padding-top:clamp(140px,17vw,210px);padding-bottom:0;overflow:hidden}
       .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:40px;align-items:center}
       .hero h1{margin:24px 0 0}
-      .rotator{position:relative;display:inline-block;max-width:100%;vertical-align:top;height:1.15em;overflow:hidden}
+      .rotator{position:relative;display:grid;max-width:100%;overflow:hidden;line-height:1.15}
       .rotator u{
-        display:block;text-decoration:none;white-space:nowrap;
+        grid-area:1/1;display:block;text-decoration:none;white-space:normal;padding-bottom:.08em;
         background:linear-gradient(96deg,var(--cyan),#9DC7E8 45%,var(--ember));
         -webkit-background-clip:text;background-clip:text;color:transparent;
       }
-      .rotator u[hidden]{display:none}
+      .rotator u[hidden]{display:block;visibility:hidden}
       .hero .lede{margin-top:26px}
       .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px}
       .hero-meta{display:flex;flex-wrap:wrap;gap:26px;margin-top:40px}
@@ -447,6 +447,143 @@
         .roots circle{opacity:1}
         html{scroll-behavior:auto}
       }
+
+      /* ============ voice offer additions ============ */
+      .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:56px}
+      .sub-note{margin-top:22px;font-size:13px;color:var(--slate-dim)}
+      .sub-note a{color:#9FC6E0;text-decoration:underline;text-underline-offset:3px}
+
+      /* pain */
+      .pain .card h3{margin-top:14px}
+      .pain .time{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ember-soft)}
+      .pain .card:nth-child(2) .time{color:var(--cyan)}
+
+      /* calculator */
+      .calc{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:18px;margin-top:56px}
+      .calc-in,.calc-out{border-radius:22px;border:1px solid var(--line);padding:clamp(24px,3.4vw,40px);
+        background:linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95))}
+      .slider{display:block;padding:18px 0;border-bottom:1px dashed rgba(120,165,205,.14)}
+      .slider:first-child{padding-top:0}
+      .slider:last-child{border-bottom:0;padding-bottom:0}
+      .slider-top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:14px}
+      .slider-top span{font-size:15px;color:#D2E1EC}
+      .slider-top output{font-family:var(--mono);font-size:14px;color:var(--bone);white-space:nowrap}
+      .slider input{width:100%;accent-color:var(--cyan);cursor:pointer}
+      .calc-out{display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;
+        background:radial-gradient(120% 90% at 100% 0%,rgba(224,51,63,.14),transparent 60%),linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95))}
+      .calc-big{display:block;margin-top:14px;font-size:clamp(42px,5vw,66px);font-weight:700;letter-spacing:-.03em;line-height:1;
+        background:linear-gradient(120deg,var(--cyan),#B9D6EA 55%,var(--ember));-webkit-background-clip:text;background-clip:text;color:transparent}
+      .calc-per{margin-top:8px;font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}
+      .calc-year{margin-top:16px;font-size:17px;color:var(--bone)}
+      .calc-jobs{margin-top:6px;font-size:14px}
+      .calc-compare{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);font-size:13.5px}
+      .calc-compare a{color:#9FC6E0;text-decoration:underline;text-underline-offset:3px}
+
+      /* done for you */
+      .dfy{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:18px;margin-top:56px;align-items:stretch}
+      .dfy-panel{border-radius:22px;border:1px solid var(--line);padding:clamp(24px,3.4vw,40px);
+        background:linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95))}
+      .dfy-panel.you{background:radial-gradient(120% 80% at 0% 0%,rgba(56,182,240,.14),transparent 60%),linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95))}
+      .dfy-panel h3{font-size:22px}
+      .checks{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:0}
+      .checks li{display:grid;grid-template-columns:26px 1fr;gap:14px;padding:15px 0;border-top:1px solid var(--line)}
+      .checks li:first-child{border-top:0}
+      .checks i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:11px;
+        border:1px solid rgba(56,182,240,.5);background:rgba(56,182,240,.12);color:var(--cyan);margin-top:2px}
+      .you .checks i{border-color:rgba(224,51,63,.5);background:rgba(224,51,63,.12);color:var(--ember-soft)}
+      .checks b{display:block;font-weight:600;color:var(--bone);font-size:15.5px;margin-bottom:4px}
+      .checks p{font-size:14px}
+      .you-time{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+      .you-time b{display:block;font-size:clamp(34px,3.6vw,46px);font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--bone)}
+      .you-time p{margin-top:10px;font-size:14px}
+
+      /* bonuses */
+      .card .incl{position:absolute;top:22px;right:22px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+        color:var(--cyan);border:1px solid rgba(56,182,240,.4);border-radius:99px;padding:4px 9px}
+
+      /* guarantee */
+      .promise{position:relative;padding:clamp(26px,3.4vw,40px);border-radius:22px;border:1px solid var(--line-2);overflow:hidden;
+        background:radial-gradient(90% 70% at 50% 0%,rgba(56,182,240,.12),transparent 70%),linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95))}
+      .promise.ember{background:radial-gradient(90% 70% at 50% 0%,rgba(224,51,63,.13),transparent 70%),linear-gradient(180deg,rgba(11,17,25,.95),rgba(5,8,13,.95))}
+      .seal{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;text-align:center;
+        border:1px solid rgba(56,182,240,.55);background:rgba(56,182,240,.08);color:var(--cyan);
+        font-family:var(--mark);font-weight:600;font-size:12px;letter-spacing:.06em;line-height:1.1;
+        box-shadow:0 0 0 6px rgba(56,182,240,.05)}
+      .promise.ember .seal{border-color:rgba(224,51,63,.55);background:rgba(224,51,63,.08);color:var(--ember-soft);box-shadow:0 0 0 6px rgba(224,51,63,.05)}
+      .promise h3{font-size:24px;margin:22px 0 12px}
+      .promise p{font-size:15px}
+      .founding{display:flex;gap:22px;align-items:center;margin-top:18px;padding:24px clamp(22px,3vw,34px);border-radius:18px;
+        border:1px dashed rgba(224,51,63,.45);background:rgba(224,51,63,.05)}
+      .founding .dot{flex:none;width:9px;height:9px}
+      .founding p{font-size:15px;color:#C7D7E4}
+      .founding b{color:var(--bone);font-weight:600}
+
+      /* faq */
+      .faq{width:min(860px,100%);margin:52px auto 0;display:grid;gap:12px}
+      .faq details{border-radius:16px;border:1px solid var(--line);background:rgba(9,13,20,.7);transition:border-color .3s ease}
+      .faq details[open]{border-color:var(--line-2)}
+      .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;
+        padding:20px 24px;font-size:17px;font-weight:500;color:var(--bone)}
+      .faq summary::-webkit-details-marker{display:none}
+      .faq summary::after{content:"+";flex:none;font-family:var(--mono);font-size:20px;color:var(--cyan);transition:transform .3s ease}
+      .faq details[open] summary::after{transform:rotate(45deg);color:var(--ember-soft)}
+      .faq details p{padding:0 24px 22px;font-size:15px}
+
+      /* contact intro */
+      .audit-list{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-top:26px}
+      .audit-list div{display:flex;align-items:center;gap:9px}
+
+      @media(max-width:1020px){
+        .calc,.dfy,.grid-2{grid-template-columns:1fr}
+      }
+      @media(max-width:760px){
+        .founding{flex-direction:row;align-items:flex-start}
+        .founding .dot{margin-top:8px}
+        .faq summary{font-size:16px;padding:18px 18px}
+        .faq details p{padding:0 18px 20px}
+      }
+      /* featured offer */
+      .feature{position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);margin-top:56px;
+        padding:clamp(26px,4vw,48px);border-radius:24px;border:1px solid rgba(224,51,63,.45);overflow:hidden;
+        background:radial-gradient(70% 90% at 0% 0%,rgba(56,182,240,.14),transparent 60%),radial-gradient(60% 80% at 100% 100%,rgba(224,51,63,.16),transparent 60%),linear-gradient(180deg,rgba(13,19,28,.95),rgba(6,9,14,.95));
+        box-shadow:0 40px 120px -60px rgba(224,51,63,.6)}
+      .badge{display:inline-flex;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#fff;
+        padding:6px 12px;border-radius:99px;background:linear-gradient(135deg,rgba(56,182,240,.55),rgba(224,51,63,.6))}
+      .feature-title{display:flex;align-items:center;gap:14px;margin:22px 0 14px}
+      .feature-title h3{font-size:clamp(28px,3vw,38px);letter-spacing:-.02em}
+      .feature p{font-size:15.5px;max-width:58ch}
+      .feature .tags{margin-top:0;padding-top:20px}
+      .feature-points{list-style:none;margin:0;padding:0;display:grid;gap:0;align-content:center}
+      .feature-points li{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;padding:18px 0;border-top:1px solid var(--line)}
+      .feature-points li:first-child{border-top:0}
+      .feature-points b{font-size:clamp(26px,2.6vw,34px);font-weight:700;letter-spacing:-.03em;
+        background:linear-gradient(120deg,var(--cyan),#B9D6EA 55%,var(--ember));-webkit-background-clip:text;background-clip:text;color:transparent}
+      .feature-points span{font-size:14.5px;color:#B4C4D2;line-height:1.5}
+      @media(max-width:1020px){.feature{grid-template-columns:1fr}}
+      @media(max-width:760px){.feature-points li{grid-template-columns:84px 1fr}}
+      .you-tag{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+        color:var(--ember-soft);border:1px solid rgba(224,51,63,.45);border-radius:99px;padding:4px 10px}
+      .checks.two-col{grid-template-columns:1fr 1fr;column-gap:40px}
+      .checks.two-col li:nth-child(2){border-top:0}
+      .you-strip{display:flex;align-items:center;gap:28px}
+      .you-strip b{flex:none}
+      .you-strip p{margin-top:0;max-width:70ch}
+      @media(max-width:1020px){.checks.two-col{grid-template-columns:1fr}.checks.two-col li:nth-child(2){border-top:1px solid var(--line)}.you-strip{flex-direction:column;align-items:flex-start;gap:10px}}
+      .feature-sub{margin:-4px 0 14px;color:#9FB4C6}
+      .feature-block{grid-column:1/-1;padding-top:30px;border-top:1px solid var(--line)}
+      .feature-block > .mono{display:block;margin-bottom:22px}
+      .feature-block .process{margin-top:0}
+      .checks.three-col{grid-template-columns:repeat(3,1fr);column-gap:32px;margin-top:0}
+      .checks.three-col li:nth-child(-n+3){border-top:0}
+      @media(max-width:1020px){.checks.three-col{grid-template-columns:1fr 1fr}.checks.three-col li:nth-child(3){border-top:1px solid var(--line)}}
+      @media(max-width:760px){.checks.three-col{grid-template-columns:1fr}.checks.three-col li:nth-child(2){border-top:1px solid var(--line)}}
+      .grid-4 .card-premier{border-color:rgba(224,51,63,.5);box-shadow:0 30px 80px -50px rgba(224,51,63,.7)}
+      .btn-sm{padding:10px 16px;font-size:13.5px}
+      .voice-zone{border-block:1px solid var(--line);background:linear-gradient(180deg,rgba(8,12,19,.6),rgba(3,5,9,0) 40%,rgba(8,12,19,.6))}
+      .subhead{margin:clamp(64px,8vw,96px) 0 28px;max-width:640px}
+      .subhead .mono{display:block;margin-bottom:12px;color:var(--ember-soft)}
+      .subhead h3{font-size:clamp(26px,2.8vw,36px);letter-spacing:-.02em;line-height:1.1}
+      .subhead p{margin-top:12px;font-size:15.5px}
     </style>
   </head>
   <body>
@@ -460,7 +597,7 @@
           </a>
           <div class="nav-links">
             <a href="#work">What we build</a>
-            <a href="#process">How it works</a>
+            <a href="#offer">Voice agents</a>
             <a href="#about">About us</a>
             <a href="demo.html">Demos</a>
             <a href="#contact">Contact</a>
@@ -485,18 +622,18 @@
               <span class="mono">Starting with</span>
               <h2 style="font-size:clamp(26px,3.2vw,40px);margin-top:8px">
                 <span class="rotator" id="rot">
-                  <u>Your invoice pile</u><u hidden>Your support queue</u><u hidden>Your inbound calls</u><u hidden>Your scheduling and dispatching</u><u hidden>The app you keep putting off</u>
+                  <u>Your inbound calls</u><u hidden>The customers waiting on a simple answer</u><u hidden>Your support queue</u><u hidden>Your front desk on its busiest day</u><u hidden>The portal your customers keep asking for</u><u hidden>The calls that go to voicemail</u><u hidden>The app you keep putting off</u>
                 </span>
               </h2>
             </div>
-            <p class="lede" data-fade>We map the work, build the thing, and hand back a system that runs on its own. Automation, chat and voice assistants, or plain custom software when that is what the job actually needs.</p>
+            <p class="lede" data-fade>We map the work, build the thing, and hand back a system that runs on its own. Voice agents that answer every call, automation, chat assistants, or plain custom software when that is what the job actually needs.</p>
             <div class="hero-cta" data-fade>
               <a class="btn btn-primary" href="#contact">Book a free consultation</a>
-              <a class="btn" href="#process">See how it works</a>
+              <a class="btn" href="demo.html">Hear our voice agent</a>
             </div>
             <div class="hero-meta" data-fade>
-              <div><i class="dot"></i><span class="mono">First build live within 6 weeks</span></div>
-              <div><i class="dot red"></i><span class="mono">Runs in your cloud tenant</span></div>
+              <div><i class="dot"></i><span class="mono">Voice agents live in 7 days</span></div>
+              <div><i class="dot red"></i><span class="mono">Automation, chat, voice, and software</span></div>
             </div>
           </div>
           <div class="orb-stage">
@@ -510,32 +647,31 @@
         <div class="console" data-fade>
           <div class="console-bar">
             <div class="pips"><i></i><i></i><i></i></div>
-            <span class="mono">Lead intake · live run</span>
+            <span class="mono">Incoming call · Saturday 9:42 PM</span>
           </div>
           <div class="console-body">
             <div class="prompt">
               <div class="prompt-line"><span>&gt;</span><span id="typed"></span><i class="caret" id="caret"></i></div>
               <div class="steps" id="steps">
-                <div class="step"><i class="tick">✓</i>Catch the lead from the form, ad, or inbox<small>0.2s</small></div>
-                <div class="step"><i class="tick">✓</i>Score and tag it against your ideal customer<small>2.1s</small></div>
-                <div class="step"><i class="tick">✓</i>Check it against every contact you already have<small>0.5s</small></div>
-                <div class="step"><i class="tick">✓</i>Create or update the record in HubSpot<small>0.9s</small></div>
-                <div class="step"><i class="tick">✓</i>Alert you in Slack when it is worth your time<small>0.3s</small></div>
+                <div class="step"><i class="tick">✓</i>Answered on the first ring, after hours<small>0.4s</small></div>
+                <div class="step"><i class="tick">✓</i>Took the name, address, and the problem<small>48s</small></div>
+                <div class="step"><i class="tick">✓</i>Checked tomorrow's openings in your calendar<small>1.2s</small></div>
+                <div class="step"><i class="tick">✓</i>Booked Sunday, 8 to 10 AM, and confirmed it<small>22s</small></div>
+                <div class="step"><i class="tick">✓</i>Texted you the summary and the caller a confirmation<small>0.6s</small></div>
               </div>
             </div>
             <aside class="console-side">
-              <span class="mono">Last 30 days</span>
-              <div class="side-row">Leads processed<b>418</b></div>
-              <div class="side-row">Duplicates caught<b>63</b></div>
-              <div class="side-row">Sent to a human<b>37</b></div>
-              <div class="side-row">Median time to owner<b>4.0s</b></div>
-              <div class="side-row">Lands in<b>Your HubSpot</b></div>
+              <span class="mono">Sample month · demo data</span>
+              <div class="side-row">Calls answered<b>312</b></div>
+              <div class="side-row">After-hours calls<b>117</b></div>
+              <div class="side-row">Jobs booked<b>86</b></div>
+              <div class="side-row">Urgent calls patched through<b>9</b></div>
+              <div class="side-row">Calls sent to voicemail<b>0</b></div>
             </aside>
           </div>
         </div>
       </div>
     </header>
-
     <div class="marquee">
       <div class="marquee-track">
         <span>Microsoft 365</span><span>Slack</span><span>Azure</span><span>.NET</span><span>Python</span><span>Angular</span><span>n8n</span><span>HubSpot</span><span>GoHighLevel</span><span>Twilio</span><span>OpenAI</span><span>Snowflake</span><span>SharePoint</span>
@@ -553,6 +689,13 @@
           <p class="lede" data-fade>Some of it is AI. Some of it is plain software that should have been written years ago. We start with whichever one is costing you the most hours.</p>
         </div>
         <div class="grid-4">
+          <article class="card ember card-premier" data-fade>
+            <span class="incl">Premier offer</span>
+            <div class="glyph">◉</div>
+            <h3>Voice agents</h3>
+            <p>A voice that answers on the first ring, day or night. It books the appointment and hands off to a person the moment the call needs one. Live in 7 days, and we do all the setup.</p>
+            <div class="tags"><a class="btn btn-primary btn-sm" href="#offer">See the offer</a></div>
+          </article>
           <article class="card" data-fade>
             <div class="glyph">◧</div>
             <h3>AI automation</h3>
@@ -566,67 +709,146 @@
             <div class="tags"><span class="tag">RAG</span><span class="tag">Citations</span><span class="tag">Your docs</span></div>
           </article>
           <article class="card" data-fade>
-            <div class="glyph">◉</div>
-            <h3>Voice agents</h3>
-            <p>A voice that answers on the first ring, day or night. It qualifies the caller, books the appointment, takes the order, and hands off to a person the moment the call needs one.</p>
-            <div class="tags"><span class="tag">Inbound</span><span class="tag">Outbound</span><span class="tag">Live handoff</span></div>
-          </article>
-          <article class="card ember" data-fade>
             <div class="glyph">◆</div>
             <h3>Software engineering</h3>
             <p>The app, the API, the integration, the migration off the system nobody wants to touch. A decade of production work in .NET, Python, Azure, and the front end, with or without any AI attached.</p>
             <div class="tags"><span class="tag">.NET &amp; Python</span><span class="tag">Azure</span><span class="tag">Web apps</span><span class="tag">APIs</span></div>
           </article>
         </div>
-
-        <p class="mono plays-label" data-fade>Where it usually starts</p>
-        <div class="plays">
-          <div class="play" data-fade><h3>Document intake</h3><p>Invoices, bills of lading, claims, and contracts read, matched, and filed.</p></div>
-          <div class="play" data-fade><h3>Scheduling and dispatch</h3><p>Jobs matched to the person, the skill, and the window that fits, reschedules included.</p></div>
-          <div class="play" data-fade><h3>Order and status chasing</h3><p>Where is it, did it ship, has it been signed, asked and answered without opening five tabs.</p></div>
-          <div class="play" data-fade><h3>Internal tools</h3><p>The portal, dashboard, or admin screen your team is currently running on a spreadsheet.</p></div>
-        </div>
       </div>
     </section>
 
-    <!-- ================= STATS ================= -->
-    <section class="sec" style="padding-top:0;padding-bottom:clamp(30px,4vw,50px)">
-      <div class="wrap">
-        <div class="stats">
-          <div class="stat" data-fade><b data-count="40" data-suffix="+">0</b><p>Hours a month handed back on a typical first build.</p></div>
-          <div class="stat" data-fade><b data-count="6" data-suffix=" wks">0</b><p>From kickoff to the first thing running in production.</p></div>
-          <div class="stat" data-fade><b data-count="99" data-suffix="%">0</b><p>Of routine tasks clear the accuracy bar we agree on up front.</p></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= PROCESS ================= -->
-    <section class="sec" id="process">
-      <div class="limb"><i class="r" style="opacity:.3"></i></div>
+    <!-- ================= VOICE AGENTS: everything in one place ================= -->
+    <section class="sec voice-zone" id="offer">
+      <div class="limb"><i class="r" style="opacity:.3"></i><i class="b" style="opacity:.22"></i></div>
       <div class="wrap" style="position:relative;z-index:2">
-        <div class="head center">
-          <span class="eyebrow" data-fade>How it works</span>
-          <h2 data-split>Roots before branches</h2>
-          <p class="lede" data-fade>Software fails when it is bolted on top. We learn the need as well as the business context before proposing any solutions.</p>
+        <div class="head">
+          <span class="eyebrow" data-fade>Premier offer</span>
+          <h2 data-split>Voice agents that never miss a call</h2>
+          <p class="lede" data-fade>Everything about the offer in one place: what you get, how the first week goes, what is included, what missed calls cost you today, and how we take the risk off your plate.</p>
         </div>
 
-        <svg class="roots" id="roots" viewBox="0 0 1200 190" preserveAspectRatio="none" aria-hidden="true">
-          <defs>
-            <linearGradient id="rg" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#38B6F0"/><stop offset="55%" stop-color="#7E9BC4"/><stop offset="100%" stop-color="#E0333F"/>
-            </linearGradient>
-          </defs>
-          <path class="draw" stroke="url(#rg)" d="M20 20 C 200 20, 220 170, 400 170 C 560 170, 560 20, 750 20 C 940 20, 940 170, 1180 170"/>
-          <path class="draw" stroke="url(#rg)" opacity=".5" d="M20 60 C 260 60, 260 150, 470 150 C 700 150, 700 60, 900 60 C 1040 60, 1060 130, 1180 130"/>
-          <path class="draw" stroke="url(#rg)" opacity=".28" d="M20 120 C 180 120, 300 40, 520 40 C 760 40, 800 130, 1000 130 C 1100 130, 1120 90, 1180 90"/>
-          <circle cx="400" cy="170" r="4" fill="#38B6F0"/><circle cx="750" cy="20" r="4" fill="#9DC7E8"/><circle cx="1000" cy="130" r="4" fill="#E0333F"/>
-        </svg>
+        <article class="feature" data-fade>
+          <div>
+            <div class="feature-title" style="margin-top:0"><div class="glyph">◉</div><h3>The 7-Day Never Miss a Call System</h3></div>
+            <p>A voice that answers on the first ring, day or night. It qualifies the caller, books the appointment, and hands off to a person the moment the call needs one. We do all of the setup and keep it running after launch. You take one call.</p>
+            <div class="tags"><span class="tag">Inbound</span><span class="tag">Outbound</span><span class="tag">Live handoff</span><span class="tag">English and Spanish</span></div>
+            <div class="hero-cta" style="margin-top:26px">
+              <a class="btn btn-primary" href="#contact">Get a free missed-call audit</a>
+              <a class="btn" href="demo.html">Hear a live demo</a>
+            </div>
+          </div>
+          <ul class="feature-points">
+            <li><b>7 days</b><span>From kickoff call to answering real customers</span></li>
+            <li><b>24/7</b><span>Nights, weekends, and holidays, every call on the first ring</span></li>
+            <li><b>30 min</b><span>Your total homework: one kickoff call, a few test calls, and forwarding your line</span></li>
+            <li><b>$0</b><span>Missed-call audit before you decide anything</span></li>
+          </ul>
 
-        <div class="process">
-          <div class="pstep" data-fade><div class="n">01 / Trace</div><h3>We ask until it is clear</h3><p>A working conversation with the people who do the task, not a questionnaire. We map every handoff, exception, and unwritten rule before proposing anything.</p></div>
-          <div class="pstep" data-fade><div class="n">02 / Prototype</div><h3>One slice, working</h3><p>A narrow build against your real data, running beside your team so you can compare its output to theirs before anyone commits.</p></div>
-          <div class="pstep" data-fade><div class="n">03 / Wire in</div><h3>Into your stack</h3><p>Deployed in your cloud, using your identity provider and your data retention rules. We hand over the repo and the runbook.</p></div>
-          <div class="pstep" data-fade><div class="n">04 / Tend</div><h3>We keep it healthy</h3><p>Models drift and processes change. We monitor accuracy, retune, and extend it to the next piece of work when you are ready.</p></div>
+          <div class="feature-block">
+            <span class="mono">How the 7 days go</span>
+            <div class="process">
+              <div class="pstep"><div class="n">Day 1 / Kickoff</div><h3>One 30-minute call</h3><p>Tell us your services, service area, hours, pricing rules, and who is on call. We take the notes and ask the questions.</p><span class="you-tag">Your part</span></div>
+              <div class="pstep"><div class="n">Days 2 to 4 / Build</div><h3>We build and train it</h3><p>We write the script, train the agent on your business, connect your calendar, and set up call summaries and text-backs.</p></div>
+              <div class="pstep"><div class="n">Days 5 to 6 / Test</div><h3>You try to trip it up</h3><p>You and your team call it, throw curveballs, and tell us what to change. We tune it until it sounds like your shop.</p><span class="you-tag">Your part</span></div>
+              <div class="pstep"><div class="n">Day 7 / Live</div><h3>It starts answering</h3><p>Forward your line, which takes a couple of minutes with us walking you through it, and it goes to work.</p><span class="you-tag">Your part</span></div>
+            </div>
+          </div>
+
+          <div class="feature-block">
+            <span class="mono">What we handle, before and after launch</span>
+            <ul class="checks three-col">
+              <li><i>✓</i><div><b>Trained on your shop</b><p>Your services, service area, hours, pricing rules, and how you like jobs booked.</p></div></li>
+              <li><i>✓</i><div><b>Books into your calendar</b><p>It checks real openings, offers times, and confirms with the caller before hanging up.</p></div></li>
+              <li><i>✓</i><div><b>Routes urgent calls to a person</b><p>You set the rules, and it patches the caller through to whoever is on call.</p></div></li>
+              <li><i>✓</i><div><b>Texts you a summary</b><p>Who called, what they need, the address, and what was booked, after every call.</p></div></li>
+              <li><i>✓</i><div><b>Keeps your number</b><p>Call forwarding for all calls, after hours only, or just the ones you cannot get to.</p></div></li>
+              <li><i>✓</i><div><b>Stays sharp every month</b><p>We listen to calls, fix anything that sounds off, and send you a report.</p></div></li>
+            </ul>
+          </div>
+        </article>
+
+        <div class="subhead" id="bonuses" data-fade>
+          <span class="mono">Included at no extra cost</span>
+          <h3>A few extras that close the gaps</h3>
+        </div>
+        <div class="grid-4" style="margin-top:0">
+          <article class="card" data-fade>
+            <span class="incl">Included</span>
+            <div class="glyph">↩</div>
+            <h3>Missed-call text-back</h3>
+            <p>If a caller hangs up before the agent finishes, they get a friendly text within seconds offering to book them in.</p>
+          </article>
+          <article class="card ember" data-fade>
+            <span class="incl">Included</span>
+            <div class="glyph">Aa</div>
+            <h3>English and Spanish</h3>
+            <p>Serve Spanish-speaking homeowners in their own language, without hiring a bilingual dispatcher.</p>
+          </article>
+          <article class="card" data-fade>
+            <span class="incl">Included</span>
+            <div class="glyph">▤</div>
+            <h3>Monthly call report</h3>
+            <p>How many calls came in, when, what people asked for, and how many turned into booked jobs. Plain numbers, no dashboard to learn.</p>
+          </article>
+          <article class="card ember" data-fade>
+            <span class="incl">Included</span>
+            <div class="glyph">❄</div>
+            <h3>Seasonal promos</h3>
+            <p>Running a spring AC tune-up or a fall furnace check? The agent mentions it to every caller, so the offer works while you work.</p>
+          </article>
+        </div>
+
+        <div class="subhead" id="calculator" data-fade>
+          <span class="mono">Missed-call math</span>
+          <h3>What is a missed call worth to you?</h3>
+          <p>Slide these to match your business. It is your own numbers doing the talking, so treat it as an estimate rather than a promise.</p>
+        </div>
+        <div class="calc" style="margin-top:0">
+          <div class="calc-in" data-fade>
+            <label class="slider">
+              <div class="slider-top"><span>Calls you miss in a week</span><output id="oCalls" data-i18n-skip></output></div>
+              <input type="range" id="iCalls" min="1" max="60" step="1" value="8">
+            </label>
+            <label class="slider">
+              <div class="slider-top"><span>How many of those would have booked</span><output id="oRate" data-i18n-skip></output></div>
+              <input type="range" id="iRate" min="10" max="90" step="5" value="50">
+            </label>
+            <label class="slider">
+              <div class="slider-top"><span>Your average ticket</span><output id="oTicket" data-i18n-skip></output></div>
+              <input type="range" id="iTicket" min="100" max="5000" step="50" value="400">
+            </label>
+          </div>
+          <div class="calc-out" data-fade aria-live="polite">
+            <span class="mono">Work walking to the next shop</span>
+            <b class="calc-big" id="oMonth" data-i18n-skip>$0</b>
+            <span class="calc-per">every month</span>
+            <p class="calc-year" id="oYear" data-i18n-skip></p>
+            <p class="calc-jobs" id="oJobs" data-i18n-skip></p>
+            <p class="calc-compare">If even a few of those calls get answered and booked, the agent has paid for itself. That is the whole idea.</p>
+          </div>
+        </div>
+
+        <div class="subhead" id="guarantee" data-fade>
+          <span class="mono">Our guarantee</span>
+          <h3>All of the risk sits with us</h3>
+          <p>Trying something new with your phones should not feel like a gamble.</p>
+        </div>
+        <div class="grid-2" style="margin-top:0">
+          <article class="promise" data-fade>
+            <div class="seal">7<br>DAYS</div>
+            <h3>Live in 7 days, or your first month is free</h3>
+            <p>If your agent is not answering real calls within 7 days of the kickoff call, you pay nothing for the first month. The clock only pauses while we are waiting on something from you, like calendar access.</p>
+          </article>
+          <article class="promise ember" data-fade>
+            <div class="seal">30<br>DAYS</div>
+            <h3>Happy in 30 days, or your money back</h3>
+            <p>Give it a full month on your real calls. If you are not happy with how it handles your customers, tell us and we refund that first month's fee. No forms and no hard feelings.</p>
+          </article>
+        </div>
+        <div class="founding" data-fade>
+          <i class="dot red"></i>
+          <p data-i18n-html><b>Founding shop pricing.</b> We build every agent by hand, so we only take on a few new shops each month. Shops that join now lock in their monthly rate for as long as they stay with us.</p>
         </div>
       </div>
     </section>
@@ -653,11 +875,6 @@
       </div>
     </section>
 
-    <!-- ================= FIELD NOTES (hidden until there are posts) =================
-    Restore this block when the first article is written. The nav and footer links
-    to #notes were removed, so add them back at the same time.
-    ================================================================================ -->
-
     <!-- ================= CONTACT ================= -->
     <section class="sec" id="contact">
       <div class="limb"><i class="r"></i><i class="b"></i></div>
@@ -665,6 +882,7 @@
         <div class="head center">
           <span class="eyebrow" data-fade>Contact</span>
           <h2 data-split>Talk to us</h2>
+          <p class="lede" data-fade>Tell us what you want to build or fix. If missed calls are the problem, ask for a free missed-call audit and we will show you what your callers hear today.</p>
         </div>
         <form class="form" id="contactForm" data-fade novalidate style="position:relative">
 
@@ -690,7 +908,7 @@
               <input name="company" placeholder="Company name">
             </label>
             <p class="reachnote" id="reachNote">Give us an email or a phone number so we can reply.</p>
-            
+
             <label class="field"><span>What are we creating together?</span><textarea name="message" placeholder="Tell us what you are trying to build or fix, who touches it, and roughly how often it runs."></textarea></label>
 
             <div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap" aria-hidden="true">
@@ -715,6 +933,7 @@
       </div>
     </section>
 
+
     <!-- ================= FOOTER ================= -->
     <footer class="site">
       <div class="wrap">
@@ -724,16 +943,16 @@
             <p>AI and software that take root in the work you already do.</p>
           </div>
           <div class="foot-col">
-            <h4>Company</h4>
-            <a href="#about">About us</a><a href="#process">How it works</a><a href="#work">What we build</a><a href="#contact">Contact</a>
+            <h4>Voice agents</h4>
+            <a href="#offer">What is included</a><a href="#bonuses">Free extras</a><a href="#calculator">Missed-call calculator</a><a href="#guarantee">Guarantee</a><a href="demo.html">Hear a demo</a>
           </div>
           <div class="foot-col">
             <h4>Work</h4>
-            <a href="#work">AI automation</a><a href="#work">Chat assistants</a><a href="#work">Voice agents</a><a href="#work">Software engineering</a>
+            <a href="#offer">Voice agents</a><a href="#work">AI automation</a><a href="#work">Chat assistants</a><a href="#work">Software engineering</a><a href="#about">About us</a>
           </div>
           <div class="foot-col">
             <h4>Get in touch</h4>
-            <a href="#contact">Start a project</a><a href="#contact">Ask a question</a><a href="#process">Our process</a>
+            <a href="#contact">Start a project</a><a href="#contact">Free missed-call audit</a><a href="demo.html">Try a live demo</a>
           </div>
         </div>
         <div class="foot-base">
@@ -747,6 +966,36 @@
     <script>
       /* Spanish for the EN / ES toggle, keyed by the exact English text (see i18n.js). */
       I18N.init({
+        'A voice that answers on the first ring, day or night. It books the appointment and hands off to a person the moment the call needs one. Live in 7 days, and we do all the setup.': 'Una voz que contesta al primer timbre, de día o de noche. Agenda la cita y pasa la llamada a una persona en cuanto la necesita. Funcionando en 7 días, y nosotros hacemos toda la configuración.',
+        'See the offer': 'Vea la oferta',
+        'Voice agents that never miss a call': 'Agentes de voz que no pierden ni una llamada',
+        'Everything about the offer in one place: what you get, how the first week goes, what is included, what missed calls cost you today, and how we take the risk off your plate.': 'Todo sobre la oferta en un solo lugar: lo que recibe, cómo es la primera semana, qué incluye, cuánto le cuestan hoy las llamadas perdidas y cómo asumimos el riesgo por usted.',
+        'Slide these to match your business. It is your own numbers doing the talking, so treat it as an estimate rather than a promise.': 'Ajuste estos controles según su negocio. Son sus propios números los que hablan, así que tómelo como una estimación y no como una promesa.',
+        'Trying something new with your phones should not feel like a gamble.': 'Probar algo nuevo con sus teléfonos no debería sentirse como una apuesta.',
+        'Free extras': 'Extras gratis',
+        'The 7-Day Never Miss a Call System': 'El sistema de 7 días para no perder ni una llamada',
+        'A voice that answers on the first ring, day or night. It qualifies the caller, books the appointment, and hands off to a person the moment the call needs one. We do all of the setup and keep it running after launch. You take one call.': 'Una voz que contesta al primer timbre, de día o de noche. Califica a quien llama, agenda la cita y pasa la llamada a una persona en cuanto la necesita. Nosotros hacemos toda la configuración y lo mantenemos funcionando después del lanzamiento. Usted solo tiene una llamada.',
+        'Get a free missed-call audit': 'Obtenga una auditoría gratis de llamadas perdidas',
+        'Your total homework: one kickoff call, a few test calls, and forwarding your line': 'Toda su tarea: una llamada inicial, algunas llamadas de prueba y desviar su línea',
+        'How the 7 days go': 'Cómo son los 7 días',
+        'What we handle, before and after launch': 'Lo que hacemos, antes y después del lanzamiento',
+        'Trained on your shop': 'Entrenado con su negocio',
+        'Your services, service area, hours, pricing rules, and how you like jobs booked.': 'Sus servicios, zona de cobertura, horario, reglas de precios y cómo le gusta agendar los trabajos.',
+        'Books into your calendar': 'Agenda en su calendario',
+        'Routes urgent calls to a person': 'Pasa las llamadas urgentes a una persona',
+        'You set the rules, and it patches the caller through to whoever is on call.': 'Usted pone las reglas y el agente transfiere la llamada a quien esté de turno.',
+        'Texts you a summary': 'Le envía un resumen por mensaje',
+        'Who called, what they need, the address, and what was booked, after every call.': 'Quién llamó, qué necesita, la dirección y qué se agendó, después de cada llamada.',
+        'Keeps your number': 'Conserva su número',
+        'Call forwarding for all calls, after hours only, or just the ones you cannot get to.': 'Desvío de llamadas para todas, solo fuera de horario o solo las que no alcanza a contestar.',
+        'Stays sharp every month': 'Se mantiene afinado cada mes',
+        'We listen to calls, fix anything that sounds off, and send you a report.': 'Escuchamos las llamadas, corregimos lo que no suene bien y le enviamos un informe.',
+        'The 7-Day Never Miss a Call System. You run a business, not a software project. So we handle every piece of the setup, have it answering real customers within a week, and keep it running after launch.': 'El sistema de 7 días para no perder ni una llamada. Usted dirige un negocio, no un proyecto de software. Por eso nos encargamos de cada parte de la configuración, lo dejamos atendiendo clientes reales en una semana y lo mantenemos funcionando después del lanzamiento.',
+        'Tell us your services, service area, hours, pricing rules, and who is on call. We take the notes and ask the questions.': 'Cuéntenos sus servicios, zona de cobertura, horario, reglas de precios y quién está de turno. Nosotros tomamos notas y hacemos las preguntas.',
+        'Forward your line, which takes a couple of minutes with us walking you through it, and it goes to work.': 'Desvíe su línea, lo que toma un par de minutos con nuestra guía, y se pone a trabajar.',
+        'Your part': 'Su parte',
+        'What we do, before and after launch': 'Lo que hacemos, antes y después del lanzamiento',
+        'That is your total homework: one kickoff call, a few test calls, and forwarding your line. After that, your job is to show up to the jobs it books.': 'Esa es toda su tarea: una llamada inicial, algunas llamadas de prueba y desviar su línea. Después, su trabajo es presentarse a los trabajos que agenda.',
         /* meta */
         'Chaparral Dr AI | AI automation, assistants, and software engineering': 'Chaparral Dr AI | Automatización con IA, asistentes e ingeniería de software',
         'Chaparral Dr AI builds AI automation, chat and voice assistants, and custom software that run inside your own cloud. We map the work, build it, and hand back a system that keeps running.': 'Chaparral Dr AI crea automatización con IA, asistentes de chat y de voz, y software a medida que funcionan dentro de su propia nube. Mapeamos el trabajo, lo construimos y le entregamos un sistema que sigue funcionando.',
@@ -758,6 +1007,10 @@
         /* hero */
         'AI and software, built to last': 'IA y software, hechos para durar',
         'Systems that take root': 'Sistemas que echan raíces',
+        'The customers waiting on a simple answer': 'Los clientes que esperan una respuesta sencilla',
+        'Your front desk on its busiest day': 'Su recepción en su día más ocupado',
+        'The portal your customers keep asking for': 'El portal que sus clientes siguen pidiendo',
+        'The calls that go to voicemail': 'Las llamadas que terminan en el buzón de voz',
         'Starting with': 'Empezando por',
         'Your invoice pile': 'Su montón de facturas', 'Your support queue': 'Su cola de soporte',
         'Your inbound calls': 'Sus llamadas entrantes', 'Your scheduling and dispatching': 'Su programación y despacho',
@@ -838,14 +1091,217 @@
         /* footer */
         'Work': 'Trabajo', 'Get in touch': 'Contáctenos',
         'Start a project': 'Iniciar un proyecto', 'Ask a question': 'Hacer una pregunta', 'Our process': 'Nuestro proceso',
+        '© 2026 Chaparral Dr AI. All rights reserved.': '© 2026 Chaparral Dr AI. Todos los derechos reservados.',
+        'Chaparral Dr AI | Voice agents, AI automation, and software engineering': 'Chaparral Dr AI | Agentes de voz, automatización con IA e ingeniería de software',
+        'Chaparral Dr AI builds voice agents that answer every call, plus AI automation, chat assistants, and custom software. Done for you, with voice agents live in 7 days.': 'Chaparral Dr AI crea agentes de voz que contestan cada llamada, además de automatización con IA, asistentes de chat y software a medida. Lo hacemos por usted, con agentes de voz funcionando en 7 días.',
+        'We map the work, build the thing, and hand back a system that runs on its own. Voice agents that answer every call, automation, chat assistants, or plain custom software when that is what the job actually needs.': 'Mapeamos el trabajo, construimos la solución y le entregamos un sistema que funciona solo. Agentes de voz que contestan cada llamada, automatización, asistentes de chat o simple software a medida cuando eso es lo que el trabajo realmente necesita.',
+        'Hear our voice agent': 'Escuche nuestro agente de voz',
+        'Voice agents live in 7 days': 'Agentes de voz funcionando en 7 días',
+        'Automation, chat, voice, and software': 'Automatización, chat, voz y software',
+        'Premier offer': 'Oferta principal', 'See the full offer': 'Vea la oferta completa', 'Hear a live demo': 'Escuche una demo en vivo',
+        'A voice that answers on the first ring, day or night. It qualifies the caller, books the appointment, takes the order, and hands off to a person the moment the call needs one. We build it, train it on your business, and keep it running, so you never have to touch it.': 'Una voz que contesta al primer timbre, de día o de noche. Califica a quien llama, agenda la cita, toma el pedido y pasa la llamada a una persona en cuanto la necesita. Nosotros lo creamos, lo entrenamos con su negocio y lo mantenemos funcionando, para que usted nunca tenga que tocarlo.',
+        '7 days': '7 días', '30 min': '30 min',
+        'From kickoff call to answering real customers': 'De la llamada inicial a atender clientes reales',
+        'Nights, weekends, and holidays, every call on the first ring': 'Noches, fines de semana y feriados, cada llamada al primer timbre',
+        'Your total homework. We do the rest': 'Toda su tarea. Nosotros hacemos el resto',
+        'Missed-call audit before you decide anything': 'Auditoría de llamadas perdidas antes de decidir nada',
+        'Inbound calls': 'Llamadas entrantes',
+        'Every call answered, qualified, and booked, even when the whole team is busy or the office is closed.': 'Cada llamada contestada, calificada y agendada, aunque todo el equipo esté ocupado o la oficina esté cerrada.',
+        'From kickoff to a voice agent answering your real calls.': 'Del arranque a un agente de voz contestando sus llamadas reales.',
+        'Premier offer · Voice agents': 'Oferta principal · Agentes de voz',
+        'The 7-Day Never Miss a Call System. You run a business, not a software project. So we handle every piece of the setup and keep it running after launch. Your part fits in a lunch break.': 'El sistema de 7 días para no perder ni una llamada. Usted dirige un negocio, no un proyecto de software. Por eso nos encargamos de cada parte de la configuración y lo mantenemos funcionando después del lanzamiento. Su parte cabe en la hora del almuerzo.',
+        'Voice agent rollout': 'Implementación del agente de voz',
+        'Voice agent questions': 'Preguntas sobre agentes de voz',
+        'Tell us what you want to build or fix. If missed calls are the problem, ask for a free missed-call audit and we will show you what your callers hear today.': 'Cuéntenos qué quiere construir o arreglar. Si el problema son las llamadas perdidas, pida una auditoría gratis y le mostraremos lo que escuchan hoy sus clientes.',
+        /* meta */
+        'Chaparral Dr AI | AI voice receptionist for HVAC and plumbing shops': 'Chaparral Dr AI | Recepcionista de voz con IA para empresas de climatización y plomería',
+        'Chaparral Dr AI builds and runs AI voice receptionists for HVAC and plumbing shops. Every call answered on the first ring, 24/7, with jobs booked into your calendar. Done for you and live in 7 days.': 'Chaparral Dr AI crea y opera recepcionistas de voz con IA para empresas de climatización y plomería. Cada llamada contestada al primer timbre, 24/7, con trabajos agendados en su calendario. Lo hacemos todo por usted y queda funcionando en 7 días.',
+        'Every call answered on the first ring, 24/7. Done for you and live in 7 days.': 'Cada llamada contestada al primer timbre, 24/7. Lo hacemos todo por usted y queda funcionando en 7 días.',
+        'AI and software that take root in the work you already do.': 'IA y software que echan raíces en el trabajo que ya hace.',
+        /* nav */
+        'Voice agents': 'Agentes de voz', 'How it works': 'Cómo funciona', 'Guarantee': 'Garantía', 'FAQ': 'Preguntas',
+        'About us': 'Quiénes somos', 'Demos': 'Demos', 'Academy': 'Academia', 'Contact': 'Contacto',
+        'Free call audit': 'Auditoría gratis',
+        'Open menu': 'Abrir menú', 'Language': 'Idioma',
+        /* hero */
+        'AI receptionist for HVAC and plumbing': 'Recepcionista con IA para climatización y plomería',
+        'Every call answered. Every job booked.': 'Cada llamada contestada. Cada trabajo agendado.',
+        'Still picking up': 'Sigue contestando',
+        'At 2 AM on a Sunday': 'A las 2 de la mañana de un domingo',
+        'While your crew is on a roof': 'Mientras su equipo está en un techo',
+        'During the first heat wave': 'Durante la primera ola de calor',
+        'While you are under a sink': 'Mientras usted está debajo de un fregadero',
+        'In Spanish, too': 'También en español',
+        'We build, train, and run a voice agent that answers your line on the first ring, 24 hours a day, 7 days a week. It books the job, routes the emergency, and texts you the details. We do all of the setup. You take one 30-minute call, and it goes live in 7 days.': 'Creamos, entrenamos y operamos un agente de voz que contesta su línea al primer timbre, las 24 horas, los 7 días de la semana. Agenda el trabajo, canaliza la emergencia y le envía los detalles por mensaje. Nosotros hacemos toda la configuración. Usted solo tiene una llamada de 30 minutos y queda funcionando en 7 días.',
+        'Get your free missed-call audit': 'Obtenga su auditoría gratis de llamadas perdidas',
+        'Hear it take a call': 'Escúchelo atender una llamada',
+        'Live in 7 days': 'Funcionando en 7 días',
+        'Answers 24/7, 365 days': 'Contesta 24/7, los 365 días',
+        'Done for you': 'Lo hacemos por usted',
+        'Incoming call · Saturday 9:42 PM': 'Llamada entrante · Sábado 9:42 PM',
+        'Caller: "Our AC quit and it is 86 in the house. Can someone come out tomorrow?"': 'Cliente: "Se nos dañó el aire y la casa está a 30 grados. ¿Puede venir alguien mañana?"',
+        'Answered on the first ring, after hours': 'Contestó al primer timbre, fuera de horario',
+        'Took the name, address, and the problem': 'Tomó el nombre, la dirección y el problema',
+        "Checked tomorrow's openings in your calendar": 'Revisó los espacios libres de mañana en su calendario',
+        'Booked Sunday, 8 to 10 AM, and confirmed it': 'Agendó el domingo de 8 a 10 AM y lo confirmó',
+        'Texted you the summary and the caller a confirmation': 'Le envió a usted el resumen y al cliente una confirmación',
+        'Sample month · demo data': 'Mes de ejemplo · datos de demostración',
+        'Calls answered': 'Llamadas contestadas', 'After-hours calls': 'Llamadas fuera de horario',
+        'Jobs booked': 'Trabajos agendados', 'Urgent calls patched through': 'Llamadas urgentes transferidas',
+        'Calls sent to voicemail': 'Llamadas enviadas al buzón de voz',
+        /* marquee */
+        'Answers 24/7': 'Contesta 24/7', 'Books into your calendar': 'Agenda en su calendario',
+        'Urgent call routing': 'Canaliza llamadas urgentes', 'Missed-call text-back': 'Mensaje automático por llamada perdida',
+        'English and Spanish': 'Inglés y español', 'Call summaries by text': 'Resúmenes de llamadas por mensaje',
+        'Keep your number': 'Conserve su número',
+        /* problem */
+        'The problem': 'El problema',
+        'The phone rings when you are busiest': 'El teléfono suena cuando usted está más ocupado',
+        'Nobody in the trades misses calls on purpose. You are on a job, it is after hours, or the whole town called at once. The trouble is that a homeowner with no heat does not wait for a callback. They call the next shop on the list.': 'Nadie en este oficio pierde llamadas a propósito. Está en un trabajo, ya cerró o todo el pueblo llamó a la vez. El problema es que un cliente sin calefacción no espera a que le devuelvan la llamada. Llama a la siguiente empresa de la lista.',
+        'Nights and weekends': 'Noches y fines de semana', 'After hours': 'Fuera de horario',
+        'Pipes burst and furnaces quit on their own schedule. A voicemail greeting asks a worried homeowner to wait until Monday, and many of them simply keep dialing.': 'Las tuberías revientan y los calentadores fallan cuando quieren. Un buzón de voz le pide a un cliente preocupado que espere hasta el lunes, y muchos simplemente siguen marcando a otros.',
+        'Every weekday': 'Cada día laboral', 'On the job': 'En pleno trabajo',
+        'Your techs are in attics and crawl spaces, and the office line rings anyway. Every call you cannot pick up is a job you have to win back later, if you get the chance.': 'Sus técnicos están en áticos y sótanos, y la línea de la oficina suena de todos modos. Cada llamada que no puede contestar es un trabajo que tendrá que recuperar después, si tiene la oportunidad.',
+        'Peak season': 'Temporada alta', 'When everyone calls at once': 'Cuando todos llaman a la vez',
+        'The first heat wave or cold snap brings more calls than any front desk can handle at one time. The callers on hold are the ones your competitors end up booking.': 'La primera ola de calor o de frío trae más llamadas de las que cualquier recepción puede atender a la vez. Los clientes que quedan en espera son los que terminan agendando con su competencia.',
+        /* stats */
+        'A week your phone has nobody behind it when the front desk works 9 to 5. There are 168 hours in a week.': 'Horas a la semana en que nadie atiende su teléfono si la recepción trabaja de 9 a 5. Una semana tiene 168 horas.',
+        'Median yearly pay for one full-time receptionist, before taxes and benefits, according to the U.S. Bureau of Labor Statistics.': 'Salario anual mediano de un recepcionista de tiempo completo, antes de impuestos y beneficios, según la Oficina de Estadísticas Laborales de EE. UU.',
+        'When your voice agent picks up. Every call, every day, including holidays.': 'Es cuando su agente de voz contesta. Cada llamada, cada día, incluidos los feriados.',
+        'Source: <a href="https://www.bls.gov/ooh/office-and-administrative-support/receptionists.htm" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics, Occupational Outlook Handbook, Receptionists</a> (median pay $38,010 per year, May 2025).': 'Fuente: <a href="https://www.bls.gov/ooh/office-and-administrative-support/receptionists.htm" target="_blank" rel="noopener">Oficina de Estadísticas Laborales de EE. UU., Occupational Outlook Handbook, Receptionists</a> (salario mediano de $38,010 al año, mayo de 2025).',
+        /* calculator */
+        'Missed-call math': 'Las cuentas de las llamadas perdidas',
+        'What is a missed call worth to you?': '¿Cuánto vale para usted una llamada perdida?',
+        'Slide these to match your shop. It is your own numbers doing the talking, so treat it as an estimate rather than a promise.': 'Ajuste estos controles según su negocio. Son sus propios números los que hablan, así que tómelo como una estimación y no como una promesa.',
+        'Calls you miss in a week': 'Llamadas que pierde por semana',
+        'How many of those would have booked': 'Cuántas de esas se habrían agendado',
+        'Your average ticket': 'Su ticket promedio',
+        'Work walking to the next shop': 'Trabajo que se va con otra empresa',
+        '{v} calls': '{v} llamadas', 'every month': 'cada mes', 'About {v} a year': 'Unos {v} al año',
+        'Roughly {n} jobs a month that someone else gets to do.': 'Aproximadamente {n} trabajos al mes que termina haciendo otra empresa.',
+        'If even a few of those calls get answered and booked, the agent has paid for itself. That is the whole idea.': 'Si aunque sea unas pocas de esas llamadas se contestan y se agendan, el agente ya se pagó solo. De eso se trata.',
+        /* offer */
+        'The 7-Day Never Miss a Call System': 'El sistema de 7 días para no perder ni una llamada',
+        'We do all of it. You take one call.': 'Nosotros hacemos todo. Usted solo tiene una llamada.',
+        'You run a shop, not a software project. So we handle every piece of the setup and keep it running after launch. Your part fits in a lunch break.': 'Usted dirige un negocio, no un proyecto de software. Por eso nos encargamos de cada parte de la configuración y lo mantenemos funcionando después del lanzamiento. Su parte cabe en la hora del almuerzo.',
+        'What we do': 'Lo que hacemos nosotros',
+        'Build an agent trained on your shop': 'Creamos un agente entrenado con su negocio',
+        'Your services, service area, hours, pricing rules, and how you like jobs booked. It sounds like your front desk on its best day.': 'Sus servicios, zona de cobertura, horario, reglas de precios y cómo le gusta agendar los trabajos. Suena como su recepción en su mejor día.',
+        'Answer every call, 24/7, 365 days': 'Contestamos cada llamada, 24/7, los 365 días',
+        'Nights, weekends, holidays, and the first 100-degree week of the summer.': 'Noches, fines de semana, feriados y la primera semana de calor extremo del verano.',
+        'Book jobs straight into your calendar': 'Agendamos trabajos directo en su calendario',
+        'It checks real openings, offers times, and confirms with the caller before hanging up.': 'Revisa los espacios reales, ofrece horarios y confirma con el cliente antes de colgar.',
+        'Route urgent calls to a real person': 'Pasamos las llamadas urgentes a una persona real',
+        'No heat in January or water on the floor? You set the rules, and it patches the caller through to whoever is on call.': '¿Sin calefacción en enero o agua en el piso? Usted pone las reglas y el agente transfiere la llamada a quien esté de turno.',
+        'Text you a summary after every call': 'Le enviamos un resumen por mensaje después de cada llamada',
+        'Who called, what they need, the address, and what was booked. Nothing lives only in a voicemail box.': 'Quién llamó, qué necesita, la dirección y qué se agendó. Nada se queda perdido en un buzón de voz.',
+        'We set up call forwarding with you. All calls, after hours only, or just the ones you cannot get to. Nothing to install.': 'Configuramos el desvío de llamadas con usted. Todas las llamadas, solo fuera de horario o solo las que no alcanza a contestar. No hay nada que instalar.',
+        'Keep it sharp every month': 'Lo mantenemos afinado cada mes',
+        'We listen to calls, fix anything that sounds off, update it when your prices or seasons change, and send you a report.': 'Escuchamos las llamadas, corregimos lo que no suene bien, lo actualizamos cuando cambian sus precios o temporadas, y le enviamos un informe.',
+        'What you do': 'Lo que hace usted',
+        'One kickoff call': 'Una llamada inicial',
+        'Tell us how your shop works. We take the notes and ask the questions.': 'Cuéntenos cómo funciona su negocio. Nosotros tomamos notas y hacemos las preguntas.',
+        'Try to trip it up': 'Intente hacerlo fallar',
+        'Call it yourself before launch and tell us what to change.': 'Llámelo usted mismo antes del lanzamiento y díganos qué cambiar.',
+        'Forward your line': 'Desvíe su línea',
+        'We walk you through it. It takes a couple of minutes.': 'Lo guiamos paso a paso. Toma un par de minutos.',
+        'About 30 minutes': 'Unos 30 minutos',
+        'That is the total homework. After that, your job is to show up to the jobs it books.': 'Esa es toda la tarea. Después, su trabajo es presentarse a los trabajos que agenda.',
+        /* bonuses */
+        'Included at no extra cost': 'Incluido sin costo adicional',
+        'A few extras that close the gaps': 'Algunos extras que cierran los huecos',
+        'Each one fixes a smaller problem that sits right next to the big one, so nothing slips through.': 'Cada uno resuelve un problema más pequeño que está justo al lado del grande, para que nada se escape.',
+        'Included': 'Incluido',
+        'If a caller hangs up before the agent finishes, they get a friendly text within seconds offering to book them in.': 'Si un cliente cuelga antes de que el agente termine, recibe en segundos un mensaje amable ofreciéndole agendar.',
+        'Serve Spanish-speaking homeowners in their own language, without hiring a bilingual dispatcher.': 'Atienda a clientes hispanohablantes en su propio idioma, sin contratar a un despachador bilingüe.',
+        'Monthly call report': 'Informe mensual de llamadas',
+        'How many calls came in, when, what people asked for, and how many turned into booked jobs. Plain numbers, no dashboard to learn.': 'Cuántas llamadas entraron, cuándo, qué pidió la gente y cuántas se convirtieron en trabajos agendados. Números claros, sin paneles que aprender.',
+        'Seasonal promos': 'Promociones de temporada',
+        'Running a spring AC tune-up or a fall furnace check? The agent mentions it to every caller, so the offer works while you work.': '¿Tiene una promoción de mantenimiento de aire en primavera o de revisión de calefacción en otoño? El agente se la menciona a cada cliente, así la oferta trabaja mientras usted trabaja.',
+        /* process */
+        'From the kickoff call to answering real customers in one week. We learn how your shop runs before we write a single word of the script.': 'De la llamada inicial a contestar clientes reales en una semana. Aprendemos cómo funciona su negocio antes de escribir una sola palabra del guion.',
+        'Day 1 / Kickoff': 'Día 1 / Inicio', 'One 30-minute call': 'Una llamada de 30 minutos',
+        'Tell us your services, service area, hours, pricing rules, and who is on call. That is the last homework you get.': 'Cuéntenos sus servicios, zona de cobertura, horario, reglas de precios y quién está de turno. Esa es la última tarea que le damos.',
+        'Days 2 to 4 / Build': 'Días 2 a 4 / Construcción', 'We build and train it': 'Lo construimos y lo entrenamos',
+        'We write the script, train the agent on your business, connect your calendar, and set up call summaries and text-backs.': 'Escribimos el guion, entrenamos al agente con su negocio, conectamos su calendario y configuramos los resúmenes y los mensajes automáticos.',
+        'Days 5 to 6 / Test': 'Días 5 a 6 / Pruebas', 'You try to trip it up': 'Usted intenta hacerlo fallar',
+        'You and your team call it, throw curveballs, and tell us what to change. We tune it until it sounds like your shop.': 'Usted y su equipo lo llaman, le ponen situaciones difíciles y nos dicen qué cambiar. Lo ajustamos hasta que suene como su negocio.',
+        'Day 7 / Live': 'Día 7 / En vivo', 'It starts answering': 'Empieza a contestar',
+        'Forward your line and it goes to work. From then on we review calls, keep it tuned, and send your monthly report.': 'Desvíe su línea y se pone a trabajar. Desde entonces revisamos las llamadas, lo mantenemos afinado y le enviamos su informe mensual.',
+        /* guarantee */
+        'Our guarantee': 'Nuestra garantía',
+        'All of the risk sits with us': 'Todo el riesgo corre por nuestra cuenta',
+        'Trying something new with your phones should not feel like a gamble. So we put our money where our mouth is.': 'Probar algo nuevo con sus teléfonos no debería sentirse como una apuesta. Por eso respaldamos lo que decimos con nuestro dinero.',
+        'DAYS': 'DÍAS',
+        'Live in 7 days, or your first month is free': 'Funcionando en 7 días, o su primer mes es gratis',
+        'If your agent is not answering real calls within 7 days of the kickoff call, you pay nothing for the first month. The clock only pauses while we are waiting on something from you, like calendar access.': 'Si su agente no está contestando llamadas reales dentro de los 7 días posteriores a la llamada inicial, no paga nada por el primer mes. El reloj solo se detiene mientras esperamos algo de su parte, como el acceso a su calendario.',
+        'Happy in 30 days, or your money back': 'Satisfecho en 30 días, o le devolvemos su dinero',
+        "Give it a full month on your real calls. If you are not happy with how it handles your customers, tell us and we refund that first month's fee. No forms and no hard feelings.": 'Dele un mes completo con sus llamadas reales. Si no está contento con cómo atiende a sus clientes, díganoslo y le reembolsamos la tarifa de ese primer mes. Sin formularios y sin resentimientos.',
+        '<b>Founding shop pricing.</b> We build every agent by hand, so we only take on a few new shops each month. Shops that join now lock in their monthly rate for as long as they stay with us.': '<b>Precio para negocios fundadores.</b> Construimos cada agente a mano, así que solo aceptamos unos pocos negocios nuevos cada mes. Los que se unan ahora mantienen su tarifa mensual mientras sigan con nosotros.',
+        /* faq */
+        'Questions': 'Preguntas', 'Fair questions, straight answers': 'Preguntas justas, respuestas directas',
+        'Will callers know they are talking to AI?': '¿Sabrán los clientes que están hablando con una IA?',
+        'It sounds natural and friendly, and if a caller asks, it tells them the truth. Most people calling a plumber at 10 PM care about one thing: getting someone out to fix the problem. Anyone who wants a person can ask, and it passes the call along or takes a message.': 'Suena natural y amable, y si un cliente pregunta, le dice la verdad. La mayoría de las personas que llaman a un plomero a las 10 de la noche quieren una sola cosa: que alguien vaya a arreglar el problema. Quien quiera hablar con una persona puede pedirlo, y el agente transfiere la llamada o toma un mensaje.',
+        'What happens with an emergency?': '¿Qué pasa con una emergencia?',
+        'You decide what counts as urgent and who gets the call. Urgent calls are patched straight through to your on-call tech, and if nobody picks up, the details go out by text right away so nothing waits until morning.': 'Usted decide qué cuenta como urgente y quién recibe la llamada. Las llamadas urgentes se transfieren directo a su técnico de turno, y si nadie contesta, los detalles se envían por mensaje de inmediato para que nada espere hasta la mañana.',
+        'Do I need a new phone number or new software?': '¿Necesito un número nuevo o un software nuevo?',
+        'No. You keep your number and forward calls to the agent. You choose whether that is every call, after hours only, or only the calls you cannot get to. We walk you through the setup.': 'No. Conserva su número y desvía las llamadas al agente. Usted elige si son todas, solo fuera de horario o solo las que no alcanza a contestar. Lo guiamos en la configuración.',
+        'What if it gets something wrong?': '¿Y si se equivoca en algo?',
+        'Every call is recorded and summarized, so nothing disappears. During the first month we review calls with you and tune the script, and we keep listening every month after that.': 'Cada llamada se graba y se resume, así que nada se pierde. Durante el primer mes revisamos las llamadas con usted y ajustamos el guion, y seguimos escuchando cada mes después.',
+        'What does it cost?': '¿Cuánto cuesta?',
+        'A one-time setup fee and a flat monthly fee. Both are quoted up front after your free audit, once we know your call volume and what you need it to do. The calculator above is a good way to see what it is worth to you first.': 'Una tarifa única de configuración y una tarifa mensual fija. Ambas se cotizan por adelantado después de su auditoría gratis, cuando ya conocemos su volumen de llamadas y lo que necesita. La calculadora de arriba es una buena forma de ver primero cuánto vale para usted.',
+        'Am I locked into a long contract?': '¿Quedo atado a un contrato largo?',
+        'No. After setup it runs month to month. We would rather keep you because it books jobs than because of fine print.': 'No. Después de la configuración funciona mes a mes. Preferimos que se quede porque le agenda trabajos, no por la letra pequeña.',
+        'Can it really speak Spanish?': '¿De verdad puede hablar español?',
+        'Yes. We can set it up to handle callers in English and in Spanish, so more of the homeowners in your area can book with you.': 'Sí. Podemos configurarlo para atender clientes en inglés y en español, para que más personas de su zona puedan agendar con usted.',
+        /* other services */
+        'Beyond the phones': 'Más allá de los teléfonos',
+        'More ways we take work off your plate': 'Más formas de quitarle trabajo de encima',
+        'Voice agents are where most shops start. When you are ready for the next thing, we build that too.': 'Los agentes de voz son por donde empiezan la mayoría de los negocios. Cuando esté listo para lo siguiente, también lo construimos.',
+        'AI automation': 'Automatización con IA',
+        'The workflows that eat your week. Invoices read and filed, leads scored and routed, orders chased, reports written before Monday. Exceptions go to a person with the reasoning attached.': 'Los flujos de trabajo que se comen su semana. Facturas leídas y archivadas, contactos puntuados y asignados, pedidos rastreados, informes listos antes del lunes. Las excepciones pasan a una persona con el razonamiento adjunto.',
+        'Workflows': 'Flujos de trabajo', 'Integrations': 'Integraciones', 'Audit trail': 'Registro de auditoría',
+        'Chat assistants': 'Asistentes de chat',
+        'Trained on your handbook, past tickets, and the way your team actually answers. It cites where every answer came from, so you can check it. Put it on your site, in Teams, or behind your support desk.': 'Entrenado con su manual, tickets anteriores y la forma en que su equipo realmente responde. Cita de dónde viene cada respuesta, para que pueda verificarla. Póngalo en su sitio, en Teams o detrás de su mesa de soporte.',
+        'RAG': 'RAG', 'Citations': 'Citas', 'Your docs': 'Sus documentos',
+        'Software engineering': 'Ingeniería de software',
+        'The app, the API, the integration, the migration off the system nobody wants to touch. A decade of production work in .NET, Python, Azure, and the front end, with or without any AI attached.': 'La aplicación, la API, la integración, la migración del sistema que nadie quiere tocar. Una década de trabajo en producción con .NET, Python, Azure y el front end, con o sin IA.',
+        'Web apps': 'Aplicaciones web', 'APIs': 'APIs',
+        /* about */
+        'Engineers who have run the systems we automate': 'Ingenieros que han operado los sistemas que automatizamos',
+        'Chaparral Dr AI was started by people who spent a decade building distributed systems in freight, warehouse, and healthcare, where a failed job is not a support ticket, it is a truck sitting idle. We build automation and software the same way we built those platforms: observable, reversible, and boring in production.': 'Chaparral Dr AI fue fundada por personas que pasaron una década construyendo sistemas distribuidos en transporte de carga, almacenes y salud, donde un trabajo fallido no es un ticket de soporte, es un camión detenido. Construimos automatización y software como construimos esas plataformas: observables, reversibles y aburridos en producción.',
+        'Your data stays in your tenant. We deploy into your cloud account, not ours, and you keep the keys.': 'Sus datos se quedan en su entorno. Desplegamos en su cuenta de nube, no en la nuestra, y usted conserva las llaves.',
+        'Every automated decision is logged with its inputs and its reasoning, so an auditor can follow it later.': 'Cada decisión automatizada se registra con sus datos de entrada y su razonamiento, para que un auditor pueda seguirla después.',
+        'You own the code. If you end the engagement, the system keeps running and your team can maintain it.': 'El código es suyo. Si termina la colaboración, el sistema sigue funcionando y su equipo puede mantenerlo.',
+        'Named for the street where it all started': 'Lleva el nombre de la calle donde todo empezó',
+        /* contact */
+        'Free missed-call audit': 'Auditoría gratis de llamadas perdidas',
+        'Find out what your callers hear today': 'Descubra qué escuchan hoy sus clientes',
+        'Tell us about your shop. We will call your line after hours and at a busy time of day, then walk you through what happened and what a caller would hear with a voice agent instead. It is free, and there is no obligation.': 'Cuéntenos sobre su negocio. Llamaremos a su línea fuera de horario y en una hora de mucho trabajo, y luego le mostraremos qué pasó y qué escucharía un cliente con un agente de voz. Es gratis y sin compromiso.',
+        'No cost': 'Sin costo', 'No sales pressure': 'Sin presión de ventas', 'Results in a 15-minute call': 'Resultados en una llamada de 15 minutos',
+        'First name': 'Nombre', 'Last name': 'Apellido', 'Work email': 'Correo de trabajo', 'Phone': 'Teléfono',
+        'Company': 'Empresa', 'Company name': 'Nombre de la empresa',
+        'Give us an email or a phone number so we can reply.': 'Denos un correo o un teléfono para poder responderle.',
+        'Tell us about your shop': 'Cuéntenos sobre su negocio',
+        'Your trade, your service area, roughly how many calls you get in a week, and what happens today when nobody can pick up.': 'Su oficio, su zona de cobertura, cuántas llamadas recibe más o menos por semana y qué pasa hoy cuando nadie puede contestar.',
+        'Send it over': 'Reservar mi auditoría gratis', 'We reply within one business day.': 'Respondemos en un día hábil.',
+        'Message sent': 'Mensaje enviado', 'Sending...': 'Enviando...', 'Sent': 'Enviado',
+        'That email does not look right.': 'Ese correo no parece válido.',
+        'Use at least 10 digits.': 'Use al menos 10 dígitos.',
+        'That did not send. Email chaparraldrai@gmail.com and we will pick it up.': 'No se pudo enviar. Escriba a chaparraldrai@gmail.com y lo retomamos.',
+        'Website': 'Sitio web',
+        /* footer */
+        'What is included': 'Qué incluye', 'Roots before branches': 'Raíces antes que ramas', 'Hear a demo': 'Escuche una demo', 'Try a live demo': 'Pruebe una demo en vivo',
+        'Work': 'Trabajo', 'Get in touch': 'Contáctenos',
+        'Ask a question': 'Hacer una pregunta', 'Missed-call calculator': 'Calculadora de llamadas perdidas',
         '© 2026 Chaparral Dr AI. All rights reserved.': '© 2026 Chaparral Dr AI. Todos los derechos reservados.'
-      }, { suffix: { ' wks': ' sem' } });
+      }, { suffix: { ' days': ' días', ' wks': ' sem' } });
     </script>
     <script>
       (
         function() {
           const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          const PHRASE_EN = 'When a new lead comes in, qualify it and get it to the right person.';
+          const PHRASE_EN = 'Caller: "Our AC quit and it is 86 in the house. Can someone come out tomorrow?"';
           const getPhrase = () => I18N.t(PHRASE_EN);
 
           /* ---------- split headings into animatable words ---------- */
@@ -875,15 +1331,15 @@
               e.target.classList.add('in');
               io.unobserve(e.target);
               if(e.target.hasAttribute('data-count')) countUp(e.target);
-              if(e.target.id === 'roots') e.target.classList.add('lit');
+              if(e.target.classList.contains('roots')) e.target.classList.add('lit');
               if(e.target.id === 'steps') runSteps();
             });
           },{threshold:.2, rootMargin:'0px 0px -8% 0px'});
 
-          const watched = document.querySelectorAll('[data-split],[data-fade],[data-count],#roots,#steps');
+          const watched = document.querySelectorAll('[data-split],[data-fade],[data-count],.roots,#steps');
           if(reduce){
-            watched.forEach(el=>{ el.classList.add('in'); if(el.id==='roots') el.classList.add('lit'); });
-            document.querySelectorAll('[data-count]').forEach(el=>el.textContent = el.dataset.count + (el.dataset.suffix||''));
+            watched.forEach(el=>{ el.classList.add('in'); if(el.classList.contains('roots')) el.classList.add('lit'); });
+            document.querySelectorAll('[data-count]').forEach(el=>el.textContent = (el.dataset.prefix||'') + el.dataset.count + (el.dataset.suffix||''));
             document.querySelectorAll('#steps .step').forEach(s=>s.classList.add('on','done'));
             document.getElementById('typed').textContent = getPhrase();
             document.getElementById('caret').style.display = 'none';
@@ -937,12 +1393,13 @@
           /* ---------- count up ---------- */
           function countUp(el){
             const target = parseFloat(el.dataset.count), suffix = el.dataset.suffix || '';
-            if(reduce){ el.textContent = target + suffix; return; }
+            const prefix = el.dataset.prefix || '';
+            if(reduce){ el.textContent = prefix + target + suffix; return; }
             const dur = 1400, t0 = performance.now();
             (function tick(now){
               const p = Math.min(1,(now-t0)/dur);
               const eased = 1 - Math.pow(1-p, 3);
-              el.textContent = Math.round(target*eased) + suffix;
+              el.textContent = prefix + Math.round(target*eased) + suffix;
               if(p<1) requestAnimationFrame(tick);
             })(performance.now());
           }
@@ -991,6 +1448,28 @@
               c.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100)+'%');
             });
           });
+
+          /* ---------- missed-call calculator ---------- */
+          const iCalls = document.getElementById('iCalls');
+          if (iCalls) {
+            const iRate = document.getElementById('iRate'), iTicket = document.getElementById('iTicket');
+            const $o = id => document.getElementById(id);
+            const money = v => '$' + Math.round(v).toLocaleString(I18N.lang === 'es' ? 'es-US' : 'en-US');
+            function calc() {
+              const calls = +iCalls.value, rate = +iRate.value / 100, ticket = +iTicket.value;
+              const jobsMonth = calls * 52 / 12 * rate;
+              const month = jobsMonth * ticket;
+              $o('oCalls').textContent = I18N.t('{v} calls', { v: calls });
+              $o('oRate').textContent = iRate.value + '%';
+              $o('oTicket').textContent = money(ticket);
+              $o('oMonth').textContent = money(month);
+              $o('oYear').textContent = I18N.t('About {v} a year', { v: money(month * 12) });
+              $o('oJobs').textContent = I18N.t('Roughly {n} jobs a month that someone else gets to do.', { n: Math.round(jobsMonth) });
+            }
+            [iCalls, iRate, iTicket].forEach(el => el.addEventListener('input', calc));
+            I18N.onChange(calc);
+            calc();
+          }
 
           /* ---------- contact form ---------- */
           const CONTACT_ENDPOINT = 'https://chaparraldrai-function.azurewebsites.net/api/contact';

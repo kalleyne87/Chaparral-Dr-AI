@@ -1161,9 +1161,10 @@
             "Call ended": "Llamada terminada", "Couldn't connect": "No se pudo conectar",
             "Standing by": "En espera", "Ringing": "Llamando", "{name} speaking": "{name} está hablando",
             "You're speaking": "Usted está hablando", "Listening": "Escuchando", "You": "Usted",
-            "Book a dental cleaning": "Reservar una limpieza dental",
-            "Call a dental office after hours and schedule an appointment.": "Llame a un consultorio dental fuera de horario y agende una cita.",
-            "AI receptionist, Brightside Family Dental": "Recepcionista con IA, Brightside Family Dental",
+            "Book a no-heat repair": "Agendar una reparación de calefacción",
+            "Call an HVAC company after hours with a broken furnace and get a technician booked.": "Llame a una empresa de calefacción y aire acondicionado fuera de horario con la calefacción descompuesta y agende a un técnico.",
+            "AI receptionist, Brightline Heating & Air": "Recepcionista con IA, Brightline Heating & Air",
+            "Service call booked": "Visita de servicio agendada",
             "Appointment booked": "Cita agendada",
             "Ask about automating your business": "Pregunte cómo automatizar su negocio",
             "Talk through a problem and get qualified for a follow-up call.": "Cuéntenos un problema y califique para una llamada de seguimiento.",
@@ -1171,6 +1172,8 @@
             "Qualified lead sent to CRM": "Cliente potencial calificado enviado al CRM",
             "Details": "Detalles", "Nothing captured on this call": "No se capturó nada en esta llamada",
             "Name": "Nombre", "Slot": "Horario", "Service": "Servicio", "Week": "Semana", "Time": "Hora",
+            "System": "Equipo", "Issue": "Problema", "Gas smell": "Olor a gas", "Address": "Dirección",
+            "Window": "Horario", "Priority": "Prioridad",
             "Team size": "Tamaño del equipo", "Budget": "Presupuesto", "Need": "Necesidad", "Message": "Mensaje",
             "web call via Retell": "llamada web con Retell", "simulated": "simulada",
             "duration {d}": "duración {d}", "from {x}": "desde {x}",
@@ -1202,66 +1205,86 @@
            script only drives the simulated preview.
         ------------------------------------------------------------------- */
         const SCENARIOS = [{
-            id: "dental",
-            agentId: "agent_c1b1a12677f976ee7c3bdd5322",
-            agentIdEs: "agent_d66befca4ccd7e4741a5e779c6", // Demo - Brighside Dental (ES)
-            agent: "Alla",
-            role: "AI receptionist, Brightside Family Dental",
-            title: "Book a dental cleaning",
-            desc: "Call a dental office after hours and schedule an appointment.",
-            outcome: "Appointment booked",
+            id: "hvac",
+            agentId: "agent_738d5c7c74aaf124bbb3191d3b",
+            agentIdEs: "agent_64bd212f41196d4b4c5218e4e5",
+            agent: "Riley",
+            role: "AI receptionist, Brightline Heating & Air",
+            title: "Book a no-heat repair",
+            desc: "Call an HVAC company after hours with a broken furnace and get a technician booked.",
+            outcome: "Service call booked",
             outcomeTool: "book_appointment",
             script: [
-                ["agent", "Thanks for calling Brightside Family Dental, this is Alla. How can I help you today?"],
-                ["user", "Hi, I'd like to book a cleaning for next week."],
-                ["node", "Greeting", "Book appointment"],
-                ["agent", "Happy to help with that. Can I get your first and last name?"],
-                ["user", "Sure, it's Jordan Miles."],
-                ["tool", "lookup_patient", {
-                    name: "Jordan Miles"
-                }, "found, patient 10482"],
-                ["agent", "Thanks, Jordan. I see you in our system. Let me check next week's openings."],
+                ["agent", "Thanks for calling Brightline Heating and Air. This is Riley, the AI assistant. How can I help?"],
+                ["user", "Hi, my furnace stopped working and the house is getting cold."],
+                ["node", "Greeting", "Service request"],
+                ["agent", "Sorry to hear that. First, a quick safety check: do you smell gas anywhere in the home?"],
+                ["user", "No, no gas smell."],
+                ["tool", "triage_issue", {
+                    system: "furnace",
+                    issue: "no heat",
+                    gas_smell: "no"
+                }, "urgent, no safety risk"],
+                ["agent", "Good. Can I get your name and the service address?"],
+                ["user", "Jordan Miles, 412 Oak Ridge Drive."],
+                ["tool", "check_service_area", {
+                    address: "412 Oak Ridge Dr"
+                }, "in service area"],
+                ["agent", "Thanks, Jordan. Let me find the first opening."],
                 ["tool", "check_availability", {
-                    service: "cleaning",
-                    week: "next"
-                }, "3 open slots"],
-                ["agent", "I have Tuesday at 10 AM, Wednesday at 2:30, or Thursday at 9. Which works best?"],
-                ["user", "Wednesday at 2:30 works."],
+                    service: "no-heat repair",
+                    window: "earliest"
+                }, "2 open slots"],
+                ["agent", "I can get a technician out tomorrow between 8 and 10 AM, or between 12 and 2. Which works better?"],
+                ["user", "8 to 10, please."],
                 ["tool", "book_appointment", {
-                    slot: "Wed 2:30 PM"
+                    slot: "Tomorrow 8-10 AM"
                 }, "confirmed"],
-                ["agent", "You're all set for Wednesday at 2:30 PM. I'll text a confirmation to the number on file. Anything else?"],
-                ["user", "Nope, that's it. Thanks!"],
+                ["tool", "notify_on_call", {
+                    priority: "no heat"
+                }, "sent to on-call tech"],
+                ["agent", "You're booked for tomorrow, 8 to 10 AM, and I've flagged it to our on-call tech. Can I text you a confirmation?"],
+                ["user", "Yes, please."],
                 ["tool", "send_sms", {
                     message: "appointment confirmation"
                 }, "queued"],
-                ["agent", "Have a great day, Jordan. We'll see you Wednesday."]
+                ["agent", "Done. Stay warm tonight, Jordan. We'll see you in the morning."]
             ],
             scriptEs: [
-                ["agent", "Gracias por llamar a Brightside Family Dental, habla Alla. ¿En qué puedo ayudarle?"],
-                ["user", "Hola, quisiera agendar una limpieza para la próxima semana."],
-                ["node", "Greeting", "Book appointment"],
-                ["agent", "Con gusto. ¿Me da su nombre y apellido?"],
-                ["user", "Claro, soy Jordan Miles."],
-                ["tool", "lookup_patient", {
-                    name: "Jordan Miles"
-                }, "found, patient 10482"],
-                ["agent", "Gracias, Jordan. Ya lo encontré en nuestro sistema. Déjeme revisar los horarios de la próxima semana."],
+                ["agent", "Gracias por llamar a Brightline Heating and Air. Habla Riley, la asistente de IA. ¿En qué puedo ayudarle?"],
+                ["user", "Hola, mi calefacción dejó de funcionar y la casa se está enfriando."],
+                ["node", "Greeting", "Service request"],
+                ["agent", "Lamento escuchar eso. Primero, una pregunta de seguridad: ¿huele a gas en alguna parte de la casa?"],
+                ["user", "No, no huele a gas."],
+                ["tool", "triage_issue", {
+                    system: "calefacción",
+                    issue: "sin calefacción",
+                    gas_smell: "no"
+                }, "urgent, no safety risk"],
+                ["agent", "Bien. ¿Me da su nombre y la dirección del servicio?"],
+                ["user", "Jordan Miles, 412 Oak Ridge Drive."],
+                ["tool", "check_service_area", {
+                    address: "412 Oak Ridge Dr"
+                }, "in service area"],
+                ["agent", "Gracias, Jordan. Déjeme buscar el primer horario disponible."],
                 ["tool", "check_availability", {
-                    service: "limpieza",
-                    week: "próxima"
-                }, "3 open slots"],
-                ["agent", "Tengo el martes a las 10, el miércoles a las 2:30 o el jueves a las 9. ¿Cuál le queda mejor?"],
-                ["user", "El miércoles a las 2:30 me funciona."],
+                    service: "reparación de calefacción",
+                    window: "lo antes posible"
+                }, "2 open slots"],
+                ["agent", "Puedo enviar a un técnico mañana entre las 8 y las 10 de la mañana, o entre las 12 y las 2. ¿Cuál le queda mejor?"],
+                ["user", "De 8 a 10, por favor."],
                 ["tool", "book_appointment", {
-                    slot: "miércoles 2:30 PM"
+                    slot: "mañana 8-10 AM"
                 }, "confirmed"],
-                ["agent", "Listo, quedó agendado para el miércoles a las 2:30. Le enviaré una confirmación por mensaje al número que tenemos registrado. ¿Algo más?"],
-                ["user", "No, eso es todo. ¡Gracias!"],
+                ["tool", "notify_on_call", {
+                    priority: "sin calefacción"
+                }, "sent to on-call tech"],
+                ["agent", "Listo, quedó agendado para mañana de 8 a 10, y ya le avisé a nuestro técnico de guardia. ¿Le envío una confirmación por mensaje de texto?"],
+                ["user", "Sí, por favor."],
                 ["tool", "send_sms", {
                     message: "confirmación de cita"
                 }, "queued"],
-                ["agent", "Que tenga un excelente día, Jordan. Lo esperamos el miércoles."]
+                ["agent", "Hecho. Que pase una noche abrigado, Jordan. Lo vemos en la mañana."]
             ]
         },
         {
