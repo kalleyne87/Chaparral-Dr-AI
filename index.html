@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Chaparral Dr AI builds voice agents that answer every call, plus AI automation, chat assistants, and custom software. Done for you, with voice agents live in 7 days.">
     <meta name="theme-color" content="#030509">
+    <script src="/theme.js"></script>
     <link rel="canonical" href="https://www.chaparraldrai.com/">
     <meta property="og:image" content="https://www.chaparraldrai.com/og-image.png">
     <meta property="og:title" content="Chaparral Dr AI">
@@ -584,6 +585,88 @@
       .subhead .mono{display:block;margin-bottom:12px;color:var(--ember-soft)}
       .subhead h3{font-size:clamp(26px,2.8vw,36px);letter-spacing:-.02em;line-height:1.1}
       .subhead p{margin-top:12px;font-size:15.5px}
+
+      /* ============ light theme (toggled by theme.js; dark stays the default) ============ */
+      html[data-theme="light"]{
+        --void:#FFFFFF;
+        --ink:#F3F6FA;
+        --panel:#F5F8FB;
+        --line:rgba(16,42,72,.12);
+        --line-2:rgba(16,42,72,.22);
+        --cyan:#0779B3;
+        --ember:#D12A39;
+        --ember-soft:#C8243A;
+        --bone:#0B1522;
+        --slate:#465566;
+        --slate-dim:#6A7886;
+      }
+      html[data-theme="light"] .eyebrow{color:#0B3A5C}
+      html[data-theme="light"] .limb{opacity:.42}
+      html[data-theme="light"] .beams{opacity:.55}
+      html[data-theme="light"] .nav{background:rgba(255,255,255,.78);box-shadow:0 10px 30px -22px rgba(16,42,72,.45)}
+      html[data-theme="light"] .nav-shell.pinned .nav{background:rgba(255,255,255,.94)}
+      html[data-theme="light"] .nav-links a{color:#2A3A4A}
+      html[data-theme="light"] .nav-links a:hover{color:var(--bone)}
+      html[data-theme="light"] .btn{background:#FFFFFF}
+      html[data-theme="light"] .btn:hover{border-color:rgba(16,42,72,.35)}
+      html[data-theme="light"] .btn-primary{color:#FFFFFF;border-color:#C8243A;background:linear-gradient(180deg,#E0333F,#C8243A);
+        box-shadow:0 12px 26px -14px rgba(200,36,58,.75)}
+      html[data-theme="light"] .btn-primary::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent)}
+      html[data-theme="light"] .btn-primary:hover{border-color:#B01E30}
+      html[data-theme="light"] .lang-toggle{border-color:rgba(7,121,179,.4);background:rgba(7,121,179,.06);box-shadow:none}
+      html[data-theme="light"] .lang-toggle span{color:#4A5A6A}
+      html[data-theme="light"] .lang-toggle span.on{color:#FFFFFF;background:linear-gradient(135deg,#1C93D1,#D9414D)}
+      html[data-theme="light"] .rotator u{background-image:linear-gradient(96deg,var(--cyan),#4C7598 45%,var(--ember))}
+      html[data-theme="light"] .orb-ring{border-color:rgba(16,42,72,.12)}
+      html[data-theme="light"] .console{background:linear-gradient(180deg,#FFFFFF,#F5F8FB);
+        box-shadow:0 40px 100px -50px rgba(20,110,214,.45),0 0 0 1px rgba(16,42,72,.04)}
+      html[data-theme="light"] .pips i{background:#D5DEE7}
+      html[data-theme="light"] .prompt-line{color:#13202E}
+      html[data-theme="light"] .step{background:#FFFFFF;color:#2A3A4A}
+      html[data-theme="light"] .console-side{background:#F3F6FA}
+      html[data-theme="light"] .side-row{color:#3A4A5A;border-bottom-color:rgba(16,42,72,.12)}
+      html[data-theme="light"] .marquee span{color:#8A98A6}
+      html[data-theme="light"] .card{background:linear-gradient(180deg,#FFFFFF,#F7FAFD);box-shadow:0 14px 34px -26px rgba(16,42,72,.35)}
+      html[data-theme="light"] .stat,
+      html[data-theme="light"] .faq details{background:#F7FAFD}
+      html[data-theme="light"] .stat b,
+      html[data-theme="light"] .calc-big,
+      html[data-theme="light"] .feature-points b{background-image:linear-gradient(120deg,var(--cyan),#3E6A8F 55%,var(--ember))}
+      html[data-theme="light"] .about-list p,
+      html[data-theme="light"] .feature-points span{color:#3A4A5A}
+      html[data-theme="light"] .form,
+      html[data-theme="light"] .form-sent,
+      html[data-theme="light"] .calc-in,
+      html[data-theme="light"] .dfy-panel{background:linear-gradient(180deg,#FFFFFF,#F6F9FC)}
+      html[data-theme="light"] .form{box-shadow:0 30px 80px -50px rgba(16,42,72,.4)}
+      html[data-theme="light"] .field span,
+      html[data-theme="light"] .slider-top span{color:#1F2E3D}
+      html[data-theme="light"] .field input,
+      html[data-theme="light"] .field textarea{background:#FFFFFF;border-color:rgba(16,42,72,.18)}
+      html[data-theme="light"] .field input::placeholder,
+      html[data-theme="light"] .field textarea::placeholder{color:#94A2B0}
+      html[data-theme="light"] .foot-col a{color:#3A4A5A}
+      html[data-theme="light"] .sub-note a,
+      html[data-theme="light"] .calc-compare a{color:#0779B3}
+      html[data-theme="light"] .slider{border-bottom-color:rgba(16,42,72,.12)}
+      html[data-theme="light"] .calc-out{background:radial-gradient(120% 90% at 100% 0%,rgba(224,51,63,.08),transparent 60%),linear-gradient(180deg,#FFFFFF,#F6F9FC)}
+      html[data-theme="light"] .dfy-panel.you{background:radial-gradient(120% 80% at 0% 0%,rgba(56,182,240,.12),transparent 60%),linear-gradient(180deg,#FFFFFF,#F6F9FC)}
+      html[data-theme="light"] .promise{background:radial-gradient(90% 70% at 50% 0%,rgba(56,182,240,.10),transparent 70%),linear-gradient(180deg,#FFFFFF,#F6F9FC)}
+      html[data-theme="light"] .promise.ember{background:radial-gradient(90% 70% at 50% 0%,rgba(224,51,63,.08),transparent 70%),linear-gradient(180deg,#FFFFFF,#F6F9FC)}
+      html[data-theme="light"] .founding{background:rgba(224,51,63,.04)}
+      html[data-theme="light"] .founding p{color:#2A3A4A}
+      html[data-theme="light"] .feature{background:radial-gradient(70% 90% at 0% 0%,rgba(56,182,240,.10),transparent 60%),radial-gradient(60% 80% at 100% 100%,rgba(224,51,63,.08),transparent 60%),linear-gradient(180deg,#FFFFFF,#F7FAFD);
+        box-shadow:0 40px 100px -60px rgba(224,51,63,.35)}
+      html[data-theme="light"] .feature-sub{color:#4A5A6A}
+      html[data-theme="light"] .badge{background:linear-gradient(135deg,#1C93D1,#D9414D)}
+      /* the orb and logo art sit on black; round them off so they read as badges on white */
+      html[data-theme="light"] .orb{
+        -webkit-mask-image:radial-gradient(ellipse 49.4% 55.2% at 50% 56.6%,#000 92%,transparent 100%),linear-gradient(180deg,#000 76%,transparent 98%);
+        -webkit-mask-composite:source-in;
+        mask-image:radial-gradient(ellipse 49.4% 55.2% at 50% 56.6%,#000 92%,transparent 100%),linear-gradient(180deg,#000 76%,transparent 98%);
+        mask-composite:intersect}
+      html[data-theme="light"] .foot-brand img{border-radius:14px;-webkit-mask-image:none;mask-image:none;box-shadow:0 14px 30px -18px rgba(16,42,72,.5)}
+      html[data-theme="light"] .voice-zone{background:linear-gradient(180deg,#F3F7FB,rgba(255,255,255,0) 40%,#F3F7FB)}
     </style>
   </head>
   <body>
@@ -599,12 +682,13 @@
             <a href="#work">What we build</a>
             <a href="#offer">Voice agents</a>
             <a href="#about">About us</a>
-            <a href="demo.html">Demos</a>
+            <a href="/demo">Demos</a>
             <a href="#contact">Contact</a>
           </div>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Light theme" title="Light theme" aria-pressed="false"></button>
           <button class="lang-toggle" id="langToggle" type="button" aria-label="Language"><span data-l="en" class="on">EN</span><span data-l="es">ES</span></button>
           <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">≡</button>
-          <a class="btn btn-primary" href="#contact">Get Started</a>
+          <a class="btn btn-primary" href="/book">Get Started</a>
         </nav>
       </div>
     </div>
@@ -628,8 +712,8 @@
             </div>
             <p class="lede" data-fade>We map the work, build the thing, and hand back a system that runs on its own. Voice agents that answer every call, automation, chat assistants, or plain custom software when that is what the job actually needs.</p>
             <div class="hero-cta" data-fade>
-              <a class="btn btn-primary" href="#contact">Book a free consultation</a>
-              <a class="btn" href="demo.html">Hear our voice agent</a>
+              <a class="btn btn-primary" href="/book">Book a free consultation</a>
+              <a class="btn" href="/demo">Hear our voice agent</a>
             </div>
             <div class="hero-meta" data-fade>
               <div><i class="dot"></i><span class="mono">Voice agents live in 7 days</span></div>
@@ -732,10 +816,10 @@
           <div>
             <div class="feature-title" style="margin-top:0"><div class="glyph">◉</div><h3>The 7-Day Never Miss a Call System</h3></div>
             <p>A voice that answers on the first ring, day or night. It qualifies the caller, books the appointment, and hands off to a person the moment the call needs one. We do all of the setup and keep it running after launch. You take one call.</p>
-            <div class="tags"><span class="tag">Inbound</span><span class="tag">Outbound</span><span class="tag">Live handoff</span><span class="tag">English and Spanish</span></div>
+            <div class="tags"><span class="tag">Inbound</span><span class="tag">Live handoff</span><span class="tag">English and Spanish</span></div>
             <div class="hero-cta" style="margin-top:26px">
-              <a class="btn btn-primary" href="#contact">Get a free missed-call audit</a>
-              <a class="btn" href="demo.html">Hear a live demo</a>
+              <a class="btn btn-primary" href="/book">Get a free missed-call audit</a>
+              <a class="btn" href="/demo">Hear a live demo</a>
             </div>
           </div>
           <ul class="feature-points">
@@ -749,7 +833,7 @@
             <span class="mono">How the 7 days go</span>
             <div class="process">
               <div class="pstep"><div class="n">Day 1 / Kickoff</div><h3>One 30-minute call</h3><p>Tell us your services, service area, hours, pricing rules, and who is on call. We take the notes and ask the questions.</p><span class="you-tag">Your part</span></div>
-              <div class="pstep"><div class="n">Days 2 to 4 / Build</div><h3>We build and train it</h3><p>We write the script, train the agent on your business, connect your calendar, and set up call summaries and text-backs.</p></div>
+              <div class="pstep"><div class="n">Days 2 to 4 / Build</div><h3>We build and train it</h3><p>We write the script, train the agent on your business, connect your calendar, set up call summaries, and file your texting registration with the phone carriers.</p></div>
               <div class="pstep"><div class="n">Days 5 to 6 / Test</div><h3>You try to trip it up</h3><p>You and your team call it, throw curveballs, and tell us what to change. We tune it until it sounds like your shop.</p><span class="you-tag">Your part</span></div>
               <div class="pstep"><div class="n">Day 7 / Live</div><h3>It starts answering</h3><p>Forward your line, which takes a couple of minutes with us walking you through it, and it goes to work.</p><span class="you-tag">Your part</span></div>
             </div>
@@ -761,7 +845,7 @@
               <li><i>✓</i><div><b>Trained on your shop</b><p>Your services, service area, hours, pricing rules, and how you like jobs booked.</p></div></li>
               <li><i>✓</i><div><b>Books into your calendar</b><p>It checks real openings, offers times, and confirms with the caller before hanging up.</p></div></li>
               <li><i>✓</i><div><b>Routes urgent calls to a person</b><p>You set the rules, and it patches the caller through to whoever is on call.</p></div></li>
-              <li><i>✓</i><div><b>Texts you a summary</b><p>Who called, what they need, the address, and what was booked, after every call.</p></div></li>
+              <li><i>✓</i><div><b>Sends you a summary</b><p>Who called, what they need, the address, and what was booked, after every call. By email from day one, and by text once the phone carriers approve your texting.</p></div></li>
               <li><i>✓</i><div><b>Keeps your number</b><p>Call forwarding for all calls, after hours only, or just the ones you cannot get to.</p></div></li>
               <li><i>✓</i><div><b>Stays sharp every month</b><p>We listen to calls, fix anything that sounds off, and send you a report.</p></div></li>
             </ul>
@@ -777,7 +861,7 @@
             <span class="incl">Included</span>
             <div class="glyph">↩</div>
             <h3>Missed-call text-back</h3>
-            <p>If a caller hangs up before the agent finishes, they get a friendly text within seconds offering to book them in.</p>
+            <p>If a caller hangs up before the agent finishes, they get a friendly text within seconds offering to book them in. Switches on once the phone carriers approve your texting, usually within two weeks of launch.</p>
           </article>
           <article class="card ember" data-fade>
             <span class="incl">Included</span>
@@ -807,24 +891,24 @@
         <div class="calc" style="margin-top:0">
           <div class="calc-in" data-fade>
             <label class="slider">
-              <div class="slider-top"><span>Calls you miss in a week</span><output id="oCalls" data-i18n-skip></output></div>
-              <input type="range" id="iCalls" min="1" max="60" step="1" value="8">
+              <div class="slider-top"><span>Calls you miss in a week</span><output id="oCalls" data-i18n-skip>10 calls</output></div>
+              <input type="range" id="iCalls" min="1" max="60" step="1" value="10">
             </label>
             <label class="slider">
-              <div class="slider-top"><span>How many of those would have booked</span><output id="oRate" data-i18n-skip></output></div>
-              <input type="range" id="iRate" min="10" max="90" step="5" value="50">
+              <div class="slider-top"><span>How many of those would have booked</span><output id="oRate" data-i18n-skip>30%</output></div>
+              <input type="range" id="iRate" min="10" max="90" step="5" value="30">
             </label>
             <label class="slider">
-              <div class="slider-top"><span>Your average ticket</span><output id="oTicket" data-i18n-skip></output></div>
-              <input type="range" id="iTicket" min="100" max="5000" step="50" value="400">
+              <div class="slider-top"><span>Your average ticket</span><output id="oTicket" data-i18n-skip>$1,200</output></div>
+              <input type="range" id="iTicket" min="100" max="5000" step="50" value="1200">
             </label>
           </div>
           <div class="calc-out" data-fade aria-live="polite">
             <span class="mono">Work walking to the next shop</span>
-            <b class="calc-big" id="oMonth" data-i18n-skip>$0</b>
+            <b class="calc-big" id="oMonth" data-i18n-skip>$15,600</b>
             <span class="calc-per">every month</span>
-            <p class="calc-year" id="oYear" data-i18n-skip></p>
-            <p class="calc-jobs" id="oJobs" data-i18n-skip></p>
+            <p class="calc-year" id="oYear" data-i18n-skip>About $187,200 a year</p>
+            <p class="calc-jobs" id="oJobs" data-i18n-skip>Roughly 13 jobs a month that someone else gets to do.</p>
             <p class="calc-compare">If even a few of those calls get answered and booked, the agent has paid for itself. That is the whole idea.</p>
           </div>
         </div>
@@ -838,13 +922,17 @@
           <article class="promise" data-fade>
             <div class="seal">7<br>DAYS</div>
             <h3>Live in 7 days, or your first month is free</h3>
-            <p>If your agent is not answering real calls within 7 days of the kickoff call, you pay nothing for the first month. The clock only pauses while we are waiting on something from you, like calendar access.</p>
+            <p>If your agent is not answering real calls within 7 days of the kickoff call, you pay nothing for the first month. The clock only pauses while we are waiting on something from you, like calendar access. Text messages follow once the phone carriers approve your registration, usually within two weeks. That review is outside our control, so it is not part of the 7 days.</p>
           </article>
           <article class="promise ember" data-fade>
             <div class="seal">30<br>DAYS</div>
-            <h3>Happy in 30 days, or your money back</h3>
-            <p>Give it a full month on your real calls. If you are not happy with how it handles your customers, tell us and we refund that first month's fee. No forms and no hard feelings.</p>
+            <h3>Works as agreed in 30 days, or your money back</h3>
+            <p>If the agent is not answering your forwarded calls, booking jobs into your calendar, and routing urgent calls the way we agreed in your script, and we cannot fix it within your first 30 days, we refund your setup fee and your first month, no questions asked. All we ask is that you take the kickoff call, forward your calls as agreed, and tell us what is wrong so we can fix it.</p>
           </article>
+        </div>
+        <div class="founding" data-fade>
+          <i class="dot"></i>
+          <p data-i18n-html><b>Every call answered, or we pay for it.</b> If a call reaches your agent and goes unanswered because of our system, we pay you for that missed call and call your customer back ourselves within one business hour. Details are in your agreement.</p>
         </div>
         <div class="founding" data-fade>
           <i class="dot red"></i>
@@ -859,12 +947,12 @@
         <div class="about">
           <div>
             <span class="eyebrow" data-fade>About us</span>
-            <h2 data-split style="margin-top:26px;max-width:16ch">Engineers who have run the systems we automate</h2>
-            <p class="lede" data-fade style="margin-top:22px">Chaparral Dr AI was started by people who spent a decade building distributed systems in freight, warehouse, and healthcare, where a failed job is not a support ticket, it is a truck sitting idle. We build automation and software the same way we built those platforms: observable, reversible, and boring in production.</p>
+            <h2 data-split style="margin-top:26px;max-width:16ch">Founded by an engineer who has run the systems we automate</h2>
+            <p class="lede" data-fade style="margin-top:22px">Chaparral Dr AI was founded by an engineer who spent a decade building distributed systems in freight, warehouse, and healthcare, where a failed job is not a support ticket, it is a truck sitting idle. We build automation and software the same way those platforms were built: observable, reversible, and boring in production.</p>
             <div class="about-list">
-              <div data-fade><b>01</b><p>Your data stays in your tenant. We deploy into your cloud account, not ours, and you keep the keys.</p></div>
-              <div data-fade><b>02</b><p>Every automated decision is logged with its inputs and its reasoning, so an auditor can follow it later.</p></div>
-              <div data-fade><b>03</b><p>You own the code. If you end the engagement, the system keeps running and your team can maintain it.</p></div>
+              <div data-fade><b>01</b><p>Your customers are yours. Call recordings, transcripts, and contact details belong to your business, and we never sell or share them.</p></div>
+              <div data-fade><b>02</b><p>Every call and every automated decision is logged with what happened and why, so you can always check the work.</p></div>
+              <div data-fade><b>03</b><p>On custom software, you own the code and it runs in your own cloud account. If you end the engagement, it keeps running and your team can maintain it.</p></div>
             </div>
           </div>
           <div class="about-art" data-fade>
@@ -944,7 +1032,7 @@
           </div>
           <div class="foot-col">
             <h4>Voice agents</h4>
-            <a href="#offer">What is included</a><a href="#bonuses">Free extras</a><a href="#calculator">Missed-call calculator</a><a href="#guarantee">Guarantee</a><a href="demo.html">Hear a demo</a>
+            <a href="#offer">What is included</a><a href="#bonuses">Free extras</a><a href="#calculator">Missed-call calculator</a><a href="#guarantee">Guarantee</a><a href="/demo">Hear a demo</a>
           </div>
           <div class="foot-col">
             <h4>Work</h4>
@@ -952,7 +1040,7 @@
           </div>
           <div class="foot-col">
             <h4>Get in touch</h4>
-            <a href="#contact">Start a project</a><a href="#contact">Free missed-call audit</a><a href="demo.html">Try a live demo</a>
+            <a href="#contact">Start a project</a><a href="/book">Free missed-call audit</a><a href="/demo">Try a live demo</a>
           </div>
         </div>
         <div class="foot-base">
@@ -962,7 +1050,7 @@
       </div>
     </footer>
 
-    <script src="i18n.js"></script>
+    <script src="/i18n.js"></script>
     <script>
       /* Spanish for the EN / ES toggle, keyed by the exact English text (see i18n.js). */
       I18N.init({
@@ -984,8 +1072,8 @@
         'Books into your calendar': 'Agenda en su calendario',
         'Routes urgent calls to a person': 'Pasa las llamadas urgentes a una persona',
         'You set the rules, and it patches the caller through to whoever is on call.': 'Usted pone las reglas y el agente transfiere la llamada a quien esté de turno.',
-        'Texts you a summary': 'Le envía un resumen por mensaje',
-        'Who called, what they need, the address, and what was booked, after every call.': 'Quién llamó, qué necesita, la dirección y qué se agendó, después de cada llamada.',
+        'Sends you a summary': 'Le envía un resumen',
+        'Who called, what they need, the address, and what was booked, after every call. By email from day one, and by text once the phone carriers approve your texting.': 'Quién llamó, qué necesita, la dirección y qué se agendó, después de cada llamada. Por correo desde el primer día, y por mensaje de texto cuando las compañías telefónicas aprueben su registro.',
         'Keeps your number': 'Conserva su número',
         'Call forwarding for all calls, after hours only, or just the ones you cannot get to.': 'Desvío de llamadas para todas, solo fuera de horario o solo las que no alcanza a contestar.',
         'Stays sharp every month': 'Se mantiene afinado cada mes',
@@ -1003,7 +1091,7 @@
         /* nav */
         'What we build': 'Lo que construimos', 'How it works': 'Cómo funciona', 'About us': 'Quiénes somos',
         'Demos': 'Demos', 'Academy': 'Academia', 'Contact': 'Contacto', 'Get Started': 'Comenzar',
-        'Open menu': 'Abrir menú', 'Language': 'Idioma',
+        'Open menu': 'Abrir menú', 'Language': 'Idioma', 'Light theme': 'Tema claro',
         /* hero */
         'AI and software, built to last': 'IA y software, hechos para durar',
         'Systems that take root': 'Sistemas que echan raíces',
@@ -1069,12 +1157,15 @@
         '04 / Tend': '04 / Cuidar', 'We keep it healthy': 'Lo mantenemos sano',
         'Models drift and processes change. We monitor accuracy, retune, and extend it to the next piece of work when you are ready.': 'Los modelos se desvían y los procesos cambian. Monitoreamos la precisión, reajustamos y lo extendemos al siguiente trabajo cuando esté listo.',
         /* about */
-        'Engineers who have run the systems we automate': 'Ingenieros que han operado los sistemas que automatizamos',
-        'Chaparral Dr AI was started by people who spent a decade building distributed systems in freight, warehouse, and healthcare, where a failed job is not a support ticket, it is a truck sitting idle. We build automation and software the same way we built those platforms: observable, reversible, and boring in production.': 'Chaparral Dr AI fue fundada por personas que pasaron una década construyendo sistemas distribuidos en transporte de carga, almacenes y salud, donde un trabajo fallido no es un ticket de soporte, es un camión detenido. Construimos automatización y software como construimos esas plataformas: observables, reversibles y aburridos en producción.',
-        'Your data stays in your tenant. We deploy into your cloud account, not ours, and you keep the keys.': 'Sus datos se quedan en su entorno. Desplegamos en su cuenta de nube, no en la nuestra, y usted conserva las llaves.',
-        'Every automated decision is logged with its inputs and its reasoning, so an auditor can follow it later.': 'Cada decisión automatizada se registra con sus datos de entrada y su razonamiento, para que un auditor pueda seguirla después.',
-        'You own the code. If you end the engagement, the system keeps running and your team can maintain it.': 'El código es suyo. Si termina la colaboración, el sistema sigue funcionando y su equipo puede mantenerlo.',
+        'Founded by an engineer who has run the systems we automate': 'Fundada por un ingeniero que ha operado los sistemas que automatizamos',
+        'Chaparral Dr AI was founded by an engineer who spent a decade building distributed systems in freight, warehouse, and healthcare, where a failed job is not a support ticket, it is a truck sitting idle. We build automation and software the same way those platforms were built: observable, reversible, and boring in production.': 'Chaparral Dr AI fue fundada por un ingeniero que pasó una década construyendo sistemas distribuidos en transporte de carga, almacenes y salud, donde un trabajo fallido no es un ticket de soporte, es un camión detenido. Construimos automatización y software como se construyeron esas plataformas: observables, reversibles y aburridos en producción.',
+        'Your customers are yours. Call recordings, transcripts, and contact details belong to your business, and we never sell or share them.': 'Sus datos se quedan en su entorno. Desplegamos en su cuenta de nube, no en la nuestra, y usted conserva las llaves.',
+        'Every call and every automated decision is logged with what happened and why, so you can always check the work.': 'Cada decisión automatizada se registra con sus datos de entrada y su razonamiento, para que un auditor pueda seguirla después.',
+        'On custom software, you own the code and it runs in your own cloud account. If you end the engagement, it keeps running and your team can maintain it.': 'El código es suyo. Si termina la colaboración, el sistema sigue funcionando y su equipo puede mantenerlo.',
         'Named for the street where it all started': 'Lleva el nombre de la calle donde todo empezó',
+        'Your customers are yours. Call recordings, transcripts, and contact details belong to your business, and we never sell or share them.': 'Sus clientes son suyos. Las grabaciones, transcripciones y datos de contacto pertenecen a su negocio, y nunca los vendemos ni los compartimos.',
+        'Every call and every automated decision is logged with what happened and why, so you can always check the work.': 'Cada llamada y cada decisión automatizada queda registrada con lo que pasó y por qué, para que siempre pueda revisar el trabajo.',
+        'On custom software, you own the code and it runs in your own cloud account. If you end the engagement, it keeps running and your team can maintain it.': 'En el software a la medida, el código es suyo y funciona en su propia cuenta de nube. Si termina la colaboración, sigue funcionando y su equipo puede mantenerlo.',
         /* contact */
         'Talk to us': 'Hable con nosotros',
         'First name': 'Nombre', 'Last name': 'Apellido', 'Work email': 'Correo de trabajo', 'Phone': 'Teléfono',
@@ -1122,7 +1213,7 @@
         'Voice agents': 'Agentes de voz', 'How it works': 'Cómo funciona', 'Guarantee': 'Garantía', 'FAQ': 'Preguntas',
         'About us': 'Quiénes somos', 'Demos': 'Demos', 'Academy': 'Academia', 'Contact': 'Contacto',
         'Free call audit': 'Auditoría gratis',
-        'Open menu': 'Abrir menú', 'Language': 'Idioma',
+        'Open menu': 'Abrir menú', 'Language': 'Idioma', 'Light theme': 'Tema claro',
         /* hero */
         'AI receptionist for HVAC and plumbing': 'Recepcionista con IA para climatización y plomería',
         'Every call answered. Every job booked.': 'Cada llamada contestada. Cada trabajo agendado.',
@@ -1212,7 +1303,7 @@
         'A few extras that close the gaps': 'Algunos extras que cierran los huecos',
         'Each one fixes a smaller problem that sits right next to the big one, so nothing slips through.': 'Cada uno resuelve un problema más pequeño que está justo al lado del grande, para que nada se escape.',
         'Included': 'Incluido',
-        'If a caller hangs up before the agent finishes, they get a friendly text within seconds offering to book them in.': 'Si un cliente cuelga antes de que el agente termine, recibe en segundos un mensaje amable ofreciéndole agendar.',
+        'If a caller hangs up before the agent finishes, they get a friendly text within seconds offering to book them in. Switches on once the phone carriers approve your texting, usually within two weeks of launch.': 'Si un cliente cuelga antes de que el agente termine, recibe en segundos un mensaje amable ofreciéndole agendar. Se activa cuando las compañías telefónicas aprueben su registro de mensajes, normalmente dentro de las dos semanas posteriores al lanzamiento.',
         'Serve Spanish-speaking homeowners in their own language, without hiring a bilingual dispatcher.': 'Atienda a clientes hispanohablantes en su propio idioma, sin contratar a un despachador bilingüe.',
         'Monthly call report': 'Informe mensual de llamadas',
         'How many calls came in, when, what people asked for, and how many turned into booked jobs. Plain numbers, no dashboard to learn.': 'Cuántas llamadas entraron, cuándo, qué pidió la gente y cuántas se convirtieron en trabajos agendados. Números claros, sin paneles que aprender.',
@@ -1223,7 +1314,7 @@
         'Day 1 / Kickoff': 'Día 1 / Inicio', 'One 30-minute call': 'Una llamada de 30 minutos',
         'Tell us your services, service area, hours, pricing rules, and who is on call. That is the last homework you get.': 'Cuéntenos sus servicios, zona de cobertura, horario, reglas de precios y quién está de turno. Esa es la última tarea que le damos.',
         'Days 2 to 4 / Build': 'Días 2 a 4 / Construcción', 'We build and train it': 'Lo construimos y lo entrenamos',
-        'We write the script, train the agent on your business, connect your calendar, and set up call summaries and text-backs.': 'Escribimos el guion, entrenamos al agente con su negocio, conectamos su calendario y configuramos los resúmenes y los mensajes automáticos.',
+        'We write the script, train the agent on your business, connect your calendar, set up call summaries, and file your texting registration with the phone carriers.': 'Escribimos el guion, entrenamos al agente con su negocio, conectamos su calendario, configuramos los resúmenes de llamadas y tramitamos su registro de mensajes de texto con las compañías telefónicas.',
         'Days 5 to 6 / Test': 'Días 5 a 6 / Pruebas', 'You try to trip it up': 'Usted intenta hacerlo fallar',
         'You and your team call it, throw curveballs, and tell us what to change. We tune it until it sounds like your shop.': 'Usted y su equipo lo llaman, le ponen situaciones difíciles y nos dicen qué cambiar. Lo ajustamos hasta que suene como su negocio.',
         'Day 7 / Live': 'Día 7 / En vivo', 'It starts answering': 'Empieza a contestar',
@@ -1234,9 +1325,10 @@
         'Trying something new with your phones should not feel like a gamble. So we put our money where our mouth is.': 'Probar algo nuevo con sus teléfonos no debería sentirse como una apuesta. Por eso respaldamos lo que decimos con nuestro dinero.',
         'DAYS': 'DÍAS',
         'Live in 7 days, or your first month is free': 'Funcionando en 7 días, o su primer mes es gratis',
-        'If your agent is not answering real calls within 7 days of the kickoff call, you pay nothing for the first month. The clock only pauses while we are waiting on something from you, like calendar access.': 'Si su agente no está contestando llamadas reales dentro de los 7 días posteriores a la llamada inicial, no paga nada por el primer mes. El reloj solo se detiene mientras esperamos algo de su parte, como el acceso a su calendario.',
-        'Happy in 30 days, or your money back': 'Satisfecho en 30 días, o le devolvemos su dinero',
-        "Give it a full month on your real calls. If you are not happy with how it handles your customers, tell us and we refund that first month's fee. No forms and no hard feelings.": 'Dele un mes completo con sus llamadas reales. Si no está contento con cómo atiende a sus clientes, díganoslo y le reembolsamos la tarifa de ese primer mes. Sin formularios y sin resentimientos.',
+        'If your agent is not answering real calls within 7 days of the kickoff call, you pay nothing for the first month. The clock only pauses while we are waiting on something from you, like calendar access. Text messages follow once the phone carriers approve your registration, usually within two weeks. That review is outside our control, so it is not part of the 7 days.': 'Si su agente no está contestando llamadas reales dentro de los 7 días posteriores a la llamada inicial, no paga nada por el primer mes. El reloj solo se detiene mientras esperamos algo de su parte, como el acceso a su calendario. Los mensajes de texto se activan cuando las compañías telefónicas aprueban su registro, normalmente dentro de dos semanas. Esa revisión no depende de nosotros, así que no forma parte de los 7 días.',
+        'Works as agreed in 30 days, or your money back': 'Funciona como acordamos en 30 días, o le devolvemos su dinero',
+        "If the agent is not answering your forwarded calls, booking jobs into your calendar, and routing urgent calls the way we agreed in your script, and we cannot fix it within your first 30 days, we refund your setup fee and your first month, no questions asked. All we ask is that you take the kickoff call, forward your calls as agreed, and tell us what is wrong so we can fix it.": 'Si el agente no contesta las llamadas que desvía, no agenda los trabajos en su calendario o no transfiere las llamadas urgentes como lo acordamos en su guion, y no logramos corregirlo dentro de sus primeros 30 días, le reembolsamos la tarifa de instalación y su primer mes, sin hacer preguntas. Solo le pedimos que asista a la llamada inicial, desvíe sus llamadas como lo acordamos y nos diga qué está mal para poder corregirlo.',
+        '<b>Every call answered, or we pay for it.</b> If a call reaches your agent and goes unanswered because of our system, we pay you for that missed call and call your customer back ourselves within one business hour. Details are in your agreement.': '<b>Cada llamada contestada, o la pagamos nosotros.</b> Si una llamada llega a su agente y queda sin contestar por una falla de nuestro sistema, le pagamos por esa llamada perdida y nosotros mismos le devolvemos la llamada a su cliente dentro de una hora hábil. Los detalles están en su contrato.',
         '<b>Founding shop pricing.</b> We build every agent by hand, so we only take on a few new shops each month. Shops that join now lock in their monthly rate for as long as they stay with us.': '<b>Precio para negocios fundadores.</b> Construimos cada agente a mano, así que solo aceptamos unos pocos negocios nuevos cada mes. Los que se unan ahora mantienen su tarifa mensual mientras sigan con nosotros.',
         /* faq */
         'Questions': 'Preguntas', 'Fair questions, straight answers': 'Preguntas justas, respuestas directas',
@@ -1268,12 +1360,15 @@
         'The app, the API, the integration, the migration off the system nobody wants to touch. A decade of production work in .NET, Python, Azure, and the front end, with or without any AI attached.': 'La aplicación, la API, la integración, la migración del sistema que nadie quiere tocar. Una década de trabajo en producción con .NET, Python, Azure y el front end, con o sin IA.',
         'Web apps': 'Aplicaciones web', 'APIs': 'APIs',
         /* about */
-        'Engineers who have run the systems we automate': 'Ingenieros que han operado los sistemas que automatizamos',
-        'Chaparral Dr AI was started by people who spent a decade building distributed systems in freight, warehouse, and healthcare, where a failed job is not a support ticket, it is a truck sitting idle. We build automation and software the same way we built those platforms: observable, reversible, and boring in production.': 'Chaparral Dr AI fue fundada por personas que pasaron una década construyendo sistemas distribuidos en transporte de carga, almacenes y salud, donde un trabajo fallido no es un ticket de soporte, es un camión detenido. Construimos automatización y software como construimos esas plataformas: observables, reversibles y aburridos en producción.',
-        'Your data stays in your tenant. We deploy into your cloud account, not ours, and you keep the keys.': 'Sus datos se quedan en su entorno. Desplegamos en su cuenta de nube, no en la nuestra, y usted conserva las llaves.',
-        'Every automated decision is logged with its inputs and its reasoning, so an auditor can follow it later.': 'Cada decisión automatizada se registra con sus datos de entrada y su razonamiento, para que un auditor pueda seguirla después.',
-        'You own the code. If you end the engagement, the system keeps running and your team can maintain it.': 'El código es suyo. Si termina la colaboración, el sistema sigue funcionando y su equipo puede mantenerlo.',
+        'Founded by an engineer who has run the systems we automate': 'Fundada por un ingeniero que ha operado los sistemas que automatizamos',
+        'Chaparral Dr AI was founded by an engineer who spent a decade building distributed systems in freight, warehouse, and healthcare, where a failed job is not a support ticket, it is a truck sitting idle. We build automation and software the same way those platforms were built: observable, reversible, and boring in production.': 'Chaparral Dr AI fue fundada por un ingeniero que pasó una década construyendo sistemas distribuidos en transporte de carga, almacenes y salud, donde un trabajo fallido no es un ticket de soporte, es un camión detenido. Construimos automatización y software como se construyeron esas plataformas: observables, reversibles y aburridos en producción.',
+        'Your customers are yours. Call recordings, transcripts, and contact details belong to your business, and we never sell or share them.': 'Sus datos se quedan en su entorno. Desplegamos en su cuenta de nube, no en la nuestra, y usted conserva las llaves.',
+        'Every call and every automated decision is logged with what happened and why, so you can always check the work.': 'Cada decisión automatizada se registra con sus datos de entrada y su razonamiento, para que un auditor pueda seguirla después.',
+        'On custom software, you own the code and it runs in your own cloud account. If you end the engagement, it keeps running and your team can maintain it.': 'El código es suyo. Si termina la colaboración, el sistema sigue funcionando y su equipo puede mantenerlo.',
         'Named for the street where it all started': 'Lleva el nombre de la calle donde todo empezó',
+        'Your customers are yours. Call recordings, transcripts, and contact details belong to your business, and we never sell or share them.': 'Sus clientes son suyos. Las grabaciones, transcripciones y datos de contacto pertenecen a su negocio, y nunca los vendemos ni los compartimos.',
+        'Every call and every automated decision is logged with what happened and why, so you can always check the work.': 'Cada llamada y cada decisión automatizada queda registrada con lo que pasó y por qué, para que siempre pueda revisar el trabajo.',
+        'On custom software, you own the code and it runs in your own cloud account. If you end the engagement, it keeps running and your team can maintain it.': 'En el software a la medida, el código es suyo y funciona en su propia cuenta de nube. Si termina la colaboración, sigue funcionando y su equipo puede mantenerlo.',
         /* contact */
         'Free missed-call audit': 'Auditoría gratis de llamadas perdidas',
         'Find out what your callers hear today': 'Descubra qué escuchan hoy sus clientes',
@@ -1645,7 +1740,7 @@
         //const base = 'https://alla.livelysmoke-004be352.eastus.azurecontainerapps.io';
         const s = document.createElement('script');
         s.src = base + '/static/chat.js';
-        Object.assign(s.dataset, { endpoint: base, avatar: base + '/static/alla.png', contact: '#contact' });
+        Object.assign(s.dataset, { endpoint: base, avatar: base + '/static/alla.png', contact: '#contact', demo: '/demo' });
         document.body.appendChild(s);
       })();
     </script>
