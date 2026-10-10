@@ -1,4 +1,33 @@
 {
+  "routes": [
+    {
+      "route": "/demo.html",
+      "redirect": "/demo",
+      "statusCode": 301
+    },
+    {
+      "route": "/book.html",
+      "redirect": "/book",
+      "statusCode": 301
+    },
+    {
+      "route": "/academy.html",
+      "redirect": "/academy",
+      "statusCode": 301
+    },
+    {
+      "route": "/demo",
+      "rewrite": "/demo.html"
+    },
+    {
+      "route": "/book",
+      "rewrite": "/book.html"
+    },
+    {
+      "route": "/academy",
+      "rewrite": "/academy.html"
+    }
+  ],
   "globalHeaders": {
     "Referrer-Policy": "strict-origin-when-cross-origin"
   }
