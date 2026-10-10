@@ -525,6 +525,26 @@
             }
         }
 
+        /* Side by side, the live view stretches so its bottom lines up with the call card. */
+        @media (min-width:901px) {
+            .right {
+                display: flex;
+                flex-direction: column
+            }
+
+            .right > .card {
+                flex: 1;
+                display: flex;
+                flex-direction: column
+            }
+
+            .right .feed {
+                flex: 1 1 0;
+                height: auto;
+                min-height: 520px
+            }
+        }
+
         .feed::-webkit-scrollbar {
             width: 6px
         }
@@ -704,45 +724,6 @@
             font-size: 12px
         }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px
-        }
-
-        .stat {
-            background: var(--panel-2);
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            padding: 14px
-        }
-
-        .stat b {
-            display: block;
-            font-family: "JetBrains Mono", monospace;
-            font-weight: 400;
-            font-size: 20px;
-            margin-top: 4px
-        }
-
-        .stat span {
-            font-size: 11px;
-            letter-spacing: .16em;
-            text-transform: uppercase;
-            color: var(--dim)
-        }
-
-        @media (max-width:520px) {
-            .stats {
-                grid-template-columns: 1fr 1fr 1fr
-            }
-
-            .stat b {
-                font-size: 16px
-            }
-        }
-
-        /* preview bar: delete before shipping */
         /* ============ site nav (mirrors index.html) ============ */
         .nav-shell {
             position: sticky;
@@ -950,39 +931,6 @@
             }
         }
 
-        .preview {
-            position: fixed;
-            bottom: 14px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 4px;
-            padding: 5px;
-            background: #0d1218ee;
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            backdrop-filter: blur(8px);
-            z-index: 10;
-            max-width: calc(100% - 32px);
-            overflow-x: auto
-        }
-
-        .preview button {
-            background: none;
-            border: 0;
-            color: var(--muted);
-            font: 500 12px Inter, sans-serif;
-            padding: 7px 11px;
-            border-radius: 999px;
-            cursor: pointer;
-            white-space: nowrap
-        }
-
-        .preview button:hover {
-            color: var(--text);
-            background: #1a222c
-        }
-
         /* ============ light theme (toggled by theme.js; dark stays the default) ============ */
         html[data-theme="light"] {
             --bg: #FFFFFF;
@@ -1044,8 +992,6 @@
         html[data-theme="light"] .k.tool { background: rgba(183, 121, 31, .12) }
         html[data-theme="light"] .k.data { background: rgba(14, 159, 110, .12) }
         html[data-theme="light"] .k.sys { background: rgba(16, 42, 72, .06) }
-        html[data-theme="light"] .preview { background: #FFFFFFEE }
-        html[data-theme="light"] .preview button:hover { background: #EEF2F6 }
     </style>
 </head>
 
@@ -1175,25 +1121,9 @@
                         <div class="empty" id="emptyE">Intents, tool calls and captured data show up here live.</div>
                     </div>
                 </section>
-
-                <section class="stats">
-                    <div class="stat"><span>Avg tool time</span><b id="sLatency">--</b></div>
-                    <div class="stat"><span>Tool calls</span><b id="sTools">0</b></div>
-                    <div class="stat"><span>Turns</span><b id="sTurns">0</b></div>
-                </section>
             </div>
         </div>
     </div>
-
-    <!-- preview bar for design review: delete before shipping -->
-    <nav class="preview" aria-label="Preview states" data-i18n-skip>
-        <button data-preview="idle">Idle</button>
-        <button data-preview="permission">Mic prompt</button>
-        <button data-preview="connecting">Connecting</button>
-        <button data-preview="live">Live call</button>
-        <button data-preview="ended">Ended</button>
-        <button data-preview="error">Mic denied</button>
-    </nav>
 
     <script src="/i18n.js"></script>
     <script>
@@ -1222,7 +1152,6 @@
             "The conversation will appear here as you talk.": "La conversación aparecerá aquí mientras habla.",
             "Intents, tool calls and captured data show up here live.": "Las intenciones, las llamadas a herramientas y los datos capturados aparecen aquí en vivo.",
             "Flow steps, tool calls and their results show up here live.": "Los pasos del flujo, las llamadas a herramientas y sus resultados aparecen aquí en vivo.",
-            "Avg tool time": "Tiempo prom. de herramientas", "Tool calls": "Llamadas a herramientas", "Turns": "Turnos",
             /* rendered by the call script */
             "Ready": "Listo", "Waiting for mic": "Esperando micrófono", "Connecting": "Conectando", "Live": "En vivo",
             "Call ended": "Llamada terminada", "Couldn't connect": "No se pudo conectar",
@@ -1230,7 +1159,7 @@
             "You're speaking": "Usted está hablando", "Listening": "Escuchando", "You": "Usted",
             "Book a no-heat repair": "Agendar una reparación de calefacción",
             "Call an HVAC company after hours with a broken furnace and get a technician booked.": "Llame a una empresa de calefacción y aire acondicionado fuera de horario con la calefacción descompuesta y agende a un técnico.",
-            "AI receptionist, Brightline Heating & Air": "Recepcionista con IA, Brightline Calefacción y Aire",
+            "AI receptionist, Brightline Heating & Air": "Recepcionista con IA, Línea Brillante Calefacción y Aire",
             "Service call booked": "Visita de servicio agendada",
             "Appointment booked": "Cita agendada",
             "Ask about automating your business": "Pregunte cómo automatizar su negocio",
@@ -1319,7 +1248,7 @@
                 ["agent", "Done. Stay warm tonight, Jordan. We'll see you in the morning."]
             ],
             scriptEs: [
-                ["agent", "Gracias por llamar a Brightline Calefacción y Aire. Habla Andrea, la asistente de IA. ¿En qué puedo ayudarle?"],
+                ["agent", "Gracias por llamar a Línea Brillante Calefacción y Aire. Habla Andrea, la asistente de IA. ¿En qué puedo ayudarle?"],
                 ["user", "Hola, mi calefacción dejó de funcionar y la casa se está enfriando."],
                 ["node", "Greeting", "Service request"],
                 ["agent", "Lamento escuchar eso. Primero, una pregunta de seguridad: ¿huele a gas en alguna parte de la casa?"],
@@ -1566,9 +1495,6 @@
             toolCount = 0;
             captured = {};
             succeeded = new Set();
-            $("#sTools").textContent = "0";
-            $("#sTurns").textContent = "0";
-            $("#sLatency").textContent = "--";
         }
 
         function localizeEmpties() {
@@ -1616,7 +1542,6 @@
                         $("#transcript").appendChild(msg);
                         items.get(item.id).node = msg;
                         turnIds.add(item.id);
-                        $("#sTurns").textContent = turnIds.size;
                     }
                     const node = items.get(item.id).node;
                     if (node.querySelector(".t").textContent !== item.content) {
@@ -1628,7 +1553,6 @@
                     scrollFeed("#transcript");
                 } else if (item.role === "tool_call_invocation" && !seen) {
                     toolCount++;
-                    $("#sTools").textContent = toolCount;
                     toolStarts.set(item.tool_call_id, item.time_sec || 0);
                     let args = {};
                     try {
@@ -1653,8 +1577,6 @@
                             toolTimes.push(ms);
                             if (row) row.querySelector(".ms").textContent = ms + " ms";
                         }
-                        const avg = Math.round(toolTimes.reduce((a, b) => a + b, 0) / toolTimes.length);
-                        $("#sLatency").textContent = avg + " ms";
                     }
                     if (row) {
                         const res = el("span", "res " + (item.successful ? "ok" : "bad"), (item.successful ? "✓ " : "✕ ") + (item.content || "").slice(0, 160));
@@ -1958,36 +1880,6 @@
             document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t === tab));
             $("#transcript").hidden = tab.dataset.tab !== "transcript";
             $("#events").hidden = tab.dataset.tab !== "events";
-        });
-
-        /* preview bar: jumps straight to a state for design review */
-        document.querySelectorAll("[data-preview]").forEach(b => b.onclick = () => {
-            const s = b.dataset.preview;
-            reset();
-            if (s === "idle") return;
-            if (s === "ended") {
-                selected.script.filter(x => x[0] === "tool").forEach(x => {
-                    succeeded.add(x[1]);
-                    for (const [k, v] of Object.entries(x[2])) captured[human(k)] = v;
-                });
-                showSummary();
-                $("#timer").textContent = "01:12";
-                $("#timer").classList.remove("off");
-                setState("ended");
-                return;
-            }
-            if (s === "live") {
-                callLang = I18N.lang;
-                const id = ++run;
-                goLive(id);
-                simulate(id);
-                return;
-            }
-            if (s === "error") {
-                showError("We couldn't reach your microphone. Check your browser's site permissions, then try again.");
-                return;
-            }
-            setState(s);
         });
 
         if (LIVE && CONFIG.recaptchaSiteKey) {
