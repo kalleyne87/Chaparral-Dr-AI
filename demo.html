@@ -92,6 +92,35 @@
             color: transparent
         }
 
+        /* personalized links: what recon found when calling the shop */
+        .audit {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 14px;
+            padding: 9px 14px;
+            max-width: 620px;
+            border: 1px solid var(--red-soft);
+            border-radius: 12px;
+            background: var(--red-soft);
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.45
+        }
+
+        .audit[hidden] {
+            display: none
+        }
+
+        .audit i {
+            flex: none;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--red);
+            box-shadow: 0 0 10px var(--red)
+        }
+
         .lede {
             color: var(--muted);
             max-width: 620px;
@@ -341,6 +370,11 @@
 
         .btn:active {
             transform: scale(.97)
+        }
+
+        a.btn {
+            text-decoration: none;
+            text-align: center
         }
 
         .btn-call {
@@ -1021,6 +1055,7 @@
         <header>
             <span class="eyebrow" id="heroEyebrow"><i></i>Live demo</span>
             <h1 id="heroTitle">Talk to a <b>voice agent</b> built by Chaparral Dr AI</h1>
+            <p class="audit" id="heroAudit" data-i18n-skip hidden></p>
             <p class="lede" id="heroLede">Pick a scenario and start a call from your browser. Watch the transcript in real time and
                 see every decision the agent makes behind the scenes.</p>
         </header>
@@ -1094,7 +1129,7 @@
                     <div class="label">What the agent captured</div>
                     <dl id="captured" data-i18n-skip></dl>
                     <div class="stack">
-                        <a class="btn btn-call" href="/book">Book your 15-minute call</a>
+                        <a class="btn btn-call" id="bookBtn" href="/book">Book your 15-minute call</a>
                         <button class="btn btn-ghost" data-action="reset">Try another call</button>
                     </div>
                 </div>
@@ -1182,7 +1217,13 @@
             "This is {agent}, answering the phone as {shop}{where}. Start the call and talk like one of your customers would: no heat, a leak, or a question about pricing.": "Le habla {agent}, contestando el teléfono como {shop}{where}. Inicie la llamada y hable como lo haría uno de sus clientes: sin calefacción, una fuga o una pregunta sobre precios.",
             " in {city}": " en {city}",
             "AI receptionist, {shop}": "Recepcionista con IA, {shop}",
-            "{shop} | Live demo | Chaparral Dr AI": "{shop} | Demo en vivo | Chaparral Dr AI"
+            "{shop} | Live demo | Chaparral Dr AI": "{shop} | Demo en vivo | Chaparral Dr AI",
+            "1 of our recent calls to {shop} went unanswered.": "1 de nuestras llamadas recientes a {shop} no fue contestada.",
+            "{n} of our recent calls to {shop} went unanswered.": "{n} de nuestras llamadas recientes a {shop} no fueron contestadas.",
+            "Here's what those callers would have heard instead.": "Esto es lo que esas personas habrían escuchado en su lugar.",
+            "Start {possessive} free 30-day trial": "Comience la prueba gratis de 30 días para {shop}",
+            "Free 30-day trial for {shop}{where}.": "Prueba gratis de 30 días para {shop}{where}.",
+            "Demo ref: {ref}": "Ref. de la demo: {ref}"
         });
     </script>
     <script type="module">
@@ -1202,7 +1243,9 @@
 
         /* ------------------------------------------------------------------
            Personalized demo links (written by LeadScout into the Setter tab):
-           /demo?shop=Smith+Plumbing&city=Marietta&trade=plumbing&lang=es&ref=smith-plumbing-marietta-3fa21c
+           /demo?trial=1&shop=Smith+Plumbing&city=Marietta&trade=plumbing&lang=es&missed=2&ref=smith-plumbing-marietta-3fa21c
+           trial=1 (LeadScout's Sheet.OfferTrial) ends the call with the free-trial button;
+           without it the page shows the normal booking button.
            The page shows the shop's name, skips the scenario picker, and the
            receptionist agent (Riley, or Andrea in Spanish) answers as that shop.
            Values are cleaned and length-capped, and only written with textContent.
@@ -1215,7 +1258,8 @@
             if (!shop) return null;
             const trade = ["hvac", "plumbing", "both"].includes(q.get("trade")) ? q.get("trade") : "hvac";
             const ref = /^[a-z0-9-]{1,80}$/.test(q.get("ref") || "") ? q.get("ref") : "";
-            return { shop, city: clean(q.get("city"), 40), trade, lang: q.get("lang") === "es" ? "es" : "", ref };
+            const missed = Math.min(9, Math.max(0, parseInt(q.get("missed") || "0", 10) || 0));
+            return { shop, city: clean(q.get("city"), 40), trade, lang: q.get("lang") === "es" ? "es" : "", missed, ref, trial: q.get("trial") === "1" };
         })();
 
         const TRADE_WORDS = {
@@ -1963,11 +2007,34 @@
             eyebrow.replaceChildren(el("i"), document.createTextNode(LIVE ? t("Live demo for {shop}", { shop }) : t("Demo preview")));
             const [before, after = ""] = t("Hear how {shop} could answer every call").split("{shop}");
             $("#heroTitle").replaceChildren(document.createTextNode(before), el("b", null, shop), document.createTextNode(after));
-            $("#heroLede").textContent = t("This is {agent}, answering the phone as {shop}{where}. Start the call and talk like one of your customers would: no heat, a leak, or a question about pricing.", {
+            const lede = t("This is {agent}, answering the phone as {shop}{where}. Start the call and talk like one of your customers would: no heat, a leak, or a question about pricing.", {
                 agent: nameFor(selected, inCall() ? callLang : I18N.lang),
                 shop,
                 where: PERSONAL.city ? t(" in {city}", { city: PERSONAL.city }) : ""
             });
+            // What recon found when it called the shop, straight from the link (LeadScout's Missed Calls).
+            const audit = $("#heroAudit");
+            if (PERSONAL.missed > 0) {
+                const n = PERSONAL.missed;
+                audit.replaceChildren(el("i"), document.createTextNode(n === 1
+                    ? t("1 of our recent calls to {shop} went unanswered.", { shop })
+                    : t("{n} of our recent calls to {shop} went unanswered.", { n, shop })));
+                audit.hidden = false;
+                $("#heroLede").textContent = t("Here's what those callers would have heard instead.") + " " + lede;
+            } else {
+                $("#heroLede").textContent = lede;
+            }
+            // After the call: the trial offer, with the shop handed to the booking page as a note.
+            if (PERSONAL.trial && selected.receptionist) {
+                const btn = $("#bookBtn");
+                btn.setAttribute("data-i18n-skip", "");
+                const possessive = /s$/i.test(shop) ? shop + "’" : shop + "’s";
+                btn.textContent = t("Start {possessive} free 30-day trial", { possessive, shop });
+                // The owner sees this note on the booking form, so it stays plain and in their language.
+                const note = t("Free 30-day trial for {shop}{where}.", { shop, where: PERSONAL.city ? ", " + PERSONAL.city : "" }) +
+                    (PERSONAL.ref ? " " + t("Demo ref: {ref}", { ref: PERSONAL.ref }) : "");
+                btn.href = "/book?notes=" + encodeURIComponent(note);
+            }
             document.title = t("{shop} | Live demo | Chaparral Dr AI", { shop });
         }
 
