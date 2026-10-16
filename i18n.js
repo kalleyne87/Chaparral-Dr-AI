@@ -86,5 +86,5 @@ window.I18N = (function () {
     if (btn) btn.addEventListener('click', () => set(lang === 'es' ? 'en' : 'es'));
   }
 
-  return { init, t: tr, get lang() { return lang; }, apply, onChange: f => listeners.push(f) };
+  return { init, t: tr, get lang() { return lang; }, apply, set, onChange: f => listeners.push(f) };
 })();
